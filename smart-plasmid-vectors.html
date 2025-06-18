@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Plasmid Vectors - CellLab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sage-light: #f0f4f0;
+            --sage-medium: #9caf88;
+            --sage-dark: #6b8e5a;
+            --sage-darker: #4a6741;
+            --white: #ffffff;
+            --gray-light: #f8f9fa;
+            --gray-medium: #6c757d;
+            --gray-dark: #343a40;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-dark);
+            background-color: var(--white);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Tab Navigation */
+        .tab-container {
+            height: 100vh;
+            display: flex;
+        }
+
+        .tab-sidebar {
+            width: 200px;
+            background: var(--sage-light);
+            padding: 20px 0;
+            border-right: 1px solid rgba(107, 142, 90, 0.2);
+        }
+
+        .logo {
+            padding: 0 20px 30px 20px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--sage-darker);
+            text-align: center;
+            border-bottom: 1px solid rgba(107, 142, 90, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .tab-nav {
+            list-style: none;
+        }
+
+        .tab-nav li {
+            margin-bottom: 5px;
+        }
+
+        .tab-nav a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .tab-nav a:hover {
+            background: rgba(107, 142, 90, 0.1);
+            color: var(--sage-darker);
+        }
+
+        .tab-nav a.active {
+            background: var(--white);
+            color: var(--sage-darker);
+            border-left: 3px solid var(--sage-dark);
+            font-weight: 600;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            height: 100vh;
+            overflow-y: auto;
+            background: var(--white);
+        }
+
+        .content-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .breadcrumb a {
+            color: var(--sage-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--sage-darker);
+        }
+
+        .breadcrumb span {
+            color: var(--gray-medium);
+            margin: 0 10px;
+        }
+
+        /* Project Header */
+        .project-header {
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .project-status {
+            display: inline-block;
+            background: var(--sage-dark);
+            color: var(--white);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .project-header h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: var(--sage-darker);
+            line-height: 1.2;
+        }
+
+        .project-header p {
+            font-size: 1.2rem;
+            color: var(--gray-medium);
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        /* Content Sections */
+        .section {
+            margin-bottom: 50px;
+            opacity: 0;
+        }
+
+        .section:nth-child(3) { animation: fadeInUp 1s ease 0.4s forwards; }
+        .section:nth-child(4) { animation: fadeInUp 1s ease 0.6s forwards; }
+        .section:nth-child(5) { animation: fadeInUp 1s ease 0.8s forwards; }
+        .section:nth-child(6) { animation: fadeInUp 1s ease 1s forwards; }
+
+        .section h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--sage-darker);
+            margin-bottom: 20px;
+        }
+
+        .section p {
+            color: var(--gray-medium);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        /* Key Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 30px;
+        }
+
+        .feature-item {
+            background: var(--sage-light);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--sage-medium);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(107, 142, 90, 0.15);
+        }
+
+        .feature-item h3 {
+            color: var(--sage-darker);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .feature-item p {
+            color: var(--gray-medium);
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--sage-medium);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            background: var(--sage-light);
+            padding: 20px;
+            border-radius: 10px;
+            margin-left: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -35px;
+            top: 25px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--sage-dark);
+        }
+
+        .timeline-date {
+            color: var(--sage-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .timeline-item h4 {
+            color: var(--sage-darker);
+            margin-bottom: 8px;
+        }
+
+        /* Team Members */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .team-member {
+            text-align: center;
+            background: var(--sage-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--sage-medium);
+        }
+
+        .team-member h4 {
+            color: var(--sage-darker);
+            margin-bottom: 5px;
+        }
+
+        .team-member p {
+            color: var(--gray-medium);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        /* Publications List */
+        .publications-list {
+            list-style: none;
+        }
+
+        .publications-list li {
+            background: var(--sage-light);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--sage-medium);
+            margin-bottom: 15px;
+        }
+
+        .pub-title {
+            color: var(--sage-darker);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .pub-authors {
+            color: var(--sage-dark);
+            margin-bottom: 3px;
+            font-size: 0.95rem;
+        }
+
+        .pub-journal {
+            color: var(--gray-medium);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--sage-dark);
+            color: var(--white);
+            padding: 15px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(107, 142, 90, 0.3);
+        }
+
+        .back-button:hover {
+            background: var(--sage-darker);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(107, 142, 90, 0.4);
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .tab-container {
+                flex-direction: column;
+                height: auto;
+                overflow: visible;
+            }
+            
+            body {
+                height: auto;
+                overflow: visible;
+            }
+
+            .tab-sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid rgba(107, 142, 90, 0.2);
+            }
+
+            .tab-nav {
+                display: flex;
+                overflow-x: auto;
+                padding: 0 20px;
+            }
+
+            .tab-nav li {
+                margin-bottom: 0;
+                white-space: nowrap;
+            }
+
+            .tab-nav a {
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+
+            .tab-nav a.active {
+                border-left: none;
+                border-bottom: 3px solid var(--sage-dark);
+            }
+
+            .main-content {
+                height: auto;
+                overflow: visible;
+            }
+
+            .content-wrapper {
+                padding: 40px 20px;
+            }
+
+            .project-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .back-button {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin-top: 30px;
+                display: inline-block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tab-container">
+        <!-- Vertical Tab Sidebar -->
+        <div class="tab-sidebar">
+            <div class="logo">CellLab</div>
+            <ul class="tab-nav">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../research.html" class="active">Research</a></li>
+                <li><a href="../members.html">Lab Members</a></li>
+                <li><a href="../news.html">News</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="breadcrumb">
+                    <a href="../research.html">Research</a>
+                    <span>></span>
+                    <span>Smart Plasmid Vectors</span>
+                </div>
+
+                <div class="project-header">
+                    <span class="project-status">Active Project</span>
+                    <h1>Smart Plasmid Vectors</h1>
+                    <p>Development of self-regulating plasmid systems with built-in feedback mechanisms for optimal gene expression control. Our innovative approach combines synthetic biology principles with advanced molecular engineering to create plasmid vectors that can autonomously adjust their expression levels based on cellular conditions.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Project Overview</h2>
+                    <p>Traditional plasmid vectors often suffer from unpredictable expression levels and cellular toxicity due to overexpression. Our smart plasmid vector project addresses these challenges by incorporating sophisticated regulatory circuits that enable real-time monitoring and adjustment of gene expression.</p>
+                    <p>These vectors represent a paradigm shift in gene delivery systems, offering unprecedented control over therapeutic gene expression while minimizing off-target effects and cellular stress responses.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Key Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <h3>Feedback Control Systems</h3>
+                            <p>Integrated circuits that monitor cellular response and automatically adjust expression levels to maintain optimal therapeutic windows.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3>Biosensor Integration</h3>
+                            <p>Built-in molecular sensors that detect cellular stress, metabolite levels, and environmental conditions to guide expression decisions.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3>Modular Architecture</h3>
+                            <p>Standardized components that can be easily swapped and combined to create vectors tailored for specific therapeutic applications.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3>Enhanced Stability</h3>
+                            <p>Advanced design features that improve plasmid maintenance and reduce the risk of recombination or degradation in target cells.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Project Timeline</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">Phase 1 - Completed</div>
+                            <h4>Design & Simulation</h4>
+                            <p>Computational modeling of regulatory circuits and initial vector designs using synthetic biology CAD tools.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Phase 2 - In Progress</div>
+                            <h4>Prototype Development</h4>
+                            <p>Construction and testing of first-generation smart vectors in bacterial and mammalian cell systems.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Phase 3 - Upcoming</div>
+                            <h4>Optimization & Validation</h4>
+                            <p>Fine-tuning of regulatory parameters and comprehensive validation in disease-relevant cell models.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Phase 4 - Future</div>
+                            <h4>Preclinical Testing</h4>
+                            <p>In vivo studies to evaluate safety, efficacy, and therapeutic potential of optimized vector systems.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Research Team</h2>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <h4>Dr. Sarah Chen</h4>
+                            <p>Principal Investigator</p>
+                        </div>
+                        <div class="team-member">
+                            <h4>Dr. Michael Rodriguez</h4>
+                            <p>Synthetic Biology Specialist</p>
+                        </div>
+                        <div class="team-member">
+                            <h4>Emily Thompson</h4>
+                            <p>Graduate Student</p>
+                        </div>
+                        <div class="team-member">
+                            <h4>James Liu</h4>
+                            <p>Postdoctoral Fellow</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Related Publications</h2>
+                    <ul class="publications-list">
+                        <li>
+                            <div class="pub-title">Engineering Feedback-Controlled Gene Expression Circuits in Plasmid Vectors</div>
+                            <div class="pub-authors">Chen, S., Rodriguez, M., Thompson, E.</div>
+                            <div class="pub-journal">Nature Biotechnology, 2024</div>
+                        </li>
+                        <li>
+                            <div class="pub-title">Computational Design of Self-Regulating Plasmid Systems</div>
+                            <div class="pub-authors">Liu, J., Chen, S., Rodriguez, M.</div>
+                            <div class="pub-journal">ACS Synthetic Biology, 2023</div>
+                        </li>
+                        <li>
+                            <div class="pub-title">Biosensor-Integrated Plasmids for Real-Time Monitoring of Gene Expression</div>
+                            <div class="pub-authors">Thompson, E., Liu, J., Chen, S.</div>
+                            <div class="pub-journal">Molecular Systems Biology, 2023</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="../research.html" class="back-button">← Back to Research</a>
+</body>
+</html>
