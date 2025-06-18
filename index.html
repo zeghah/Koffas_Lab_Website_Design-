@@ -165,7 +165,7 @@
             color: var(--white);
         }
 
-        /* Plasmid Visualization */
+        /* Network Visualization Container */
         .visualization-container {
             display: flex;
             justify-content: center;
@@ -175,67 +175,13 @@
             animation: fadeIn 1s ease 0.6s forwards;
         }
 
-        .plasmid {
+        .network-iframe {
             width: 400px;
             height: 400px;
-            position: relative;
-            animation: rotate 25s linear infinite;
-        }
-
-        .plasmid-circle {
-            width: 100%;
-            height: 100%;
-            border: 10px solid var(--sage-dark);
-            border-radius: 70%;
-            position: relative;
-            background: linear-gradient(45deg, rgba(156, 175, 136, 0.05), rgba(156, 175, 136, 0.15));
-        }
-
-        .gene {
-            position: absolute;
-            width: 70px;
-            height: 30px;
+            border: none;
             border-radius: 20px;
-            transform-origin: 200px 200px;
-        }
-
-        .gene:nth-child(1) { 
-            transform: rotate(0deg) translateX(120px); 
-            background: #e74c3c;
-        }
-        .gene:nth-child(2) { 
-            transform: rotate(60deg) translateX(120px); 
-            background: #3498db;
-        }
-        .gene:nth-child(3) { 
-            transform: rotate(120deg) translateX(120px); 
-            background: #f39c12;
-        }
-        .gene:nth-child(4) { 
-            transform: rotate(180deg) translateX(120px); 
-            background: #9b59b6;
-        }
-        .gene:nth-child(5) { 
-            transform: rotate(240deg) translateX(120px); 
-            background: #2ecc71;
-        }
-        .gene:nth-child(6) { 
-            transform: rotate(300deg) translateX(120px); 
-            background: #e67e22;
-        }
-
-        .plasmid-label {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-weight: 600;
-            color: var(--sage-darker);
-            font-size: 1.1rem;
-            background: var(--white);
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 2px solid var(--sage-medium);
+            box-shadow: 0 0 30px rgba(107, 142, 90, 0.4);
+            background: white;
         }
 
         /* Feature Cards */
@@ -292,11 +238,6 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         /* Responsive Design */
@@ -360,9 +301,9 @@
                 font-size: 2.2rem;
             }
 
-            .plasmid {
-                width: 220px;
-                height: 220px;
+            .network-iframe {
+                width: 300px;
+                height: 300px;
             }
 
             .features-grid {
@@ -400,91 +341,40 @@
                     </div>
                     
                     <div class="visualization-container">
-                        <div class="plasmid">
-                            <div class="plasmid-circle">
-                                <div class="gene"></div>
-                                <div class="gene"></div>
-                                <div class="gene"></div>
-                                <div class="gene"></div>
-                                <div class="gene"></div>
-                                <div class="gene"></div>
-                            </div>
-                            <div class="plasmid-label">pVector</div>
-                        </div>
+                        <!-- Replace this src with your actual network graphic file path -->
+                        <iframe src="NetworkGraphic.html" class="network-iframe" title="Network Visualization"></iframe>
                     </div>
                 </div>
 
                 <div class="features-section">
                     <div class="features-grid">
                         <div class="feature-card">
-                            <h3>Plasmid Engineering</h3>
-                            <p>Advanced techniques in plasmid design and modification for enhanced gene expression.</p>
+                            <h3>Sustainable Biomanufacturing</h3>
+                            <p>Advanced techniques in sustainable production systems and renewable manufacturing processes.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>Cell Culture Systems</h3>
-                            <p>Optimized methodologies for improved research outcomes and applications.</p>
+                            <h3>Synthetic Biology</h3>
+                            <p>Engineering biological systems for novel applications and therapeutic development.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>Molecular Cloning</h3>
-                            <p>Innovative strategies for genetic manipulation and therapeutic development.</p>
+                            <h3>Protein Engineering</h3>
+                            <p>Innovative strategies for protein design and optimization for enhanced functionality.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>Computational Biology</h3>
-                            <p>Data-driven approaches to understand complex cellular processes.</p>
+                            <h3>Metabolic Engineering</h3>
+                            <p>Data-driven approaches to understand and engineer complex metabolic processes.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Cell Biology Lab</h3>
-                    <p>Advancing cell biology through innovation. Pioneering research in plasmid engineering, cellular mechanisms, and molecular biology to unlock the secrets of life at the cellular level</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Research Areas</h3>
-                    <ul>
-                        <li><a href="#">Plasmid Engineering</a></li>
-                        <li><a href="#">Cell Culture Systems</a></li>
-                        <li><a href="#">Molecular Cloning</a></li>
-                        <li><a href="#">Computational Biology</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/research">Research</a></li>
-                        <li><a href="/publications">Publications</a></li>
-                        <li><a href="/resources">Resources</a></li>
-                        <li><a href="/contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact Info</h3>
-                    <p>Department of Cell Biology<br>
-                    University Research Center<br>
-                    123 Science Drive<br>
-                    Research City, RC 12345</p>
-                    <p>Email: info@cellbiolab.edu<br>
-                    Phone: (555) 123-4567</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Cell Biology Lab. All rights reserved. | Privacy Policy | Terms of Use</p>
-            </div>
-        </div>
-    </footer>
 
     <script>
         // Mobile menu toggle
-        document.getElementById('mobileToggle').addEventListener('click', function() {
+        document.getElementById('mobileToggle')?.addEventListener('click', function() {
             const navMenu = document.getElementById('navMenu');
-            navMenu.classList.toggle('active');
+            navMenu?.classList.toggle('active');
         });
 
         // Intersection Observer for animations
@@ -506,13 +396,13 @@
         });
 
         // Enhanced hover effects
-        document.querySelectorAll('.member-card').forEach(card => {
+        document.querySelectorAll('.feature-card').forEach(card => {
             card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-8px) scale(1.02)';
+                this.style.transform = 'translateY(-3px) scale(1.02)';
             });
             
             card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(-8px)';
+                this.style.transform = 'translateY(-3px)';
                 setTimeout(() => {
                     if (!this.matches(':hover')) {
                         this.style.transform = '';
@@ -534,5 +424,6 @@
                 }
             });
         });
+    </script>
 </body>
 </html>
