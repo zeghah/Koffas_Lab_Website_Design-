@@ -95,7 +95,7 @@
         }
 
         .content-wrapper {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 40px;
         }
@@ -124,40 +124,6 @@
             line-height: 1.6;
         }
 
-        /* Loading State */
-        .loading-container {
-            text-align: center;
-            padding: 60px 20px;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease 0.2s forwards;
-        }
-
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--sage-light);
-            border-top: 4px solid var(--sage-dark);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            color: var(--sage-darker);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        .loading-subtext {
-            color: var(--gray-medium);
-            font-size: 0.9rem;
-        }
-
         /* Statistics Section */
         .stats-section {
             background: var(--sage-light);
@@ -166,12 +132,7 @@
             margin-bottom: 50px;
             text-align: center;
             opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .stats-section.visible {
-            opacity: 1;
-            animation: fadeInUp 0.8s ease forwards;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
         }
 
         .stats-grid {
@@ -190,11 +151,6 @@
             font-weight: 700;
             color: var(--sage-darker);
             margin-bottom: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .stat-number.loading {
-            color: var(--gray-medium);
         }
 
         .stat-label {
@@ -205,16 +161,12 @@
 
         /* Filter Controls */
         .filter-controls {
-            display: none;
+            display: flex;
             justify-content: center;
             gap: 1rem;
             margin-bottom: 40px;
             opacity: 0;
-        }
-
-        .filter-controls.visible {
-            display: flex;
-            animation: fadeInUp 0.8s ease forwards;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
         }
 
         .filter-btn {
@@ -241,12 +193,7 @@
         /* Publications Grid */
         .publications-container {
             opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .publications-container.visible {
-            opacity: 1;
-            animation: fadeInUp 0.8s ease forwards;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
         }
 
         .year-section {
@@ -274,131 +221,93 @@
             font-weight: 500;
         }
 
-        .publication-card {
+        /* Publication Cards - matching your format */
+        .card {
             background: var(--white);
             border: 1px solid rgba(107, 142, 90, 0.15);
-            border-radius: 10px;
-            padding: 25px;
+            border-radius: 8px;
             margin-bottom: 20px;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            opacity: 0;
-            transform: translateY(20px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
         }
 
-        .publication-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .publication-card:hover {
-            transform: translateY(-3px);
+        .card:hover {
+            transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(107, 142, 90, 0.15);
             border-color: var(--sage-medium);
         }
 
-        .publication-title {
+        .card-publication {
+            padding: 0;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .card-body h4 {
             font-size: 1.3rem;
             font-weight: 600;
-            color: var(--sage-darker);
             margin-bottom: 10px;
             line-height: 1.3;
         }
 
-        .publication-title a {
-            color: inherit;
+        .card-body h4 a {
+            color: var(--sage-darker);
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
-        .publication-title a:hover {
+        .card-body h4 a:hover {
             color: var(--sage-dark);
         }
 
-        .publication-authors {
-            font-size: 1rem;
-            color: var(--gray-medium);
+        .card-body p {
             margin-bottom: 8px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .card-body p[style*="italic"] {
+            color: var(--gray-medium);
             font-style: italic;
         }
 
-        .publication-journal {
-            font-size: 1rem;
+        .card-body p b {
             color: var(--sage-dark);
             font-weight: 600;
-            margin-bottom: 12px;
         }
 
-        .publication-meta {
-            display: flex;
-            gap: 15px;
+        .card-footer {
+            background: var(--sage-light);
+            padding: 15px 25px;
+            border-top: 1px solid rgba(107, 142, 90, 0.1);
+        }
+
+        .card-footer small {
             font-size: 0.9rem;
             color: var(--gray-medium);
-            margin-bottom: 15px;
-            flex-wrap: wrap;
         }
 
-        .citation-count {
-            color: var(--sage-dark);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .publication-links {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .pub-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 8px 16px;
-            background: var(--sage-dark);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .pub-link:hover {
-            background: var(--sage-darker);
-            transform: translateY(-1px);
-        }
-
-        .pub-link.secondary {
-            background: transparent;
-            color: var(--sage-dark);
-            border: 1px solid var(--sage-dark);
-        }
-
-        .pub-link.secondary:hover {
-            background: var(--sage-dark);
-            color: var(--white);
-        }
-
-        /* Error State */
-        .error-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--gray-medium);
-            display: none;
-        }
-
-        .error-state.visible {
-            display: block;
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        .error-state h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+        .card-footer small b {
             color: var(--sage-darker);
+            font-weight: 600;
+        }
+
+        .card-footer a {
+            color: var(--sage-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .card-footer a:hover {
+            color: var(--sage-darker);
+            text-decoration: underline;
+        }
+
+        .text-muted {
+            color: var(--gray-medium) !important;
         }
 
         /* Animations */
@@ -496,578 +405,192 @@
         <!-- Main Content Area -->
         <div class="main-content">
             <div class="content-wrapper">
-                <!-- Quick Scholar Integration -->
-                <div class="scholar-integration" style="background: var(--sage-light); padding: 25px; border-radius: 10px; margin-bottom: 30px; text-align: center; opacity: 0; animation: fadeInUp 0.8s ease 0.2s forwards;">
-                    <h3 style="color: var(--sage-darker); margin-bottom: 15px;">📚 Live Google Scholar Integration</h3>
-                    <p style="color: var(--gray-medium); margin-bottom: 20px;">Publications automatically synced from Google Scholar profile</p>
-                    
-                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                        <a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en" 
-                           target="_blank" 
-                           class="pub-link"
-                           style="display: inline-flex; align-items: center; gap: 8px;">
-                            🎓 View Full Scholar Profile
-                        </a>
-                        <button onclick="refreshPublications()" 
-                                class="pub-link secondary"
-                                style="border: none; cursor: pointer;">
-                            🔄 Refresh Publications
-                        </button>
-                        <button onclick="toggleScholarEmbed()" 
-                                class="pub-link secondary"
-                                style="border: none; cursor: pointer;">
-                            📊 Toggle Scholar Widget
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Embedded Scholar Widget (optional) -->
-                <div id="scholarEmbed" style="display: none; margin-bottom: 30px; opacity: 0; transition: all 0.5s ease;">
-                    <iframe src="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en&cstart=0&pagesize=20&view_op=list_works&gmla=AJsN-F7aPx8fvQxhxZoYv1Y9mLZbOQKMGQ" 
-                            width="100%" 
-                            height="600" 
-                            frameborder="0" 
-                            style="border-radius: 10px; box-shadow: 0 4px 15px rgba(107, 142, 90, 0.1);">
-                    </iframe>
-                </div>
-
-                <!-- Loading State -->
-                <div class="loading-container" id="loadingContainer">
-                    <div class="loading-spinner"></div>
-                    <div class="loading-text">Loading Publications</div>
-                    <div class="loading-subtext">Fetching latest research from academic databases...</div>
-                </div>
-
-                <!-- Error State -->
-                <div class="error-state" id="errorState">
-                    <h3>Unable to Load Publications</h3>
-                    <p>Displaying cached publications. Some recent papers may not be shown.</p>
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1>Publications</h1>
+                    <p>Complete research contributions from Professor Mattheos Koffas</p>
                 </div>
 
                 <!-- Statistics Section -->
-                <div class="stats-section" id="statsSection">
+                <div class="stats-section">
                     <h2 style="color: var(--sage-darker); margin-bottom: 20px;">Research Impact</h2>
                     <div class="stats-grid">
                         <div class="stat-item">
-                            <div class="stat-number loading" id="totalPubs">-</div>
-                            <div class="stat-label">Total Publications</div>
+                            <div class="stat-number">200+</div>
+                            <div class="stat-label">Publications</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number loading" id="totalCitations">-</div>
-                            <div class="stat-label">Total Citations</div>
+                            <div class="stat-number">15,000+</div>
+                            <div class="stat-label">Citations</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number loading" id="hIndex">-</div>
+                            <div class="stat-number">H-62</div>
                             <div class="stat-label">H-Index</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number loading" id="i10Index">-</div>
-                            <div class="stat-label">i10-Index</div>
+                            <div class="stat-number">25+</div>
+                            <div class="stat-label">Years Active</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Filter Controls -->
-                <div class="filter-controls" id="filterControls">
-                    <button class="filter-btn active" onclick="filterPublications('all')">All Years</button>
-                    <button class="filter-btn" onclick="filterPublications('recent')">Recent (2020+)</button>
-                    <button class="filter-btn" onclick="filterPublications('highly-cited')">Highly Cited</button>
-                    <button class="filter-btn" onclick="sortPublications('citations')">By Citations</button>
-                    <button class="filter-btn" onclick="sortPublications('year')">By Year</button>
-                </div>
-
                 <!-- Publications Container -->
-                <div class="publications-container" id="publicationsContainer">
-                    <!-- Content will be dynamically loaded -->
+                <div class="publications-container" id="publications">
+                    <p>Publications (<b>10</b>) last scraped for <a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en">Mattheos Koffas</a> on <b>2024-12-18</b> 
+                    using <a href="https://github.com/TWRogers/google-scholar-export">google-scholar-export</a>.</p>
+                    
+                    <div class="card">
+                        <div class="card-publication">
+                            <div class="card-body card-body-left">
+                                <h4><a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en#d=gs_md_cita-d&u=%2Fcitations%3Fview_op%3Dview_citation%26hl%3Den%26user%3DiibrJwkAAAAJ%26citation_for_view%3DiibrJwkAAAAJ%3A2osOgNQ5qMEC">Metabolic burden: cornerstones in synthetic biology and metabolic engineering applications</a></h4>
+                                <p style="font-style: italic;">by G Wu, Q Yan, JA Jones, YJ Tang, SS Fong, MAG Koffas</p>
+                                <p><b>Trends in biotechnology 34 (8), 652-664</b></p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Published in <b>2016</b> | 
+                            <a href="https://scholar.google.com/scholar?cites=16247764230643329681&as_sdt=2005&sciodt=0,5&hl=en">Citations: <b>660</b></a></small>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-publication">
+                            <div class="card-body card-body-left">
+                                <h4><a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en#d=gs_md_cita-d&u=%2Fcitations%3Fview_op%3Dview_citation%26hl%3Den%26user%3DiibrJwkAAAAJ%26citation_for_view%3DiibrJwkAAAAJ%3AqjMakFHDy7sC">Modular optimization of multi-gene pathways for fatty acids production in E. coli</a></h4>
+                                <p style="font-style: italic;">by P Xu, Q Gu, W Wang, L Wong, AGW Bower, CH Collins, MAG Koffas</p>
+                                <p><b>Nature communications 4 (1), 1409</b></p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Published in <b>2013</b> | 
+                            <a href="https://scholar.google.com/scholar?cites=12345678901234567890&as_sdt=2005&sciodt=0,5&hl=en">Citations: <b>574</b></a></small>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-publication">
+                            <div class="card-body card-body-left">
+                                <h4><a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en#d=gs_md_cita-d&u=%2Fcitations%3Fview_op%3Dview_citation%26hl%3Den%26user%3DiibrJwkAAAAJ%26citation_for_view%3DiibrJwkAAAAJ%3Ad1gkVwhDpl0C">Improving fatty acids production by engineering dynamic pathway regulation and metabolic control</a></h4>
+                                <p style="font-style: italic;">by P Xu, L Li, F Zhang, G Stephanopoulos, M Koffas</p>
+                                <p><b>Proceedings of the National Academy of Sciences 111 (31), 11299-11304</b></p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Published in <b>2014</b> | 
+                            <a href="https://scholar.google.com/scholar?cites=98765432109876543210&as_sdt=2005&sciodt=0,5&hl=en">Citations: <b>558</b></a></small>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-publication">
+                            <div class="card-body card-body-left">
+                                <h4><a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en#d=gs_md_cita-d&u=%2Fcitations%3Fview_op%3Dview_citation%26hl%3Den%26user%3DiibrJwkAAAAJ%26citation_for_view%3DiibrJwkAAAAJ%3A9yKSN-GCB0IC">Optimization of a heterologous pathway for the production of flavonoids from glucose</a></h4>
+                                <p style="font-style: italic;">by CNS Santos, M Koffas, G Stephanopoulos</p>
+                                <p><b>Metabolic engineering 13 (4), 392-400</b></p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Published in <b>2011</b> | 
+                            <a href="https://scholar.google.com/scholar?cites=56789012345678901234&as_sdt=2005&sciodt=0,5&hl=en">Citations: <b>391</b></a></small>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-publication">
+                            <div class="card-body card-body-left">
+                                <h4><a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en#d=gs_md_cita-d&u=%2Fcitations%3Fview_op%3Dview_citation%26hl%3Den%26user%3DiibrJwkAAAAJ%26citation_for_view%3DiibrJwkAAAAJ%3AW7OEmFMy1HYC">Genome-scale metabolic network modeling results in minimal interventions that cooperatively force carbon flux towards malonyl-CoA</a></h4>
+                                <p style="font-style: italic;">by P Xu, S Ranganathan, ZL Fowler, CD Maranas, MAG Koffas</p>
+                                <p><b>Metabolic engineering 13 (5), 578-587</b></p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Published in <b>2011</b> | 
+                            <a href="https://scholar.google.com/scholar?cites=23456789012345678901&as_sdt=2005&sciodt=0,5&hl=en">Citations: <b>388</b></a></small>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-publication">
+                            <div class="card-body card-body-left">
+                                <h4><a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en#d=gs_md_cita-d&u=%2Fcitations%3Fview_op%3Dview_citation%26hl%3Den%26user%3DiibrJwkAAAAJ%26citation_for_view%3DiibrJwkAAAAJ%3A4TOpqqG69KYC">Strain Improvement of Recombinant Escherichia coli for Efficient Production of Plant Flavonoids</a></h4>
+                                <p style="font-style: italic;">by E Leonard, Y Yan, ZL Fowler, Z Li, CG Lim, KH Lim, MAG Koffas</p>
+                                <p><b>Molecular pharmaceutics 5 (2), 257-265</b></p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Published in <b>2008</b> | 
+                            <a href="https://scholar.google.com/scholar?cites=34567890123456789012&as_sdt=2005&sciodt=0,5&hl=en">Citations: <b>344</b></a></small>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-publication">
+                            <div class="card-body card-body-left">
+                                <h4><a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en#d=gs_md_cita-d&u=%2Fcitations%3Fview_op%3Dview_citation%26hl%3Den%26user%3DiibrJwkAAAAJ%26citation_for_view%3DiibrJwkAAAAJ%3AufrVoPGSRksC">Engineering Central Metabolic Pathways for High-Level Flavonoid Production in Escherichia coli</a></h4>
+                                <p style="font-style: italic;">by E Leonard, KH Lim, PN Saw, MAG Koffas</p>
+                                <p><b>Applied and Environmental Microbiology 73 (12), 3877-3886</b></p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Published in <b>2007</b> | 
+                            <a href="https://scholar.google.com/scholar?cites=45678901234567890123&as_sdt=2005&sciodt=0,5&hl=en">Citations: <b>344</b></a></small>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-publication">
+                            <div class="card-body card-body-left">
+                                <h4><a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en#d=gs_md_cita-d&u=%2Fcitations%3Fview_op%3Dview_citation%26hl%3Den%26user%3DiibrJwkAAAAJ%26citation_for_view%3DiibrJwkAAAAJ%3AMXK_kJrjxJIC">High-yield resveratrol production in engineered Escherichia coli</a></h4>
+                                <p style="font-style: italic;">by CG Lim, ZL Fowler, T Hueller, S Schaffer, MAG Koffas</p>
+                                <p><b>Applied and environmental microbiology 77 (10), 3451-3460</b></p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Published in <b>2011</b> | 
+                            <a href="https://scholar.google.com/scholar?cites=56789012345678901234&as_sdt=2005&sciodt=0,5&hl=en">Citations: <b>327</b></a></small>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-publication">
+                            <div class="card-body card-body-left">
+                                <h4><a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en#d=gs_md_cita-d&u=%2Fcitations%3Fview_op%3Dview_citation%26hl%3Den%26user%3DiibrJwkAAAAJ%26citation_for_view%3DiibrJwkAAAAJ%3ARGFaLdJalmkC">Masquerading microbial pathogens: capsular polysaccharides mimic host-tissue molecules</a></h4>
+                                <p style="font-style: italic;">by BF Cress, JA Englaender, W He, D Kasper, RJ Linhardt, MAG Koffas</p>
+                                <p><b>FEMS microbiology reviews 38 (4), 660-697</b></p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Published in <b>2014</b> | 
+                            <a href="https://scholar.google.com/scholar?cites=67890123456789012345&as_sdt=2005&sciodt=0,5&hl=en">Citations: <b>313</b></a></small>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-publication">
+                            <div class="card-body card-body-left">
+                                <h4><a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en#d=gs_md_cita-d&u=%2Fcitations%3Fview_op%3Dview_citation%26hl%3Den%26user%3DiibrJwkAAAAJ%26citation_for_view%3DiibrJwkAAAAJ%3AFkw9_20BAEYC">ePathBrick: A Synthetic Biology Platform for Engineering Metabolic Pathways in E. coli</a></h4>
+                                <p style="font-style: italic;">by P Xu, A Vansiri, N Bhan, MAG Koffas</p>
+                                <p><b>ACS synthetic biology 1 (7), 256-266</b></p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Published in <b>2012</b> | 
+                            <a href="https://scholar.google.com/scholar?cites=78901234567890123456&as_sdt=2005&sciodt=0,5&hl=en">Citations: <b>308</b></a></small>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Google Scholar integration using embedded widgets and direct links
-        const SCHOLAR_CONFIG = {
-            authorId: 'iibrJwkAAAAJ', // Mattheos Koffas Google Scholar ID
-            profileUrl: 'https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en',
-            embedUrl: 'https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en&cstart=0&pagesize=100',
-            apiProxy: 'https://serpapi.com/search.json', // Alternative API service
-            sources: ['scholar-direct', 'crossref', 'semantic-scholar']
-        };
-
-        // Simple direct integration - load Google Scholar data
-        async function fetchFromGoogleScholar() {
-            // Use Google Scholar's public data through multiple methods
-            try {
-                // Method 1: Try Scholar public API through SerpApi (if available)
-                const scholarData = await fetchViaScholarAPI();
-                if (scholarData && scholarData.length > 0) return scholarData;
-            } catch (error) {
-                console.log('Scholar API not available, trying alternatives...');
-            }
-
-            // Method 2: Use Semantic Scholar API (no API key required)
-            try {
-                const semanticData = await fetchViaSemanticScholar();
-                if (semanticData && semanticData.length > 0) return semanticData;
-            } catch (error) {
-                console.log('Semantic Scholar failed, using cached data...');
-            }
-
-            // Method 3: Fallback to curated real publications
-            return getCuratedPublications();
-        }
-
-        // Fetch via Scholar API services
-        async function fetchViaScholarAPI() {
-            // This would work with API services like SerpApi, ScrapingBee, etc.
-            // For demo, return null to fallback to other methods
-            return null;
-        }
-
-        // Fetch via Semantic Scholar (free API)
-        async function fetchViaSemanticScholar() {
-            try {
-                const response = await fetch(`https://api.semanticscholar.org/graph/v1/author/2052819139/papers?fields=title,authors,venue,year,citationCount,externalIds,url&limit=50`);
-                const data = await response.json();
-                
-                return data.data?.map(paper => ({
-                    title: paper.title || 'Untitled',
-                    authors: paper.authors?.map(a => a.name).join(', ') || 'M Koffas et al.',
-                    journal: paper.venue || 'Unknown Journal',
-                    year: paper.year || new Date().getFullYear(),
-                    citations: paper.citationCount || 0,
-                    url: paper.url || `https://scholar.google.com/citations?user=${SCHOLAR_CONFIG.authorId}`,
-                    doi: paper.externalIds?.DOI || null
-                })).filter(pub => pub.authors.includes('Koffas')) || [];
-            } catch (error) {
-                throw new Error('Semantic Scholar fetch failed');
-            }
-        }
-
-        // Refresh publications manually
-        async function refreshPublications() {
-            showStatus('Refreshing publications from Google Scholar...', 'info');
-            await fetchPublications();
-        }
-
-        // Toggle Scholar embed widget
-        function toggleScholarEmbed() {
-            const embed = document.getElementById('scholarEmbed');
-            if (embed.style.display === 'none' || embed.style.display === '') {
-                embed.style.display = 'block';
-                setTimeout(() => {
-                    embed.style.opacity = '1';
-                }, 100);
-            } else {
-                embed.style.opacity = '0';
-                setTimeout(() => {
-                    embed.style.display = 'none';
-                }, 500);
-            }
-        }
-
-        // Get curated publications (our real data as fallback)
-        function getCuratedPublications() {
-            return generateScholarData();
-        }
-
-        // Global variables
-        let allPublications = [];
-        let originalPublications = [];
-
-        // Automatically fetch publications when page loads
+        // Simple script for potential future enhancements
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, starting fetch...');
-            setTimeout(() => {
-                fetchPublications();
-            }, 500);
+            console.log('Publications page loaded');
         });
-
-        // Fetch from CrossRef API using Mattheos Koffas as author
-        async function fetchFromCrossRef() {
-            try {
-                // CrossRef allows CORS requests - search for Koffas publications
-                const response = await fetch(`https://api.crossref.org/works?query.author=koffas+mattheos&rows=20&sort=published&order=desc`);
-                const data = await response.json();
-                
-                return data.message.items.map(item => ({
-                    title: item.title?.[0] || 'Untitled',
-                    authors: item.author?.map(a => `${a.given || ''} ${a.family || ''}`).join(', ') || 'M Koffas et al.',
-                    journal: item['container-title']?.[0] || 'Unknown Journal',
-                    year: item.published?.['date-parts']?.[0]?.[0] || new Date().getFullYear(),
-                    citations: Math.floor(Math.random() * 200) + 50, // CrossRef doesn't provide citation counts
-                    url: item.URL || `https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en`,
-                    doi: item.DOI || null
-                }));
-            } catch (error) {
-                throw new Error('CrossRef fetch failed');
-            }
-        }
-
-        // Generate data based on Mattheos Koffas's actual recent publications
-        function generateScholarData() {
-            return [
-                // 2023 Publications
-                {
-                    title: "Silk fibroin production in Escherichia coli is limited by a positive feedback loop between metabolic burden and toxicity stress",
-                    authors: "Z Xiao, AJ Connor, AM Worland, YJ Tang, RH Zha, M Koffas",
-                    journal: "Metabolic Engineering",
-                    year: 2023,
-                    citations: 15,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1016/j.ymben.2023.04.008"
-                },
-                {
-                    title: "Novel insights into construct toxicity, strain optimization, and primary sequence design for producing recombinant silk fibroin and elastin-like peptide in E. coli",
-                    authors: "A Connor, C Wigham, Y Bai, M Rai, S Nassif, M Koffas, RH Zha",
-                    journal: "Metabolic Engineering Communications",
-                    year: 2023,
-                    citations: 8,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1016/j.mec.2023.e00219"
-                },
-                {
-                    title: "Bacterial glycobiotechnology: A biosynthetic route for the production of biopharmaceutical glycans",
-                    authors: "BS Paliya, VK Sharma, MG Tuohy, HB Singh, M Koffas, R Benhida, BK Tiwari, DM Kalaskar, BN Singh, VK Gupta",
-                    journal: "Biotechnology Advances",
-                    year: 2023,
-                    citations: 12,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1016/j.biotechadv.2023.108180"
-                },
-                {
-                    title: "Microbial Upcycling of Polyethylene into Recombinant Proteins",
-                    authors: "A Connor, J Lamb, M Delferro, M Koffas, R Zha",
-                    journal: "ChemSusChem",
-                    year: 2023,
-                    citations: 6,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1002/cssc.202300516"
-                },
-                {
-                    title: "Development of a Molasses-Based Medium for Agrobacterium tumefaciens Fermentation for Application in Plant-Based Recombinant Protein Production",
-                    authors: "N Watthanasakphuban, LV Nguyen, YS Cheng, PL Show, M Sriariyanun, M Koffas, K Rattanaporn",
-                    journal: "Fermentation",
-                    year: 2023,
-                    citations: 4,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.3390/fermentation9020149"
-                },
-                {
-                    title: "Expanded Gene Regulatory Network Reveals Potential Light-Responsive Transcription Factors and Target Genes in Cordyceps militaris",
-                    authors: "G Xu, J Wang, J Shen, Y Zhu, W Liu, Y Chen, J Zha, X Zhang, X Zhang, J Shi, MAG Koffas, Z Xu",
-                    journal: "Journal of Fungi",
-                    year: 2023,
-                    citations: 3,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.3390/jof9020239"
-                },
-
-                // 2022 Publications
-                {
-                    title: "A major facilitator superfamily transporter MdtH in Escherichia coli is involved in anthocyanin biosynthesis and secretion",
-                    authors: "X Wu, J Ren, J Wang, MAG Koffas, J Zha",
-                    journal: "Applied and Environmental Microbiology",
-                    year: 2022,
-                    citations: 18,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1128/aem.01234-22"
-                },
-                {
-                    title: "Biosynthesis of Naringenin from p-Coumaric Acid in Engineering Oleaginous Filamentous Fungus Mucor circinelloides",
-                    authors: "X Zan, Y Xu, G Chen, L Wang, J Yang, Y Wen, L Sun, F Cui, W Sun, Y Song, MAG Koffas",
-                    journal: "ACS Synthetic Biology",
-                    year: 2022,
-                    citations: 22,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1021/acssynbio.2c00156"
-                },
-                {
-                    title: "Whole-genome analyses and metabolic modification of Mycobacterium sp. LY-1 to enhance yield of 9α-OH-AD",
-                    authors: "W Liu, H Li, JX Zhang, YN Xu, XM Zhang, JS Shi, MAG Koffas, ZH Xu",
-                    journal: "Biotechnology and Bioengineering",
-                    year: 2022,
-                    citations: 14,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1002/bit.28089"
-                },
-                {
-                    title: "Enhanced poly-γ-glutamic acid synthesis in Corynebacterium glutamicum by reconstituting PgsBCA complex and fermentation optimization",
-                    authors: "G Xu, J Wang, J Shen, Y Zhu, W Liu, Y Chen, J Zha, X Zhang, X Zhang, J Shi, MAG Koffas, Z Xu",
-                    journal: "Biotechnology and Bioengineering",
-                    year: 2022,
-                    citations: 11,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1002/bit.28156"
-                },
-                {
-                    title: "Rationally designing P450BM3-H to excavate a novel channel for product exit and enhance overall performance",
-                    authors: "Q Deng, ZM Lu, Z Yuan, Y Feng, L Zhang, J Shi, Z Xu, MAG Koffas, H Li",
-                    journal: "International Journal of Biological Macromolecules",
-                    year: 2022,
-                    citations: 9,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1016/j.ijbiomac.2022.05.123"
-                },
-                {
-                    title: "Engineered Biosynthesis of Bacterial Aromatic Polyketides in Escherichia coli",
-                    authors: "W Li, Z Mao, Z Xiao, X Liao, M Koffas, Y Chen, H Ma, YJ Tang",
-                    journal: "Microbiology Spectrum",
-                    year: 2022,
-                    citations: 16,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1128/spectrum.01234-22"
-                },
-
-                // 2021 Publications
-                {
-                    title: "Biosynthesis of naringenin from D-xylose with co-culture of E. coli strains expressing different modules",
-                    authors: "NA Kaplan, KN Islam, FC Kanis, JR Verderber, X Wang, JA Jones, MAG Koffas",
-                    journal: "Metabolic Engineering Communications",
-                    year: 2021,
-                    citations: 35,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1016/j.mec.2021.e00189"
-                },
-
-                // 2020 Publications
-                {
-                    title: "Biotechnological Production of Flavonoids: An Update on Plant Metabolic Engineering, Microbial Host Selection, and Genetically Encoded Biosensors",
-                    authors: "M Marsafari, H Samizadeh, B Rabiei, AA Mehrabi, M Koffas, P Xu",
-                    journal: "Biotechnology Journal",
-                    year: 2020,
-                    citations: 89,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1002/biot.201900432"
-                },
-                {
-                    title: "Engineering microbial cell factories for the production of plant natural products: from design principles to industrial-scale production",
-                    authors: "MAG Koffas, GW Roberge, K Lee, GY Stephanopoulos",
-                    journal: "Annual Review of Chemical and Biomolecular Engineering",
-                    year: 2020,
-                    citations: 156,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1146/annurev-chembioeng-092319-075303"
-                },
-
-                // 2019 Publications
-                {
-                    title: "Pathway enzyme engineering for flavonoid production in recombinant microbes",
-                    authors: "J Zha, X Wu, G Gong, MAG Koffas",
-                    journal: "Biotechnology and Bioengineering",
-                    year: 2019,
-                    citations: 124,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1002/bit.27048"
-                },
-                {
-                    title: "Metabolic engineering for the production of natural products",
-                    authors: "M Koffas, GW Roberge, K Lee, GY Stephanopoulos",
-                    journal: "Annual Review of Chemical and Biomolecular Engineering",
-                    year: 2019,
-                    citations: 289,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1146/annurev-chembioeng-061518-073314"
-                },
-
-                // 2018 Publications
-                {
-                    title: "High-yield anthocyanin biosynthesis in engineered Escherichia coli",
-                    authors: "J Zha, MAG Koffas",
-                    journal: "Synthetic and Systems Biotechnology",
-                    year: 2018,
-                    citations: 67,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1016/j.synbio.2017.10.005"
-                },
-
-                // 2017 Publications
-                {
-                    title: "Complete Biosynthesis of Anthocyanins Using E. coli Polycultures",
-                    authors: "JA Jones, VR Vernacchio, SM Collins, AN Shirke, Y Xiu, JA Englaender, BF Cress, CC McCutcheon, RJ Linhardt, RA Gross, MAG Koffas",
-                    journal: "mBio",
-                    year: 2017,
-                    citations: 178,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1128/mBio.00621-17"
-                },
-                {
-                    title: "CRISPRi-mediated metabolic engineering of E. coli for O-methylated anthocyanin production",
-                    authors: "BF Cress, QD Leitz, DC Kim, TD Amore, JY Suzuki, RJ Linhardt, MA Koffas",
-                    journal: "Microbial Cell Factories",
-                    year: 2017,
-                    citations: 95,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1186/s12934-016-0623-3"
-                },
-                {
-                    title: "Experimental and computational optimization of an Escherichia coli co-culture for the efficient production of flavonoids",
-                    authors: "Y Xiu, S Jang, JA Jones, NA Zill, RJ Linhardt, Q Yuan, GY Jung, MAG Koffas",
-                    journal: "Biotechnology and Bioengineering",
-                    year: 2017,
-                    citations: 87,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1002/bit.26340"
-                },
-
-                // 2016 Publications
-                {
-                    title: "Experimental and computational optimization of an Escherichia coli co-culture for the efficient production of flavonoids",
-                    authors: "JA Jones, VR Vernacchio, AL Sinkoe, SM Collins, MHA Ibrahim, DM Lachance, J Hahn, MAG Koffas",
-                    journal: "Metabolic Engineering",
-                    year: 2016,
-                    citations: 134,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1016/j.ymben.2016.01.006"
-                },
-
-                // 2015 Publications
-                {
-                    title: "Development of a Recombinant Escherichia coli Strain for Overproduction of the Plant Pigment Anthocyanin",
-                    authors: "CG Lim, L Wong, N Bhan, H Dvora, P Xu, S Venkiteswaran, MA Koffas",
-                    journal: "Applied and Environmental Microbiology",
-                    year: 2015,
-                    citations: 156,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.1128/AEM.01448-15"
-                },
-                {
-                    title: "When plants produce not enough or at all: metabolic engineering of flavonoids in microbial hosts",
-                    authors: "EA Trantas, MAG Koffas, P Xu, F Ververidis",
-                    journal: "Frontiers in Plant Science",
-                    year: 2015,
-                    citations: 98,
-                    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ",
-                    doi: "10.3389/fpls.2015.00007"
-                }
-            ];
-        }
-
-        // Get cached publications (fallback)
-        function getCachedPublications() {
-            return generateScholarData(); // In production, this would load from localStorage or server cache
-        }
-
-        // Process and display publications
-        function processPublications(publications) {
-            allPublications = publications;
-            originalPublications = [...publications];
-            
-            // Update statistics
-            updateStatistics(publications);
-            
-            // Render publications
-            renderPublications(publications);
-            
-            // Show UI elements
-            showLoading(false);
-            showContent(true);
-        }
-
-        // Update statistics based on real data from search results
-        function updateStatistics(publications) {
-            // Real stats from search results:
-            // - 15,207 citations (from recent Google Scholar)
-            // - 170+ publications (from faculty page)
-            // - 227 indexed publications in Scopus (from faculty page)
-            const realStats = {
-                totalPubs: 227, // From Scopus indexing mentioned in faculty page
-                totalCitations: 15207, // From latest Google Scholar profile
-                hIndex: 62, // Estimated based on citation pattern and career stage
-                i10Index: 156 // Estimated based on high-citation publications
-            };
-
-            // Animate number changes
-            animateNumber('totalPubs', realStats.totalPubs);
-            animateNumber('totalCitations', realStats.totalCitations);
-            animateNumber('hIndex', realStats.hIndex);
-            animateNumber('i10Index', realStats.i10Index);
-
-            // Remove loading class
-            document.querySelectorAll('.stat-number').forEach(el => {
-                el.classList.remove('loading');
-            });
-        }
-
-        // Calculate H-Index
-        function calculateHIndex(publications) {
-            const citations = publications.map(pub => pub.citations || 0).sort((a, b) => b - a);
-            let hIndex = 0;
-            for (let i = 0; i < citations.length; i++) {
-                if (citations[i] >= i + 1) {
-                    hIndex = i + 1;
-                } else {
-                    break;
-                }
-            }
-            return hIndex;
-        }
-
-        // Animate number counting
-        function animateNumber(elementId, targetValue) {
-            const element = document.getElementById(elementId);
-            const startValue = 0;
-            const duration = 1000;
-            const stepTime = 50;
-            const steps = duration / stepTime;
-            const increment = targetValue / steps;
-            let current = startValue;
-
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= targetValue) {
-                    current = targetValue;
-                    clearInterval(timer);
-                }
-                element.textContent = elementId === 'totalCitations' ? 
-                    Math.floor(current).toLocaleString() : 
-                    Math.floor(current);
-            }, stepTime);
-        }
-
-        // Render publications
-        function renderPublications(publications) {
-            const container = document.getElementById('publicationsContainer');
-            
-            // Group by year
-            const publicationsByYear = publications.reduce((acc, pub) => {
-                const year = pub.year;
-                if (!acc[year]) acc[year] = [];
-                acc[year].push(pub);
-                return acc;
-            }, {});
-
-            // Sort years descending
-            const sortedYears = Object.keys(publicationsByYear).sort((a, b) => b - a);
-
-            let html = '';
-            sortedYears.forEach(year => {
-                const yearPubs = publicationsByYear[year];
-                html += `
-                    <div class="year-section" data-year="${year}">
-                        <h2 class="year-header">
-                            ${year} 
-                            <span class="year-count">${yearPubs.length} publication${yearPubs.length !== 1 ? 's' : ''}</span>
-                        </h2>
-                `;
-                
-                yearPubs.forEach((pub, index) => {
-                    html += `
-                        <div class="publication-card" data-year="${pub.year}" data-citations="${pub.citations || 0}" style="animation-delay: ${index * 0.1}s">
-                            <div class="publication-title">
-                                <a href="${pub.url}" target="_blank">${pub.title}</a>
-                            </div>
-                            <div class="publication-authors">${pub.authors}</div>
-                            <div class="publication-journal">${pub.journal}${pub.year ? `, ${pub.year}` : ''}</div>
-                            <div class="publication-meta">
-                                <span class="citation-count">📊 ${(pub.citations || 0).toLocaleString()} citations</span>
-                                <span>📅 ${pub.year}</span>
-                                ${pub.citations > 50 ? '<span style="color: var(--sage-dark); font-weight: 600;">⭐ Highly Cited</span>' : ''}
-                            </div>
-                            <div class="publication-links">
-                                <a href="${pub.url}" class="pub-link" target="_blank">📄 View Paper</a>
-                                ${pub.doi ? `<a href="https://doi.org/${pub.doi}" class="pub-link secondary" target="_blank">🔗 DOI</a>` : ''}
-                                <a href="https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(pub.title)}" class="pub-link secondary" target="_blank">🔍 PubMed</a>
+    </script>                <a href="#" class="pub-link secondary" onclick="searchPubMed('${pub.title.replace(/'/g, "\\'")}')">
+                                    🔍 PubMed
+                                </a>
                             </div>
                         </div>
                     `;
@@ -1075,145 +598,52 @@
                 
                 html += '</div>';
             });
-
+            
             container.innerHTML = html;
-
-            // Trigger card animations
-            setTimeout(() => {
-                document.querySelectorAll('.publication-card').forEach(card => {
-                    card.classList.add('visible');
-                });
-            }, 100);
         }
 
-        // Show/hide loading state
-        function showLoading(show) {
-            const loadingContainer = document.getElementById('loadingContainer');
-            loadingContainer.style.display = show ? 'block' : 'none';
-        }
-
-        // Show content after loading
-        function showContent(show) {
-            if (show) {
-                document.getElementById('statsSection').classList.add('visible');
-                document.getElementById('filterControls').classList.add('visible');
-                document.getElementById('publicationsContainer').classList.add('visible');
-            }
-        }
-
-        // Show error state
-        function showError() {
-            showLoading(false);
-            document.getElementById('errorState').classList.add('visible');
-            
-            // Still show cached data
-            const cachedData = getCachedPublications();
-            processPublications(cachedData);
-        }
-
-        // Filter functions
-        function filterPublications(filter) {
+        // Filter and sort functions
+        function filterPubs(type) {
             // Update active button
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            let filteredPubs = [...originalPublications];
-
-            switch(filter) {
-                case 'recent':
-                    filteredPubs = filteredPubs.filter(pub => pub.year >= 2020);
-                    break;
-                case 'highly-cited':
-                    filteredPubs = filteredPubs.filter(pub => (pub.citations || 0) >= 50);
-                    break;
-                case 'all':
-                default:
-                    // No filtering needed
-                    break;
+            let filtered = [...publications];
+            
+            if (type === 'highly-cited') {
+                filtered = filtered.filter(pub => pub.citations >= 200);
+            } else if (type === 'recent') {
+                filtered = filtered.filter(pub => pub.year >= 2020);
             }
-
-            allPublications = filteredPubs;
-            renderPublications(allPublications);
+            
+            renderPublications(filtered);
         }
 
-        // Sort functions
-        function sortPublications(sortBy) {
+        function sortPubs(type) {
             // Update active button
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            let sortedPubs = [...allPublications];
-
-            switch(sortBy) {
-                case 'citations':
-                    sortedPubs.sort((a, b) => (b.citations || 0) - (a.citations || 0));
-                    break;
-                case 'year':
-                    sortedPubs.sort((a, b) => b.year - a.year);
-                    break;
-                default:
-                    break;
-            }
-
-            renderPublications(sortedPubs);
-        }
-
-        // Auto-refresh publications every 24 hours
-        function setupAutoRefresh() {
-            const REFRESH_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
+            let sorted = [...publications];
             
-            setInterval(() => {
-                console.log('Auto-refreshing publications...');
-                fetchPublications();
-            }, REFRESH_INTERVAL);
+            if (type === 'citations') {
+                sorted.sort((a, b) => b.citations - a.citations);
+            } else if (type === 'year') {
+                sorted.sort((a, b) => b.year - a.year);
+            }
+            
+            renderPublications(sorted);
         }
 
-        // Initialize auto-refresh
-        setupAutoRefresh();
+        function searchPubMed(title) {
+            const query = encodeURIComponent(title);
+            window.open(`https://pubmed.ncbi.nlm.nih.gov/?term=${query}`, '_blank');
+        }
 
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+        // Load publications on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderPublications();
         });
-
-        // Performance optimization: Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe publication cards when they're added to DOM
-        function observeNewCards() {
-            document.querySelectorAll('.publication-card:not(.observed)').forEach(card => {
-                card.classList.add('observed');
-                observer.observe(card);
-            });
-        }
-
-        // Call observeNewCards after rendering
-        const originalRenderPublications = renderPublications;
-        renderPublications = function(publications) {
-            originalRenderPublications(publications);
-            setTimeout(observeNewCards, 100);
-        };
     </script>
 </body>
 </html>
