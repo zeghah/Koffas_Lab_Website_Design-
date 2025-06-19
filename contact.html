@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -105,10 +105,15 @@
 
         /* Contact Content */
         .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: start;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .contact-info {
+            width: 100%;
+            max-width: 600px;
         }
 
         .contact-info h1 {
@@ -211,9 +216,8 @@
 
         /* Map Container */
         .map-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 100%;
+            max-width: 800px;
             height: 400px;
             opacity: 0;
             animation: fadeIn 1s ease 0.6s forwards;
@@ -303,7 +307,7 @@
             }
 
             .contact-content {
-                grid-template-columns: 1fr;
+                flex-direction: column;
                 gap: 2rem;
                 text-align: center;
             }
@@ -358,8 +362,11 @@
                             </div>
 
                             <div class="contact-item">
-                                <h3>Phone</h3>
-                                <p><a href="tel:+15182766000">(518) 276-6000</a></p>
+                                <h3>Contact</h3>
+                                <p>
+                                    Email: <a href="mailto:koffam@rpi.edu">koffam@rpi.edu</a><br>
+                                    Phone: <a href="tel:+15182766000">(518) 276-6000</a>
+                                </p>
                             </div>
 
                             <div class="contact-item">
@@ -370,11 +377,6 @@
                                     Sunday: Closed
                                 </p>
                             </div>
-                        </div>
-
-                        <div class="contact-buttons">
-                            <a href="tel:+15182766000" class="cta-button">Call Us</a>
-                            <a href="mailto:lab@rpi.edu" class="cta-button secondary">Email Us</a>
                         </div>
                     </div>
                     
