@@ -1,1 +1,1 @@
-This is a Website, that we made, we hope it works, and it looks fantastic 
+This is a Website that we made. We hope it works. And it looks fantastic, the end.
