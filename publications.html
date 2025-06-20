@@ -763,36 +763,253 @@
 
             const loadingEl = document.getElementById('url-loading');
             loadingEl.style.display = 'block';
+            loadingEl.textContent = 'Fetching publication details...';
 
             try {
-                // This is a simplified demo - in production, you'd need a backend service
-                await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate API call
-                
-                // Demo auto-fill (in production, parse the actual URL content)
+                let publicationData = null;
+
                 if (url.includes('scholar.google.com')) {
-                    document.getElementById('pub-title').value = 'Example Publication Title from Google Scholar';
-                    document.getElementById('pub-authors').value = 'MAG Koffas, J Smith, A Johnson';
-                    document.getElementById('pub-journal').value = 'Nature Biotechnology 42 (5), 234-245';
-                    document.getElementById('pub-year').value = '2024';
-                    document.getElementById('pub-citations').value = '15';
-                } else if (url.includes('pubmed')) {
-                    document.getElementById('pub-title').value = 'Example Publication Title from PubMed';
-                    document.getElementById('pub-authors').value = 'Koffas MA, Johnson A, Smith J';
-                    document.getElementById('pub-journal').value = 'J Biotechnol. 2024;45(3):123-130';
-                    document.getElementById('pub-year').value = '2024';
-                    document.getElementById('pub-citations').value = '8';
+                    publicationData = await fetchFromGoogleScholar(url);
+                } else if (url.includes('pubmed') || url.includes('ncbi.nlm.nih.gov')) {
+                    publicationData = await fetchFromPubMed(url);
+                } else if (url.includes('doi.org') || url.includes('dx.doi.org')) {
+                    publicationData = await fetchFromDOI(url);
+                } else if (url.includes('crossref.org')) {
+                    publicationData = await fetchFromCrossRef(url);
                 } else {
-                    // Generic parsing
-                    document.getElementById('pub-title').value = 'Publication Title (please verify)';
-                    document.getElementById('pub-year').value = new Date().getFullYear();
+                    // Try generic scraping
+                    publicationData = await fetchGeneric(url);
                 }
-                
-                showMessage('Publication details auto-filled! Please review and edit as needed.', 'success');
+
+                if (publicationData) {
+                    fillFormWithData(publicationData);
+                    showMessage('Publication details auto-filled! Please review and edit as needed.', 'success');
+                } else {
+                    showMessage('Could not extract publication details from this URL. Please fill manually.', 'error');
+                }
+
             } catch (error) {
-                showMessage('Could not auto-fetch details. Please fill manually.', 'error');
+                console.error('Auto-fetch error:', error);
+                showMessage('Error fetching publication details. Please fill manually.', 'error');
             }
             
             loadingEl.style.display = 'none';
+        }
+
+        async function fetchFromGoogleScholar(url) {
+            try {
+                // Use CORS proxy to fetch the page
+                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+                const response = await fetch(proxyUrl);
+                const data = await response.json();
+                
+                if (!data.contents) {
+                    throw new Error('No content received');
+                }
+
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data.contents, 'text/html');
+
+                // Extract data from Google Scholar page
+                const title = doc.querySelector('#gsc_oci_title')?.textContent?.trim() ||
+                             doc.querySelector('.gsc_oci_title_link')?.textContent?.trim();
+                
+                const authors = doc.querySelector('.gsc_oci_author_new')?.textContent?.trim() ||
+                               doc.querySelector('.gsc_oci_author')?.textContent?.trim();
+                
+                const journalInfo = doc.querySelector('.gsc_oci_journal')?.textContent?.trim();
+                
+                const citationCount = doc.querySelector('.gsc_oci_citedby .gsc_oci_citedby_value')?.textContent?.trim();
+                
+                // Extract year from journal info or page
+                let year = new Date().getFullYear();
+                const yearMatch = journalInfo?.match(/(\d{4})/);
+                if (yearMatch) {
+                    year = parseInt(yearMatch[1]);
+                }
+
+                return {
+                    title: title || '',
+                    authors: authors || '',
+                    journal: journalInfo || '',
+                    year: year,
+                    citations: citationCount ? parseInt(citationCount) : 0
+                };
+
+            } catch (error) {
+                console.error('Google Scholar fetch error:', error);
+                return null;
+            }
+        }
+
+        async function fetchFromPubMed(url) {
+            try {
+                // Extract PMID from URL
+                const pmidMatch = url.match(/(?:pmid\/|PMID:\s*)(\d+)/i);
+                if (!pmidMatch) {
+                    throw new Error('Could not extract PMID from URL');
+                }
+                
+                const pmid = pmidMatch[1];
+                
+                // Use PubMed API (no CORS issues)
+                const apiUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=${pmid}&retmode=json`;
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                
+                if (!data.result || !data.result[pmid]) {
+                    throw new Error('Publication not found');
+                }
+                
+                const pubData = data.result[pmid];
+                
+                // Format authors
+                const authors = pubData.authors?.map(author => author.name)?.join(', ') || '';
+                
+                // Format journal info
+                const journal = `${pubData.fulljournalname || pubData.source || ''} ${pubData.volume ? `${pubData.volume}` : ''}${pubData.issue ? `(${pubData.issue})` : ''}${pubData.pages ? `, ${pubData.pages}` : ''}`.trim();
+                
+                return {
+                    title: pubData.title || '',
+                    authors: authors,
+                    journal: journal,
+                    year: parseInt(pubData.pubdate?.split(' ')[0]) || new Date().getFullYear(),
+                    citations: 0 // PubMed doesn't provide citation counts
+                };
+
+            } catch (error) {
+                console.error('PubMed fetch error:', error);
+                return null;
+            }
+        }
+
+        async function fetchFromDOI(url) {
+            try {
+                // Extract DOI from URL
+                const doiMatch = url.match(/10\.\d{4,}\/[^\s]+/);
+                if (!doiMatch) {
+                    throw new Error('Could not extract DOI from URL');
+                }
+                
+                const doi = doiMatch[0];
+                
+                // Use CrossRef API
+                const apiUrl = `https://api.crossref.org/works/${doi}`;
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                
+                if (!data.message) {
+                    throw new Error('Publication not found');
+                }
+                
+                const work = data.message;
+                
+                // Format authors
+                const authors = work.author?.map(author => 
+                    `${author.given || ''} ${author.family || ''}`.trim()
+                )?.join(', ') || '';
+                
+                // Format journal info
+                const journal = `${work['container-title']?.[0] || ''} ${work.volume ? `${work.volume}` : ''}${work.issue ? `(${work.issue})` : ''}${work.page ? `, ${work.page}` : ''}`.trim();
+                
+                // Get year
+                const year = work.published?.['date-parts']?.[0]?.[0] || new Date().getFullYear();
+                
+                return {
+                    title: work.title?.[0] || '',
+                    authors: authors,
+                    journal: journal,
+                    year: year,
+                    citations: work['is-referenced-by-count'] || 0
+                };
+
+            } catch (error) {
+                console.error('DOI fetch error:', error);
+                return null;
+            }
+        }
+
+        async function fetchFromCrossRef(url) {
+            try {
+                // Similar to DOI but handle CrossRef URLs differently
+                const response = await fetch(url);
+                const text = await response.text();
+                
+                // Look for DOI in the page and use DOI method
+                const doiMatch = text.match(/10\.\d{4,}\/[^\s"<>]+/);
+                if (doiMatch) {
+                    return await fetchFromDOI(`https://doi.org/${doiMatch[0]}`);
+                }
+                
+                return null;
+            } catch (error) {
+                console.error('CrossRef fetch error:', error);
+                return null;
+            }
+        }
+
+        async function fetchGeneric(url) {
+            try {
+                // Use CORS proxy for generic URLs
+                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+                const response = await fetch(proxyUrl);
+                const data = await response.json();
+                
+                if (!data.contents) {
+                    throw new Error('No content received');
+                }
+
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data.contents, 'text/html');
+
+                // Try to extract common metadata
+                const title = doc.querySelector('meta[name="citation_title"]')?.getAttribute('content') ||
+                             doc.querySelector('meta[property="og:title"]')?.getAttribute('content') ||
+                             doc.querySelector('title')?.textContent?.trim() ||
+                             doc.querySelector('h1')?.textContent?.trim();
+
+                const authors = doc.querySelector('meta[name="citation_author"]')?.getAttribute('content') ||
+                               doc.querySelector('meta[name="author"]')?.getAttribute('content') ||
+                               doc.querySelector('meta[name="citation_authors"]')?.getAttribute('content');
+
+                const journal = doc.querySelector('meta[name="citation_journal_title"]')?.getAttribute('content') ||
+                               doc.querySelector('meta[name="citation_conference_title"]')?.getAttribute('content');
+
+                const yearMeta = doc.querySelector('meta[name="citation_publication_date"]')?.getAttribute('content') ||
+                                doc.querySelector('meta[name="citation_year"]')?.getAttribute('content');
+                
+                let year = new Date().getFullYear();
+                if (yearMeta) {
+                    const yearMatch = yearMeta.match(/(\d{4})/);
+                    if (yearMatch) {
+                        year = parseInt(yearMatch[1]);
+                    }
+                }
+
+                // Only return data if we found at least a title
+                if (title) {
+                    return {
+                        title: title,
+                        authors: authors || '',
+                        journal: journal || '',
+                        year: year,
+                        citations: 0
+                    };
+                }
+
+                return null;
+            } catch (error) {
+                console.error('Generic fetch error:', error);
+                return null;
+            }
+        }
+
+        function fillFormWithData(data) {
+            if (data.title) document.getElementById('pub-title').value = data.title;
+            if (data.authors) document.getElementById('pub-authors').value = data.authors;
+            if (data.journal) document.getElementById('pub-journal').value = data.journal;
+            if (data.year) document.getElementById('pub-year').value = data.year;
+            if (data.citations !== undefined) document.getElementById('pub-citations').value = data.citations;
         }
 
         function addPublication() {
