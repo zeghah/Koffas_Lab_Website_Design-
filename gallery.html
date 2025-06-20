@@ -148,14 +148,15 @@
 
         .gallery-image {
             width: 100%;
-            height: auto;
             background: linear-gradient(135deg, var(--sage-light), var(--sage-medium));
             display: flex;
-            object-fit: contain; /* shows full image */
             justify-content: center;
+            align-items: center;
             font-size: 3rem;
             color: var(--sage-darker);
             transition: all 0.4s ease;
+            max-height: 400px; /* optional cap */
+            overflow: hidden;
         }
 
         .gallery-overlay {
