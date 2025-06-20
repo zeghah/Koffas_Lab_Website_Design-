@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Koffas Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sage-light: #f0f4f0;
+            --sage-medium: #9caf88;
+            --sage-dark: #6b8e5a;
+            --sage-darker: #4a6741;
+            --white: #ffffff;
+            --gray-light: #f8f9fa;
+            --gray-medium: #6c757d;
+            --gray-dark: #343a40;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-dark);
+            background-color: var(--white);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Tab Navigation */
+        .tab-container {
+            height: 100vh;
+            display: flex;
+        }
+
+        .tab-sidebar {
+            width: 200px;
+            background: var(--sage-light);
+            padding: 20px 0;
+            border-right: 1px solid rgba(107, 142, 90, 0.2);
+        }
+
+        .logo {
+            padding: 0 20px 30px 20px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--sage-darker);
+            text-align: center;
+            border-bottom: 1px solid rgba(107, 142, 90, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .tab-nav {
+            list-style: none;
+        }
+
+        .tab-nav li {
+            margin-bottom: 5px;
+        }
+
+        .tab-nav a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .tab-nav a:hover {
+            background: rgba(107, 142, 90, 0.1);
+            color: var(--sage-darker);
+        }
+
+        .tab-nav a.active {
+            background: var(--white);
+            color: var(--sage-darker);
+            border-left: 3px solid var(--sage-dark);
+            font-weight: 600;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            padding: 40px 40px 80px 40px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--sage-darker);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--gray-medium);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 4/3;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--sage-light);
+            box-shadow: 0 4px 15px rgba(107, 142, 90, 0.15);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(107, 142, 90, 0.25);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--sage-light), var(--sage-medium));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--sage-darker);
+            transition: all 0.4s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(74, 103, 65, 0.95), rgba(74, 103, 65, 0.3));
+            opacity: 0;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            color: var(--white);
+        }
+
+        .gallery-caption h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            transform: translateY(20px);
+            transition: transform 0.4s ease 0.1s;
+        }
+
+        .gallery-caption p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            opacity: 0.9;
+            transform: translateY(20px);
+            transition: transform 0.4s ease 0.2s;
+        }
+
+        .gallery-item:hover .gallery-caption h3,
+        .gallery-item:hover .gallery-caption p {
+            transform: translateY(0);
+        }
+
+        /* Category Filter */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid var(--sage-medium);
+            color: var(--sage-dark);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--sage-dark);
+            color: var(--white);
+            border-color: var(--sage-dark);
+        }
+
+        /* Special Gallery Items */
+        .gallery-item.featured {
+            grid-column: span 2;
+        }
+
+        .gallery-item.group-photo .gallery-image {
+            background: linear-gradient(135deg, #a7c4a0, #9bb896);
+        }
+
+        .gallery-item.lab-work .gallery-image {
+            background: linear-gradient(135deg, #b8d4b3, #c1d8bd);
+        }
+
+        .gallery-item.conference .gallery-image {
+            background: linear-gradient(135deg, #8fad8a, #a5c1a0);
+        }
+
+        .gallery-item.celebration .gallery-image {
+            background: linear-gradient(135deg, #9caf88, #6d8b6b);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .tab-container {
+                flex-direction: column;
+                height: auto;
+                overflow: visible;
+            }
+            
+            body {
+                height: auto;
+                overflow: visible;
+            }
+
+            .tab-sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid rgba(107, 142, 90, 0.2);
+            }
+
+            .tab-nav {
+                display: flex;
+                overflow-x: auto;
+                padding: 0 20px;
+            }
+
+            .tab-nav li {
+                margin-bottom: 0;
+                white-space: nowrap;
+            }
+
+            .tab-nav a {
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+
+            .tab-nav a.active {
+                border-left: none;
+                border-bottom: 3px solid var(--sage-dark);
+            }
+
+            .main-content {
+                height: auto;
+                overflow: visible;
+            }
+
+            .content-wrapper {
+                padding: 20px 15px 40px 15px;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .gallery-item.featured {
+                grid-column: span 1;
+            }
+
+            .filter-buttons {
+                justify-content: center;
+            }
+
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Loading animation for images */
+        .gallery-image.loading {
+            background: linear-gradient(90deg, var(--sage-light) 25%, var(--sage-medium) 50%, var(--sage-light) 75%);
+            background-size: 200% 100%;
+            animation: loading-shimmer 2s infinite;
+        }
+
+        @keyframes loading-shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tab-container">
+        <!-- Vertical Tab Sidebar -->
+        <div class="tab-sidebar">
+            <div class="logo">Koffas Lab</div>
+            <ul class="tab-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="members.html">Lab Members</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h1>Lab Gallery</h1>
+                    <p>Capturing moments of discovery, collaboration, and celebration in the Koffas Research Group</p>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Photos</button>
+                    <button class="filter-btn" data-filter="group-photo">Group Photos</button>
+                    <button class="filter-btn" data-filter="lab-work">Lab Work</button>
+                    <button class="filter-btn" data-filter="conference">Conferences</button>
+                    <button class="filter-btn" data-filter="celebration">Celebrations</button>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- Featured Group Photo -->
+                    <div class="gallery-item featured group-photo" data-category="group-photo">
+                        <div class="gallery-image">
+                            👥
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">
+                                <h3>Annual Lab Retreat 2024</h3>
+                                <p>Our entire research team gathered at Lake George for our annual retreat, combining strategic planning sessions with team-building activities. A perfect blend of science and camaraderie!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lab Work Photos -->
+                    <div class="gallery-item lab-work" data-category="lab-work">
+                        <div class="gallery-image">
+                            🔬
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">
+                                <h3>Bioreactor Setup</h3>
+                                <p>Sarah and Mike setting up our new 5L bioreactor for the plastic degradation project. Late nights in the lab always lead to the best discoveries!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item conference" data-category="conference">
+                        <div class="gallery-image">
+                            🎤
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">
+                                <h3>AIChE Annual Meeting</h3>
+                                <p>Dr. Koffas presenting our latest findings on sustainable biomanufacturing at the AIChE conference in Orlando. The audience was captivated by our protein engineering breakthroughs!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item celebration" data-category="celebration">
+                        <div class="gallery-image">
+                            🎉
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">
+                                <h3>Publication Celebration</h3>
+                                <p>Celebrating Alex's first-author paper in Nature Biotechnology! The whole lab came together for cake and congratulations. From late-night experiments to published research!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item lab-work" data-category="lab-work">
+                        <div class="gallery-image">
+                            ⚗️
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">
+                                <h3>Protein Purification Day</h3>
+                                <p>The weekly protein purification session led by Emma. Teaching new lab members the art and science of getting those perfect bands on the gel!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item group-photo" data-category="group-photo">
+                        <div class="gallery-image">
+                            🏆
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">
+                                <h3>Award Ceremony</h3>
+                                <p>The whole team celebrating Maria's outstanding graduate student award. Her work on metabolic engineering has been truly groundbreaking!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item lab-work" data-category="lab-work">
+                        <div class="gallery-image">
+                            📊
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">
+                                <h3>Data Analysis Session</h3>
+                                <p>Jake and Chen deep in discussion over the latest metabolomics results. Sometimes the best insights come from collaborative data interpretation!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item conference" data-category="conference">
+                        <div class="gallery-image">
+                            📋
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">
+                                <h3>Poster Session</h3>
+                                <p>Our graduate students presenting their research at the Synthetic Biology Conference. Proud to see their hard work getting the recognition it deserves!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item celebration" data-category="celebration">
+                        <div class="gallery-image">
+                            🎂
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">
+                                <h3>Birthday Surprise</h3>
+                                <p>Surprising Dr. Koffas with a birthday celebration in the lab. The cake was shaped like a protein structure - only in our lab would we find that delightful!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item group-photo" data-category="group-photo">
+                        <div class="gallery-image">
+                            🌱
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">
+                                <h3>Earth Day Initiative</h3>
+                                <p>The lab volunteering for campus sustainability initiatives. Practicing what we preach about environmental responsibility and green chemistry!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item lab-work" data-category="lab-work">
+                        <div class="gallery-image">
+                            🧪
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">
+                                <h3>New Equipment Training</h3>
+                                <p>Learning to operate our brand new HPLC system. The excitement of new instrumentation always brings out the best in our analytical chemistry skills!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item celebration" data-category="celebration">
+                        <div class="gallery-image">
+                            🥳
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">
+                                <h3>Graduation Day</h3>
+                                <p>Celebrating three PhDs defending their dissertations in one semester! From stressed students to confident doctors - couldn't be prouder of their journey!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                // Filter gallery items
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                        item.style.animation = 'fadeInUp 0.6s ease forwards';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Add staggered animation on load
+        window.addEventListener('load', () => {
+            galleryItems.forEach((item, index) => {
+                item.style.animationDelay = `${0.1 * index}s`;
+                item.style.animation = 'fadeInUp 0.6s ease forwards';
+            });
+        });
+
+        // Add random hover effects
+        galleryItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                // Add subtle random rotation on hover
+                const rotation = (Math.random() - 0.5) * 2;
+                item.style.transform = `translateY(-5px) rotate(${rotation}deg)`;
+            });
+
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'translateY(0) rotate(0deg)';
+            });
+        });
+
+        // Simulate image loading effect
+        const galleryImages = document.querySelectorAll('.gallery-image');
+        galleryImages.forEach((image, index) => {
+            // Add loading class initially
+            image.classList.add('loading');
+            
+            // Remove loading class after a delay
+            setTimeout(() => {
+                image.classList.remove('loading');
+            }, 500 + (index * 100));
+        });
+    </script>
+</body>
+</html>
