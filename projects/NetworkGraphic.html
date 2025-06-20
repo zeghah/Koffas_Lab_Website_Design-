@@ -212,8 +212,8 @@
             const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
             group.setAttribute('class', 'protein-node');
             
-            // Track energy level for this protein (starts at random level)
-            protein.energyLevel = Math.floor(Math.random() * 7) - 3; // Random start between -3 and 3
+            // Track energy level for this protein (starts at 0 - sage green)
+            protein.energyLevel = 0; // Random start between -3 and 3
             
             // Create dynamic energy fluctuation for each protein
             const createEnergyFluctuation = () => {
