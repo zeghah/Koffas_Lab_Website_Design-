@@ -8,7 +8,7 @@
         body {
             margin: 0;
             padding: 20px;
-            background: transparent;
+            background: #f8f8f8;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,10 +21,10 @@
             height: 600px;
             position: relative;
             background: white;
-            border-radius: 0px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: none;
-            border: 0px ;
+            box-shadow: 0 0 30px rgba(167, 196, 160, 0.4);
+            border: 2px solid rgba(167, 196, 160, 0.2);
         }
         
         svg {
@@ -130,25 +130,20 @@
         
         // Define proteins with their properties - removing center node for text integration
         const proteins = [
-            { id: 'n1', x: 300, y: 120, size: 35, color: 'url(#proteinGradient1)', connections: ['n2', 'n3', 'n8'] },
+            { id: 'n1', x: 300, y: 180, size: 35, color: 'url(#proteinGradient1)', connections: ['n2', 'n3', 'n8'] },
             { id: 'n2', x: 480, y: 160, size: 22, color: 'url(#proteinGradient2)', connections: ['n1', 'n4', 'n9'] },
-            { id: 'n3', x: 180, y: 200, size: 28, color: 'url(#proteinGradient3)', connections: ['n1', 'n5', 'n10'] },
-            { id: 'n4', x: 520, y: 280, size: 18, color: 'url(#proteinGradient4)', connections: ['n2', 'n6', 'n11'] },
-            { id: 'n5', x: 120, y: 320, size: 32, color: 'url(#proteinGradient5)', connections: ['n3', 'n7', 'n12'] },
-            { id: 'n6', x: 400, y: 380, size: 25, color: 'url(#proteinGradient6)', connections: ['n4', 'n8', 'n13'] },
-            { id: 'n7', x: 220, y: 480, size: 20, color: 'url(#proteinGradient1)', connections: ['n5', 'n9', 'n14'] },
+            { id: 'n3', x: 140, y: 220, size: 28, color: 'url(#proteinGradient3)', connections: ['n1', 'n5'] },
+            { id: 'n4', x: 520, y: 240, size: 18, color: 'url(#proteinGradient4)', connections: ['n2', 'n6'] },
+            { id: 'n5', x: 80, y: 300, size: 32, color: 'url(#proteinGradient5)', connections: ['n3', 'n7'] },
+            { id: 'n6', x: 450, y: 320, size: 25, color: 'url(#proteinGradient6)', connections: ['n4', 'n8', 'n13'] },
+            { id: 'n7', x: 180, y: 380, size: 20, color: 'url(#proteinGradient1)', connections: ['n5', 'n9'] },
             { id: 'n8', x: 380, y: 200, size: 24, color: 'url(#proteinGradient2)', connections: ['n1', 'n6'] },
-            { id: 'n9', x: 460, y: 320, size: 19, color: 'url(#proteinGradient3)', connections: ['n2', 'n7', 'n16'] },
-            { id: 'n10', x: 80, y: 180, size: 26, color: 'url(#proteinGradient4)', connections: ['n3', 'n11', 'n17'] },
-            { id: 'n11', x: 550, y: 380, size: 21, color: 'url(#proteinGradient5)', connections: ['n4', 'n10', 'n18'] },
-            { id: 'n12', x: 150, y: 420, size: 29, color: 'url(#proteinGradient6)', connections: ['n5', 'n13', 'n19'] },
-            { id: 'n13', x: 480, y: 460, size: 23, color: 'url(#proteinGradient1)', connections: ['n6', 'n12', 'n20'] },
-            { id: 'n14', x: 280, y: 520, size: 17, color: 'url(#proteinGradient2)', connections: ['n7'] },
-            { id: 'n16', x: 500, y: 240, size: 22, color: 'url(#proteinGradient4)', connections: ['n9', 'n17'] },
-            { id: 'n17', x: 60, y: 260, size: 30, color: 'url(#proteinGradient5)', connections: ['n10', 'n16', 'n18'] },
-            { id: 'n18', x: 520, y: 420, size: 25, color: 'url(#proteinGradient6)', connections: ['n11', 'n17', 'n19'] },
-            { id: 'n19', x: 200, y: 380, size: 20, color: 'url(#proteinGradient1)', connections: ['n12', 'n18', 'n20'] },
-            { id: 'n20', x: 420, y: 520, size: 24, color: 'url(#proteinGradient2)', connections: ['n13', 'n19'] }
+            { id: 'n9', x: 420, y: 280, size: 19, color: 'url(#proteinGradient3)', connections: ['n2', 'n7'] },
+            { id: 'n12', x: 120, y: 350, size: 29, color: 'url(#proteinGradient6)', connections: ['n13', 'n19'] },
+            { id: 'n13', x: 480, y: 380, size: 23, color: 'url(#proteinGradient1)', connections: ['n6', 'n12', 'n20'] },
+            { id: 'n14', x: 280, y: 420, size: 17, color: 'url(#proteinGradient2)', connections: ['n19'] },
+            { id: 'n19', x: 240, y: 350, size: 20, color: 'url(#proteinGradient1)', connections: ['n12', 'n14', 'n20'] },
+            { id: 'n20', x: 380, y: 420, size: 24, color: 'url(#proteinGradient2)', connections: ['n13', 'n19'] }
         ];
         
         // Create connections array
