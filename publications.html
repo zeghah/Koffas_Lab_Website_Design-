@@ -551,7 +551,7 @@
                     <h3 style="margin-bottom: 20px; color: var(--sage-darker);">Add New Publication</h3>
                     
                     <div class="form-group">
-                        <label for="pub-url">Publication URL (Google Scholar, PubMed, DOI, etc.)</label>
+                        <label for="pub-url">Publication URL (Google Scholar, DOI, etc.)</label>
                         <input type="url" id="pub-url" placeholder="https://scholar.google.com/citations?view_op=view_citation&...">
                         <div class="loading-indicator" id="url-loading">Fetching publication details...</div>
                     </div>
@@ -770,8 +770,6 @@
 
                 if (url.includes('scholar.google.com')) {
                     publicationData = await fetchFromGoogleScholar(url);
-                } else if (url.includes('pubmed') || url.includes('ncbi.nlm.nih.gov')) {
-                    publicationData = await fetchFromPubMed(url);
                 } else if (url.includes('doi.org') || url.includes('dx.doi.org')) {
                     publicationData = await fetchFromDOI(url);
                 } else if (url.includes('crossref.org')) {
@@ -838,47 +836,6 @@
 
             } catch (error) {
                 console.error('Google Scholar fetch error:', error);
-                return null;
-            }
-        }
-
-        async function fetchFromPubMed(url) {
-            try {
-                // Extract PMID from URL
-                const pmidMatch = url.match(/(?:pmid\/|PMID:\s*)(\d+)/i);
-                if (!pmidMatch) {
-                    throw new Error('Could not extract PMID from URL');
-                }
-                
-                const pmid = pmidMatch[1];
-                
-                // Use PubMed API (no CORS issues)
-                const apiUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=${pmid}&retmode=json`;
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                
-                if (!data.result || !data.result[pmid]) {
-                    throw new Error('Publication not found');
-                }
-                
-                const pubData = data.result[pmid];
-                
-                // Format authors
-                const authors = pubData.authors?.map(author => author.name)?.join(', ') || '';
-                
-                // Format journal info
-                const journal = `${pubData.fulljournalname || pubData.source || ''} ${pubData.volume ? `${pubData.volume}` : ''}${pubData.issue ? `(${pubData.issue})` : ''}${pubData.pages ? `, ${pubData.pages}` : ''}`.trim();
-                
-                return {
-                    title: pubData.title || '',
-                    authors: authors,
-                    journal: journal,
-                    year: parseInt(pubData.pubdate?.split(' ')[0]) || new Date().getFullYear(),
-                    citations: 0 // PubMed doesn't provide citation counts
-                };
-
-            } catch (error) {
-                console.error('PubMed fetch error:', error);
                 return null;
             }
         }
@@ -1148,7 +1105,6 @@
                                     ${statusBadge}
                                 </div>
                                 <div class="actions">
-                                    <a href="#" onclick="searchPubMed('${pub.title.replace(/'/g, "\\'")}')">🔍 PubMed</a>
                                     <a href="#" onclick="searchDOI('${pub.title.replace(/'/g, "\\'")}')">📄 DOI</a>
                                     ${adminActions}
                                 </div>
@@ -1199,11 +1155,6 @@
         }
 
         // Utility Functions
-        function searchPubMed(title) {
-            const query = encodeURIComponent(title);
-            window.open(`https://pubmed.ncbi.nlm.nih.gov/?term=${query}`, '_blank');
-        }
-
         function searchDOI(title) {
             const query = encodeURIComponent(title);
             window.open(`https://www.crossref.org/guestquery/?q=${query}`, '_blank');
@@ -1226,7 +1177,7 @@
         // Auto-fill URL listener
         document.getElementById('pub-url').addEventListener('input', function() {
             const url = this.value;
-            if (url && (url.includes('scholar.google.com') || url.includes('pubmed') || url.includes('doi.org'))) {
+            if (url && (url.includes('scholar.google.com') || url.includes('doi.org'))) {
                 // Show hint that auto-fill is available
                 const loadingEl = document.getElementById('url-loading');
                 loadingEl.textContent = 'URL detected! Click "Auto-Fill from URL" to fetch details.';
