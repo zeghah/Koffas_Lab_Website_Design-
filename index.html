@@ -165,8 +165,8 @@
         }
         
         .connection-line {
-            stroke-width: 2;
-            opacity: 0.7;
+            stroke-width: 1.5;
+            opacity: 0.5;
             stroke-linecap: round;
         }
         
@@ -533,22 +533,43 @@
         const width = 500;
         const height = 500;
         
-        // Define proteins with their properties
+        // Define proteins with their properties - cleaner network with fewer connections
         const proteins = [
-            { id: 'n1', x: 250, y: 150, size: 35, color: 'url(#proteinGradient1)', connections: ['n2', 'n3', 'n8'] },
-            { id: 'n2', x: 400, y: 133, size: 22, color: 'url(#proteinGradient2)', connections: ['n1', 'n4', 'n9'] },
+            // Original core nodes with streamlined connections
+            { id: 'n1', x: 250, y: 150, size: 35, color: 'url(#proteinGradient1)', connections: ['n2', 'n8', 'n21'] },
+            { id: 'n2', x: 400, y: 133, size: 22, color: 'url(#proteinGradient2)', connections: ['n1', 'n4', 'n22'] },
             { id: 'n3', x: 117, y: 183, size: 28, color: 'url(#proteinGradient3)', connections: ['n1', 'n5'] },
             { id: 'n4', x: 433, y: 200, size: 18, color: 'url(#proteinGradient4)', connections: ['n2', 'n6'] },
             { id: 'n5', x: 67, y: 250, size: 32, color: 'url(#proteinGradient5)', connections: ['n3', 'n7'] },
-            { id: 'n6', x: 375, y: 267, size: 25, color: 'url(#proteinGradient6)', connections: ['n4', 'n8', 'n13'] },
-            { id: 'n7', x: 150, y: 317, size: 20, color: 'url(#proteinGradient1)', connections: ['n5', 'n9'] },
-            { id: 'n8', x: 317, y: 167, size: 24, color: 'url(#proteinGradient2)', connections: ['n1', 'n6'] },
-            { id: 'n9', x: 350, y: 233, size: 19, color: 'url(#proteinGradient3)', connections: ['n2', 'n7'] },
-            { id: 'n12', x: 100, y: 292, size: 29, color: 'url(#proteinGradient6)', connections: ['n13', 'n19'] },
-            { id: 'n13', x: 400, y: 317, size: 23, color: 'url(#proteinGradient1)', connections: ['n6', 'n12', 'n20'] },
-            { id: 'n14', x: 233, y: 350, size: 17, color: 'url(#proteinGradient2)', connections: ['n19'] },
-            { id: 'n19', x: 200, y: 292, size: 20, color: 'url(#proteinGradient1)', connections: ['n12', 'n14', 'n20'] },
-            { id: 'n20', x: 317, y: 350, size: 24, color: 'url(#proteinGradient2)', connections: ['n13', 'n19'] }
+            { id: 'n6', x: 375, y: 267, size: 25, color: 'url(#proteinGradient6)', connections: ['n4', 'n13'] },
+            { id: 'n7', x: 150, y: 317, size: 20, color: 'url(#proteinGradient1)', connections: ['n5', 'n12'] },
+            { id: 'n8', x: 317, y: 167, size: 24, color: 'url(#proteinGradient2)', connections: ['n1', 'n9'] },
+            { id: 'n9', x: 350, y: 233, size: 19, color: 'url(#proteinGradient3)', connections: ['n8', 'n6'] },
+            { id: 'n12', x: 100, y: 292, size: 29, color: 'url(#proteinGradient6)', connections: ['n7', 'n19'] },
+            { id: 'n13', x: 400, y: 317, size: 23, color: 'url(#proteinGradient1)', connections: ['n6', 'n20'] },
+            { id: 'n14', x: 233, y: 350, size: 17, color: 'url(#proteinGradient2)', connections: ['n19', 'n32'] },
+            { id: 'n19', x: 200, y: 292, size: 20, color: 'url(#proteinGradient1)', connections: ['n12', 'n14'] },
+            { id: 'n20', x: 317, y: 350, size: 24, color: 'url(#proteinGradient2)', connections: ['n13', 'n34'] },
+            
+            // New strategic nodes with minimal, clean connections
+            { id: 'n21', x: 150, y: 67, size: 21, color: 'url(#proteinGradient3)', connections: ['n1', 'n28'] },
+            { id: 'n22', x: 450, y: 83, size: 26, color: 'url(#proteinGradient4)', connections: ['n2', 'n24'] },
+            { id: 'n23', x: 50, y: 150, size: 19, color: 'url(#proteinGradient5)', connections: ['n3', 'n35'] },
+            { id: 'n24', x: 467, y: 150, size: 22, color: 'url(#proteinGradient6)', connections: ['n22', 'n26'] },
+            { id: 'n25', x: 33, y: 200, size: 25, color: 'url(#proteinGradient1)', connections: ['n5', 'n23'] },
+            { id: 'n26', x: 450, y: 233, size: 20, color: 'url(#proteinGradient2)', connections: ['n24', 'n29'] },
+            { id: 'n27', x: 83, y: 367, size: 18, color: 'url(#proteinGradient3)', connections: ['n7', 'n30'] },
+            { id: 'n28', x: 300, y: 67, size: 23, color: 'url(#proteinGradient4)', connections: ['n21', 'n22'] },
+            { id: 'n29', x: 417, y: 183, size: 17, color: 'url(#proteinGradient5)', connections: ['n26', 'n4'] },
+            { id: 'n30', x: 67, y: 333, size: 27, color: 'url(#proteinGradient6)', connections: ['n27', 'n12'] },
+            { id: 'n31', x: 433, y: 367, size: 21, color: 'url(#proteinGradient1)', connections: ['n13', 'n34'] },
+            { id: 'n32', x: 183, y: 400, size: 16, color: 'url(#proteinGradient2)', connections: ['n14', 'n27'] },
+            { id: 'n33', x: 150, y: 250, size: 19, color: 'url(#proteinGradient3)', connections: ['n19', 'n25'] },
+            { id: 'n34', x: 367, y: 400, size: 22, color: 'url(#proteinGradient4)', connections: ['n20', 'n31'] },
+            
+            // Top-left nodes with clean connections
+            { id: 'n35', x: 83, y: 83, size: 18, color: 'url(#proteinGradient5)', connections: ['n23', 'n36'] },
+            { id: 'n36', x: 33, y: 117, size: 16, color: 'url(#proteinGradient6)', connections: ['n35', 'n25'] }
         ];
         
         // Create connections array
@@ -591,11 +612,13 @@
             line.setAttribute('id', `line-${conn.id}`);
             svg.appendChild(line);
             
-            // Create animated particles
+            // Create animated particles - reduced quantity
             createParticleAnimation(conn.source, conn.target, connectionColors[index % connectionColors.length], index);
-            createParticleAnimation(conn.source, conn.target, connectionColors[index % connectionColors.length], index + uniqueConnections.length);
-            createParticleAnimation(conn.target, conn.source, connectionColors[index % connectionColors.length], index + uniqueConnections.length * 2);
-            createParticleAnimation(conn.target, conn.source, connectionColors[index % connectionColors.length], index + uniqueConnections.length * 3);
+            
+            // Add second particle only for select connections (every 3rd connection)
+            if (index % 3 === 0) {
+                createParticleAnimation(conn.source, conn.target, connectionColors[index % connectionColors.length], index + uniqueConnections.length);
+            }
         });
         
         // Draw protein nodes
