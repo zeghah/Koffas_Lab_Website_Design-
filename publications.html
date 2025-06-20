@@ -706,7 +706,7 @@
         // Load data from external JSON file
         async function loadFromExternalFile() {
             try {
-                const response = await fetch('./projects/koffas-publications.json?' + new Date().getTime()); // Cache busting
+                const response = await fetch('./projects/koffas-publications.json' + new Date().getTime()); // Cache busting
                 if (response.ok) {
                     const data = await response.json();
                     console.log('Loaded publications from external file:', data.length);
