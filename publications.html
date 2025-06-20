@@ -461,10 +461,6 @@
             color: white;
         }
 
-        .type-patent {
-            background: var(--purple);
-            color: white;
-        }
 
         /* Messages */
         .message {
@@ -552,20 +548,19 @@
             <div class="content-wrapper">
                 <!-- Page Header -->
                 <div class="page-header">
-                    <h1>Publications & Patents</h1>
+                    <h1>Publications</h1>
                     <p>Complete research contributions from the Koffas Lab</p>
                 </div>
 
                 <!-- Add Publication Form -->
                 <div id="add-publication-form" class="add-publication-form">
-                    <h3 style="margin-bottom: 20px; color: var(--sage-darker);">Add New Publication or Patent</h3>
+                    <h3 style="margin-bottom: 20px; color: var(--sage-darker);">Add New Publication</h3>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="pub-type">Type</label>
                             <select id="pub-type" onchange="toggleFormFields()">
                                 <option value="publication">Publication</option>
-                                <option value="patent">Patent</option>
                             </select>
                         </div>
                         <div class="form-group">
