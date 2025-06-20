@@ -135,17 +135,18 @@
             line-height: 1.2;
         }
 
-        /* Network Visualization Container - Seamless design */
+        /* Network Visualization Container - Mobile responsive */
         .visualization-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 500px;
-            width: 500px;
+            height: min(500px, 40vh);
+            width: min(500px, 90vw);
+            max-width: 500px;
             flex-shrink: 0;
             opacity: 0;
             animation: fadeIn 1s ease 0.6s forwards;
-            overflow: hidden;
+            overflow: visible;
             background: transparent;
             position: relative;
         }
@@ -153,6 +154,9 @@
         .visualization-container svg {
             width: 100%;
             height: 100%;
+            max-width: 500px;
+            max-height: 500px;
+            overflow: visible;
         }
         
         .protein-node {
@@ -232,19 +236,6 @@
             font-size: 1.1rem;
             text-align: center;
             padding: 20px;
-        }
-
-        .hero-subtitle {
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.8s forwards;
-            margin-bottom: 1rem;
-        }
-
-        .hero-subtitle p {
-            font-size: 1.2rem;
-            color: var(--gray-medium);
-            margin-bottom: 0;
-            line-height: 1.6;
         }
 
         .hero-buttons {
@@ -387,7 +378,7 @@
             }
 
             .content-wrapper {
-                padding: 30px 20px 60px 20px;
+                padding: 20px 15px 40px 15px;
                 height: auto;
                 margin: 10px auto 0 auto;
             }
@@ -414,19 +405,48 @@
 
             /* Mobile visualization adjustments */
             .visualization-container {
-                height: 400px;
-                width: 400px;
-                max-width: 400px;
+                height: min(350px, 35vh);
+                width: min(350px, 85vw);
+                max-width: 350px;
                 margin: 0 auto;
-            }
-
-            .network-iframe, .iframe-fallback {
-                width: 100%;
-                height: 100%;
             }
 
             .features-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .hero-title h1 {
+                font-size: 1.8rem;
+            }
+            
+            .visualization-container {
+                height: min(280px, 30vh);
+                width: min(280px, 90vw);
+                max-width: 280px;
+            }
+            
+            .content-wrapper {
+                padding: 15px 10px 30px 10px;
+            }
+            
+            .hero-content {
+                gap: 1rem;
+            }
+        }
+
+        /* Landscape mobile phones */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .hero-content {
+                flex-direction: row;
+                gap: 1rem;
+            }
+            
+            .visualization-container {
+                height: min(250px, 50vh);
+                width: min(250px, 40vw);
             }
         }
     </style>
@@ -493,12 +513,17 @@
                                     <stop offset="0%" style="stop-color:#a5c1a0;stop-opacity:1" />
                                     <stop offset="100%" style="stop-color:#6e856e;stop-opacity:1" />
                                 </radialGradient>
+                                <!-- Purple gradient for super-boost -->
+                                <radialGradient id="purpleBoostGradient" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" style="stop-color:#b794f6;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#553c9a;stop-opacity:1" />
+                                </radialGradient>
                             </defs>
                         </svg>
                     </div>
                 </div>
 
-                
+               
 
     <script>
         // Network visualization code
@@ -506,7 +531,11 @@
         const width = 500;
         const height = 500;
         
-        // Define proteins with their properties - cleaner network with fewer connections
+        // Set SVG to allow overflow
+        svg.setAttribute('width', '100%');
+        svg.setAttribute('height', '100%');
+        
+        // Define proteins with their properties - back to original size
         const proteins = [
             // Original core nodes with streamlined connections
             { id: 'n1', x: 250, y: 150, size: 35, color: 'url(#proteinGradient1)', connections: ['n2', 'n8', 'n21'] },
@@ -602,22 +631,40 @@
             
             protein.energyLevel = 0;
             protein.clickCount = 0; // Track clicks for this protein
-            protein.lastClickTime = 0; // Track when last clicked
+            protein.isPurpleBoosted = false; // Track if this protein has purple boost
+            protein.purpleBoostTime = 0; // Track when purple boost was applied
             
             // Add click event listener for interactive energy boost
             group.addEventListener('click', function(e) {
                 e.stopPropagation();
                 
-                // Increase energy and click count
+                // Increase click count and energy
                 protein.clickCount++;
-                protein.lastClickTime = Date.now();
-                changeEnergyLevel(protein.id, 2); // Add 2 energy points per click
                 
-                // Add more particles to the system
-                addBonusParticles(protein, protein.clickCount);
-                
-                // Start rapid energy diffusion
-                startEnergyDiffusion(protein);
+                // Check if we've reached purple boost threshold (5 clicks)
+                if (protein.clickCount >= 5 && !protein.isPurpleBoosted) {
+                    protein.isPurpleBoosted = true;
+                    protein.purpleBoostTime = Date.now();
+                    changeToMagicalColor(protein.id);
+                    
+                    // Create spectacular purple particle effects
+                    createPurpleBoostEffects(protein);
+                    
+                    // Schedule purple boost removal after 5 seconds
+                    setTimeout(() => {
+                        protein.isPurpleBoosted = false;
+                        protein.clickCount = 0; // Reset click count
+                        // Return to normal energy system
+                        changeEnergyLevel(protein.id, 0); // This will reset to base color
+                    }, 5000);
+                    
+                } else if (!protein.isPurpleBoosted) {
+                    // Regular energy boost (only if not purple boosted)
+                    changeEnergyLevel(protein.id, 2);
+                    
+                    // Add more particles to the system
+                    addBonusParticles(protein, protein.clickCount);
+                }
                 
                 // Visual feedback - quick pulse effect
                 const allElements = group.querySelectorAll('circle, line');
@@ -631,8 +678,14 @@
             });
             
             const createEnergyFluctuation = () => {
-                // Don't auto-decrease if manually boosted recently
-                if (protein.clickCount === 0) {
+                // Check if purple boost has expired
+                if (protein.isPurpleBoosted && (Date.now() - protein.purpleBoostTime > 5000)) {
+                    protein.isPurpleBoosted = false;
+                    protein.clickCount = 0;
+                }
+                
+                // Don't auto-decrease if purple boosted
+                if (!protein.isPurpleBoosted) {
                     const change = Math.random() < 0.5 ? 1 : -1;
                     changeEnergyLevel(protein.id, change);
                 }
@@ -763,7 +816,10 @@
             const protein = proteins.find(p => p.id === proteinId);
             if (!protein) return;
             
-            protein.energyLevel = Math.max(-3, Math.min(15, protein.energyLevel + change)); // Extended range for clicks
+            // If purple boosted, don't change energy until boost expires
+            if (protein.isPurpleBoosted) return;
+            
+            protein.energyLevel = Math.max(-3, Math.min(5, protein.energyLevel + change));
             const newColor = getEnergyColor(protein.energyLevel);
             
             const outerRing = document.querySelector(`#outer-ring-${proteinId}`);
@@ -779,16 +835,34 @@
             restrictions.forEach(site => site.setAttribute('stroke', newColor));
         }
         
+        function changeToMagicalColor(proteinId) {
+            const protein = proteins.find(p => p.id === proteinId);
+            if (!protein) return;
+            
+            // Purple colors for the magical boost
+            const purpleColor = '#9f7aea'; // Beautiful purple
+            const darkPurple = '#553c9a';
+            
+            const outerRing = document.querySelector(`#outer-ring-${proteinId}`);
+            const innerRing = document.querySelector(`#inner-ring-${proteinId}`);
+            const center = document.querySelector(`#center-${proteinId}`);
+            const glow = document.querySelector(`#glow-${proteinId}`);
+            const restrictions = document.querySelectorAll(`.restriction-${proteinId}`);
+            
+            if (outerRing) outerRing.setAttribute('stroke', purpleColor);
+            if (innerRing) innerRing.setAttribute('stroke', purpleColor);
+            if (center) center.setAttribute('fill', darkPurple);
+            if (glow) glow.setAttribute('fill', purpleColor);
+            restrictions.forEach(site => site.setAttribute('stroke', purpleColor));
+        }
+        
         function getEnergyColor(energyLevel) {
-            // Extended color range for higher energy levels from clicks
             const colors = [
-                '#f8faf8', '#e6f0e6', '#c8d6c8', '#a7c4a0', '#9bb8c4', // Original range
-                '#7a9db4', '#5f7a8a', '#4a6570', '#3d5560', '#2d4550', // Mid range
-                '#1e3540', '#152a35', '#0d1f2a', '#061520', '#020c15', // High energy (dark)
-                '#010609', '#000304', '#000102', '#000001', '#000000'  // Maximum energy (black)
+                '#f8faf8', '#e6f0e6', '#c8d6c8', '#a7c4a0', '#9bb8c4',
+                '#7a9db4', '#5f7a8a', '#4a6570', '#3d5560'
             ];
             const index = energyLevel + 3;
-            return colors[Math.max(0, Math.min(colors.length - 1, index))];
+            return colors[Math.max(0, Math.min(8, index))];
         }
         
         function addBonusParticles(sourceProtein, clickCount) {
@@ -810,105 +884,143 @@
             }
         }
         
-        function startEnergyDiffusion(sourceProtein) {
-            // Calculate diffusion rate based on energy level (higher energy = faster diffusion)
-            const diffusionRate = Math.min(sourceProtein.energyLevel * 150, 800); // Max 800ms intervals
-            const totalDiffusionTime = 5000; // 5 seconds total diffusion
-            const diffusionSteps = Math.floor(totalDiffusionTime / diffusionRate);
+        function createPurpleBoostEffects(sourceProtein) {
+            // Create spectacular purple particle burst
+            for (let i = 0; i < 12; i++) {
+                createPurpleSparkle(sourceProtein, i);
+            }
             
-            let currentStep = 0;
-            
-            const diffusionInterval = setInterval(() => {
-                if (currentStep >= diffusionSteps || sourceProtein.energyLevel <= 0) {
-                    clearInterval(diffusionInterval);
-                    return;
-                }
-                
-                // Decrease energy by 1 unit each step
-                if (sourceProtein.energyLevel > 0) {
-                    changeEnergyLevel(sourceProtein.id, -1);
-                    
-                    // Create visible energy transfer particles
-                    createEnergyDiffusionParticles(sourceProtein);
-                }
-                
-                currentStep++;
-            }, diffusionRate);
-        }
-        
-        function createEnergyDiffusionParticles(sourceProtein) {
-            // Create particles that flow away from the high-energy protein
+            // Create purple waves to all connected nodes
             sourceProtein.connections.forEach((targetId, index) => {
                 const targetProtein = proteins.find(p => p.id === targetId);
                 if (targetProtein) {
-                    // Create fast-moving diffusion particle
-                    createDiffusionParticle(sourceProtein, targetProtein, index * 0.1);
+                    for (let i = 0; i < 3; i++) {
+                        createPurpleWave(sourceProtein, targetProtein, i * 0.2);
+                    }
                 }
             });
             
-            // Also create some particles that flow to nearby non-connected proteins (simulating diffusion)
-            const nearbyProteins = proteins.filter(p => {
-                if (p.id === sourceProtein.id) return false;
-                const distance = Math.sqrt(
-                    Math.pow(p.x - sourceProtein.x, 2) + Math.pow(p.y - sourceProtein.y, 2)
-                );
-                return distance < 120; // Within diffusion range
-            });
-            
-            nearbyProteins.slice(0, 2).forEach((nearbyProtein, index) => {
-                createDiffusionParticle(sourceProtein, nearbyProtein, index * 0.2);
-            });
+            // Create magical orbital ring
+            createMagicalRing(sourceProtein);
         }
         
-        function createDiffusionParticle(source, target, delay) {
+        function createPurpleSparkle(centerProtein, index) {
             const particle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            particle.setAttribute('class', 'diffusion-particle');
-            particle.setAttribute('fill', '#a7c4a0'); // Always sage green for diffusion
-            particle.setAttribute('r', '2');
+            particle.setAttribute('class', 'purple-sparkle');
+            particle.setAttribute('fill', '#b794f6');
+            particle.setAttribute('r', '3');
+            particle.setAttribute('opacity', '0');
+            
+            const angle = (index * 30) * Math.PI / 180; // 12 particles in circle
+            const distance = 60;
+            const endX = centerProtein.x + distance * Math.cos(angle);
+            const endY = centerProtein.y + distance * Math.sin(angle);
+            
+            const animateX = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+            animateX.setAttribute('attributeName', 'cx');
+            animateX.setAttribute('values', `${centerProtein.x};${endX}`);
+            animateX.setAttribute('dur', '1.5s');
+            animateX.setAttribute('fill', 'remove');
+            
+            const animateY = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+            animateY.setAttribute('attributeName', 'cy');
+            animateY.setAttribute('values', `${centerProtein.y};${endY}`);
+            animateY.setAttribute('dur', '1.5s');
+            animateY.setAttribute('fill', 'remove');
+            
+            const animateOpacity = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+            animateOpacity.setAttribute('attributeName', 'opacity');
+            animateOpacity.setAttribute('values', '0;1;0');
+            animateOpacity.setAttribute('dur', '1.5s');
+            animateOpacity.setAttribute('fill', 'remove');
+            
+            particle.appendChild(animateX);
+            particle.appendChild(animateY);
+            particle.appendChild(animateOpacity);
+            
+            svg.appendChild(particle);
+            
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 1600);
+        }
+        
+        function createPurpleWave(source, target, delay) {
+            const particle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            particle.setAttribute('class', 'purple-wave');
+            particle.setAttribute('fill', '#9f7aea');
+            particle.setAttribute('r', '4');
             particle.setAttribute('opacity', '0');
             
             const animateX = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
             animateX.setAttribute('attributeName', 'cx');
             animateX.setAttribute('values', `${source.x};${target.x}`);
-            animateX.setAttribute('dur', '0.8s'); // Fast diffusion
+            animateX.setAttribute('dur', '1s');
             animateX.setAttribute('begin', `${delay}s`);
             animateX.setAttribute('fill', 'remove');
             
             const animateY = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
             animateY.setAttribute('attributeName', 'cy');
             animateY.setAttribute('values', `${source.y};${target.y}`);
-            animateY.setAttribute('dur', '0.8s');
+            animateY.setAttribute('dur', '1s');
             animateY.setAttribute('begin', `${delay}s`);
             animateY.setAttribute('fill', 'remove');
             
             const animateOpacity = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
             animateOpacity.setAttribute('attributeName', 'opacity');
             animateOpacity.setAttribute('values', '0;0.9;0');
-            animateOpacity.setAttribute('dur', '0.8s');
+            animateOpacity.setAttribute('dur', '1s');
             animateOpacity.setAttribute('begin', `${delay}s`);
             animateOpacity.setAttribute('fill', 'remove');
-            
-            // Size animation to show energy dissipating
-            const animateSize = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
-            animateSize.setAttribute('attributeName', 'r');
-            animateSize.setAttribute('values', '2;1;0.5');
-            animateSize.setAttribute('dur', '0.8s');
-            animateSize.setAttribute('begin', `${delay}s`);
-            animateSize.setAttribute('fill', 'remove');
             
             particle.appendChild(animateX);
             particle.appendChild(animateY);
             particle.appendChild(animateOpacity);
-            particle.appendChild(animateSize);
             
             svg.appendChild(particle);
             
-            // Remove particle after animation
             setTimeout(() => {
                 if (particle.parentNode) {
                     particle.parentNode.removeChild(particle);
                 }
-            }, (delay + 0.8) * 1000 + 100);
+            }, (delay + 1) * 1000 + 100);
+        }
+        
+        function createMagicalRing(centerProtein) {
+            const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            ring.setAttribute('class', 'magical-ring');
+            ring.setAttribute('cx', centerProtein.x);
+            ring.setAttribute('cy', centerProtein.y);
+            ring.setAttribute('r', centerProtein.size + 20);
+            ring.setAttribute('fill', 'none');
+            ring.setAttribute('stroke', '#b794f6');
+            ring.setAttribute('stroke-width', '3');
+            ring.setAttribute('opacity', '0');
+            
+            const animateOpacity = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+            animateOpacity.setAttribute('attributeName', 'opacity');
+            animateOpacity.setAttribute('values', '0;0.8;0');
+            animateOpacity.setAttribute('dur', '2s');
+            animateOpacity.setAttribute('fill', 'remove');
+            
+            const animateRadius = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+            animateRadius.setAttribute('attributeName', 'r');
+            animateRadius.setAttribute('values', `${centerProtein.size + 20};${centerProtein.size + 50}`);
+            animateRadius.setAttribute('dur', '2s');
+            animateRadius.setAttribute('fill', 'remove');
+            
+            ring.appendChild(animateOpacity);
+            ring.appendChild(animateRadius);
+            
+            svg.appendChild(ring);
+            
+            setTimeout(() => {
+                if (ring.parentNode) {
+                    ring.parentNode.removeChild(ring);
+                }
+            }, 2100);
         }
         
         function createBonusParticle(source, target, delay) {
@@ -945,7 +1057,6 @@
             
             svg.appendChild(particle);
             
-            // Remove particle after animation
             setTimeout(() => {
                 if (particle.parentNode) {
                     particle.parentNode.removeChild(particle);
@@ -961,7 +1072,7 @@
             particle.setAttribute('opacity', '0.8');
             
             const radius = centerProtein.size + 15 + (index * 5);
-            const startAngle = index * 60; // Different starting positions
+            const startAngle = index * 60;
             
             const animateX = document.createElementNS('http://www.w3.org/2000/svg', 'animateTransform');
             animateX.setAttribute('attributeName', 'transform');
@@ -975,7 +1086,6 @@
             animateOpacity.setAttribute('values', '0;0.8;0.8;0');
             animateOpacity.setAttribute('dur', '6s');
             
-            // Position the particle at the orbital radius
             particle.setAttribute('cx', centerProtein.x + radius * Math.cos(startAngle * Math.PI / 180));
             particle.setAttribute('cy', centerProtein.y + radius * Math.sin(startAngle * Math.PI / 180));
             
@@ -984,7 +1094,6 @@
             
             svg.appendChild(particle);
             
-            // Remove orbital particle after animation
             setTimeout(() => {
                 if (particle.parentNode) {
                     particle.parentNode.removeChild(particle);
