@@ -533,22 +533,13 @@
                     <p>Complete research contributions from the Koffas Lab</p>
                 </div>
 
-                <!-- Discrete Admin Login -->
-                <div id="discrete-login" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-                    <div id="login-trigger" style="background: var(--sage-medium); color: white; padding: 8px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; opacity: 0.7; transition: opacity 0.3s;">
-                        Admin
+                <!-- Admin Controls -->
+                <div class="admin-controls">
+                    <div id="login-section" class="login-section">
+                        <input type="password" id="admin-password" placeholder="Lab member password">
+                        <button class="btn btn-primary" onclick="login()">Login</button>
                     </div>
-                    <div id="login-box" style="display: none; position: absolute; bottom: 40px; right: 0; background: white; border: 1px solid var(--sage-medium); border-radius: 8px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); min-width: 200px;">
-                        <div id="login-section" class="login-section" style="flex-direction: column; gap: 8px;">
-                            <input type="password" id="admin-password" placeholder="Password" style="width: 100%; padding: 6px 8px; border: 1px solid var(--sage-medium); border-radius: 4px; font-size: 0.85rem;">
-                            <button class="btn btn-primary" onclick="login()" style="width: 100%; padding: 6px; font-size: 0.85rem;">Login</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Admin Controls (shown after login) -->
-                <div id="admin-controls" class="admin-controls" style="display: none;">
-                    <div id="admin-section">
+                    <div id="admin-section" style="display: none;">
                         <span>Welcome, Lab Member!</span>
                         <button class="btn btn-success" onclick="toggleAddForm()">Add Publication</button>
                         <button class="btn btn-secondary" onclick="logout()">Logout</button>
@@ -739,76 +730,11 @@
             document.getElementById('login-section').style.display = 'flex';
             document.getElementById('admin-section').style.display = 'none';
             document.getElementById('add-publication-form').style.display = 'none';
-        // Publication Management Functions
+            renderPublications(); // Re-render to hide admin actions
+        }
+
+        // Publication Management
         function toggleAddForm() {
-            const form = document.getElementById('add-publication-form');
-            const isVisible = form.style.display !== 'none';
-            form.style.display = isVisible ? 'none' : 'block';
-            
-            if (!isVisible) {
-                clearForm();
-            }
-        }
-
-        function addPublication() {
-            const title = document.getElementById('pub-title').value;
-            const authors = document.getElementById('pub-authors').value;
-            const journal = document.getElementById('pub-journal').value;
-            const year = parseInt(document.getElementById('pub-year').value);
-            const citations = parseInt(document.getElementById('pub-citations').value) || 0;
-            const url = document.getElementById('pub-url').value;
-            const status = document.getElementById('pub-status').value;
-
-            if (!title || !authors || !year) {
-                showMessage('Please fill in at least title, authors, and year.', 'error');
-                return;
-            }
-
-            const newPublication = {
-                id: Date.now(),
-                title,
-                authors,
-                journal: journal || 'Journal information not available',
-                year,
-                citations,
-                url: url || '#',
-                status,
-                dateAdded: new Date().toISOString()
-            };
-
-            allPublications.unshift(newPublication);
-            filteredPublications = [...allPublications];
-            saveData();
-            updateStats();
-            renderPublications();
-            toggleAddForm();
-            
-            showMessage('Publication added successfully!', 'success');
-        }
-
-        function deletePublication(id) {
-            if (confirm('Are you sure you want to delete this publication?')) {
-                allPublications = allPublications.filter(pub => pub.id !== id);
-                filteredPublications = [...allPublications];
-                saveData();
-                updateStats();
-                renderPublications();
-                showMessage('Publication deleted.', 'info');
-            }
-        }
-
-        function toggleStatus(id) {
-            const pub = allPublications.find(p => p.id === id);
-            if (pub) {
-                pub.status = pub.status === 'approved' ? 'pending' : 'approved';
-                saveData();
-                renderPublications();
-                showMessage(`Publication status changed to ${pub.status}.`, 'info');
-            }
-        }
-
-        // Data Initialization
-        function initializeData() {
             const form = document.getElementById('add-publication-form');
             const isVisible = form.style.display !== 'none';
             form.style.display = isVisible ? 'none' : 'block';
@@ -1270,555 +1196,26 @@
                 toggleAddForm();
             }
             
-            // Escape to close form or login box
+            // Escape to close form
             if (e.key === 'Escape') {
                 const form = document.getElementById('add-publication-form');
-                const loginBox = document.getElementById('login-box');
-                
                 if (form.style.display !== 'none') {
                     toggleAddForm();
-                } else if (loginBox.style.display !== 'none') {
-                    loginBox.style.display = 'none';
                 }
-            }
-            
-            // Enter to login when in password field
-            if (e.key === 'Enter' && e.target.id === 'admin-password') {
-                login();
             }
         });
 
-        // Close login box when clicking outside
-        document.addEventListener('click', function(e) {
-            const loginBox = document.getElementById('login-box');
-            const loginTrigger = document.getElementById('login-trigger');
-            
-            if (loginBox.style.display !== 'none' && 
-                !loginBox.contains(e.target) && 
-                !loginTrigger.contains(e.target)) {
-                loginBox.style.display = 'none';
-            }
-        });
-
-        // Data Initialization
-        function initializeData() {
-            const savedData = JSON.parse(localStorage.getItem('koffasPublications') || '[]');
-            
-            if (savedData.length === 0) {
-                // Load demo data
-                allPublications = [
-                    {
-                        id: 1,
-                        title: "Metabolic burden: cornerstones in synthetic biology and metabolic engineering applications",
-                        authors: "G Wu, Q Yan, JA Jones, YJ Tang, SS Fong, MAG Koffas",
-                        journal: "Trends in biotechnology 34 (8), 652-664",
-                        year: 2016,
-                        citations: 660,
-                        url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ&citation_for_view=iibrJwkAAAAJ:2osOgNQ5qMEC",
-                        status: "approved",
-                        dateAdded: new Date().toISOString()
-                    },
-                    {
-                        id: 2,
-                        title: "Modular optimization of multi-gene pathways for fatty acids production in E. coli",
-                        authors: "P Xu, Q Gu, W Wang, L Wong, AGW Bower, CH Collins, MAG Koffas",
-                        journal: "Nature communications 4 (1), 1409",
-                        year: 2013,
-                        citations: 574,
-                        url: "#",
-                        status: "approved",
-                        dateAdded: new Date().toISOString()
-                    },
-                    {
-                        id: 3,
-                        title: "Advanced synthetic biology approaches for sustainable biomanufacturing",
-                        authors: "MAG Koffas, P Chen, L Wang, J Smith",
-                        journal: "Nature Biotechnology 42 (3), 123-134",
-                        year: 2024,
-                        citations: 23,
-                        url: "#",
-                        status: "approved",
-                        dateAdded: new Date().toISOString()
-                    },
-                    {
-                        id: 4,
-                        title: "Engineering microbial factories for complex molecule production",
-                        authors: "L Zhang, M Rodriguez, MAG Koffas",
-                        journal: "Current Opinion in Biotechnology 73, 45-52",
-                        year: 2025,
-                        citations: 5,
-                        url: "#",
-                        status: "pending",
-                        dateAdded: new Date().toISOString()
-                    }
-                ];
-                saveData();
-            } else {
-                allPublications = savedData;
-            }
-            
-            filteredPublications = [...allPublications];
-            updateStats();
-            renderPublications();
-        }
-
-        // Statistics Functions
-        function updateStats() {
-            const approvedPubs = allPublications.filter(pub => pub.status === 'approved');
-            const totalPubs = approvedPubs.length;
-            const totalCitations = approvedPubs.reduce((sum, pub) => sum + pub.citations, 0);
-            const years = approvedPubs.map(pub => pub.year);
-            const yearsActive = years.length > 0 ? Math.max(...years) - Math.min(...years) + 1 : 0;
-            
-            // Calculate H-index
-            const sortedCitations = approvedPubs.map(pub => pub.citations).sort((a, b) => b - a);
-            let hIndex = 0;
-            for (let i = 0; i < sortedCitations.length; i++) {
-                if (sortedCitations[i] >= i + 1) {
-                    hIndex = i + 1;
-                }
-            }
-            
-            document.getElementById('total-pubs').textContent = totalPubs;
-            document.getElementById('total-citations').textContent = totalCitations.toLocaleString();
-            document.getElementById('h-index').textContent = hIndex;
-            document.getElementById('years-active').textContent = yearsActive;
-        }
-
-        // Auto-fill Functions
-        async function autoFetchDetails() {
-            const url = document.getElementById('pub-url').value;
-            if (!url) {
-                showMessage('Please enter a publication URL first.', 'error');
-                return;
-            }
-
-            const loadingEl = document.getElementById('url-loading');
-            loadingEl.style.display = 'block';
-            loadingEl.textContent = 'Fetching publication details...';
-
-            try {
-                let publicationData = null;
-
-                if (url.includes('scholar.google.com')) {
-                    publicationData = await fetchFromGoogleScholar(url);
-                } else if (url.includes('doi.org') || url.includes('dx.doi.org')) {
-                    publicationData = await fetchFromDOI(url);
-                } else if (url.includes('crossref.org')) {
-                    publicationData = await fetchFromCrossRef(url);
-                } else {
-                    // Try generic scraping
-                    publicationData = await fetchGeneric(url);
-                }
-
-                if (publicationData) {
-                    fillFormWithData(publicationData);
-                    showMessage('Publication details auto-filled! Please review and edit as needed.', 'success');
-                } else {
-                    showMessage('Could not extract publication details from this URL. Please fill manually.', 'error');
-                }
-
-            } catch (error) {
-                console.error('Auto-fetch error:', error);
-                showMessage('Error fetching publication details. Please fill manually.', 'error');
-            }
-            
-            loadingEl.style.display = 'none';
-        }
-
-        async function fetchFromGoogleScholar(url) {
-            try {
-                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-                const response = await fetch(proxyUrl);
-                const data = await response.json();
-                
-                if (!data.contents) {
-                    throw new Error('No content received');
-                }
-
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data.contents, 'text/html');
-
-                const title = doc.querySelector('#gsc_oci_title')?.textContent?.trim() ||
-                             doc.querySelector('.gsc_oci_title_link')?.textContent?.trim();
-                
-                const authors = doc.querySelector('.gsc_oci_author_new')?.textContent?.trim() ||
-                               doc.querySelector('.gsc_oci_author')?.textContent?.trim();
-                
-                const journalInfo = doc.querySelector('.gsc_oci_journal')?.textContent?.trim();
-                
-                const citationCount = doc.querySelector('.gsc_oci_citedby .gsc_oci_citedby_value')?.textContent?.trim();
-                
-                let year = new Date().getFullYear();
-                const yearMatch = journalInfo?.match(/(\d{4})/);
-                if (yearMatch) {
-                    year = parseInt(yearMatch[1]);
-                }
-
-                return {
-                    title: title || '',
-                    authors: authors || '',
-                    journal: journalInfo || '',
-                    year: year,
-                    citations: citationCount ? parseInt(citationCount) : 0
-                };
-
-            } catch (error) {
-                console.error('Google Scholar fetch error:', error);
-                return null;
-            }
-        }
-
-        async function fetchFromDOI(url) {
-            try {
-                const doiMatch = url.match(/10\.\d{4,}\/[^\s]+/);
-                if (!doiMatch) {
-                    throw new Error('Could not extract DOI from URL');
-                }
-                
-                const doi = doiMatch[0];
-                const apiUrl = `https://api.crossref.org/works/${doi}`;
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                
-                if (!data.message) {
-                    throw new Error('Publication not found');
-                }
-                
-                const work = data.message;
-                const authors = work.author?.map(author => 
-                    `${author.given || ''} ${author.family || ''}`.trim()
-                )?.join(', ') || '';
-                
-                const journal = `${work['container-title']?.[0] || ''} ${work.volume ? `${work.volume}` : ''}${work.issue ? `(${work.issue})` : ''}${work.page ? `, ${work.page}` : ''}`.trim();
-                const year = work.published?.['date-parts']?.[0]?.[0] || new Date().getFullYear();
-                
-                return {
-                    title: work.title?.[0] || '',
-                    authors: authors,
-                    journal: journal,
-                    year: year,
-                    citations: work['is-referenced-by-count'] || 0
-                };
-
-            } catch (error) {
-                console.error('DOI fetch error:', error);
-                return null;
-            }
-        }
-
-        async function fetchFromCrossRef(url) {
-            try {
-                const response = await fetch(url);
-                const text = await response.text();
-                
-                const doiMatch = text.match(/10\.\d{4,}\/[^\s"<>]+/);
-                if (doiMatch) {
-                    return await fetchFromDOI(`https://doi.org/${doiMatch[0]}`);
-                }
-                
-                return null;
-            } catch (error) {
-                console.error('CrossRef fetch error:', error);
-                return null;
-            }
-        }
-
-        async function fetchGeneric(url) {
-            try {
-                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-                const response = await fetch(proxyUrl);
-                const data = await response.json();
-                
-                if (!data.contents) {
-                    throw new Error('No content received');
-                }
-
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data.contents, 'text/html');
-
-                const title = doc.querySelector('meta[name="citation_title"]')?.getAttribute('content') ||
-                             doc.querySelector('meta[property="og:title"]')?.getAttribute('content') ||
-                             doc.querySelector('title')?.textContent?.trim() ||
-                             doc.querySelector('h1')?.textContent?.trim();
-
-                const authors = doc.querySelector('meta[name="citation_author"]')?.getAttribute('content') ||
-                               doc.querySelector('meta[name="author"]')?.getAttribute('content') ||
-                               doc.querySelector('meta[name="citation_authors"]')?.getAttribute('content');
-
-                const journal = doc.querySelector('meta[name="citation_journal_title"]')?.getAttribute('content') ||
-                               doc.querySelector('meta[name="citation_conference_title"]')?.getAttribute('content');
-
-                const yearMeta = doc.querySelector('meta[name="citation_publication_date"]')?.getAttribute('content') ||
-                                doc.querySelector('meta[name="citation_year"]')?.getAttribute('content');
-                
-                let year = new Date().getFullYear();
-                if (yearMeta) {
-                    const yearMatch = yearMeta.match(/(\d{4})/);
-                    if (yearMatch) {
-                        year = parseInt(yearMatch[1]);
-                    }
-                }
-
-                if (title) {
-                    return {
-                        title: title,
-                        authors: authors || '',
-                        journal: journal || '',
-                        year: year,
-                        citations: 0
-                    };
-                }
-
-                return null;
-            } catch (error) {
-                console.error('Generic fetch error:', error);
-                return null;
-            }
-        }
-
-        function fillFormWithData(data) {
-            if (data.title) document.getElementById('pub-title').value = data.title;
-            if (data.authors) document.getElementById('pub-authors').value = data.authors;
-            if (data.journal) document.getElementById('pub-journal').value = data.journal;
-            if (data.year) document.getElementById('pub-year').value = data.year;
-            if (data.citations !== undefined) document.getElementById('pub-citations').value = data.citations;
-        }
-
-        // Rendering Functions
-        function renderPublications() {
-            const container = document.getElementById('publications-container');
-            
-            const publicationsByYear = {};
-            filteredPublications.forEach(pub => {
-                if (!publicationsByYear[pub.year]) {
-                    publicationsByYear[pub.year] = [];
-                }
-                publicationsByYear[pub.year].push(pub);
-            });
-            
-            const sortedYears = Object.keys(publicationsByYear).sort((a, b) => b - a);
-            
-            let html = '';
-            sortedYears.forEach(year => {
-                const publications = publicationsByYear[year];
-                html += `
-                    <div class="year-section">
-                        <div class="year-header">
-                            ${year}
-                            <span class="year-count">${publications.length}</span>
-                        </div>
-                `;
-                
-                publications.forEach(pub => {
-                    const statusBadge = `<span class="status-badge status-${pub.status}">${pub.status}</span>`;
-                    const adminActions = isLoggedIn ? `
-                        <button class="btn btn-danger btn-small" onclick="deletePublication(${pub.id})">Delete</button>
-                        <button class="btn btn-secondary btn-small" onclick="toggleStatus(${pub.id})">Toggle Status</button>
-                    ` : '';
-                    
-                    html += `
-                        <div class="card">
-                            <div class="card-body">
-                                <h4><a href="${pub.url}" target="_blank">${pub.title}</a></h4>
-                                <p class="authors">${pub.authors}</p>
-                                <p class="journal">${pub.journal}</p>
-                            </div>
-                            <div class="card-footer">
-                                <div>
-                                    <small>Published in <strong>${pub.year}</strong> | Citations: <strong>${pub.citations}</strong></small>
-                                    ${statusBadge}
-                                </div>
-                                <div class="actions">
-                                    <a href="#" onclick="searchDOI('${pub.title.replace(/'/g, "\\'")}')">📄 DOI</a>
-                                    ${adminActions}
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                html += '</div>';
-            });
-            
-            if (html === '') {
-                html = '<p style="text-align: center; color: var(--gray-medium); padding: 40px;">No publications found matching current filters.</p>';
-            }
-            
-            container.innerHTML = html;
-        }
-
-        // Filter and Sort Functions
-        function filterPubs(type) {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if (type === 'all') {
-                filteredPublications = [...allPublications];
-            } else if (type === 'highly-cited') {
-                filteredPublications = allPublications.filter(pub => pub.citations >= 100);
-            } else if (type === 'recent') {
-                filteredPublications = allPublications.filter(pub => pub.year >= 2020);
-            }
-            
-            renderPublications();
-        }
-
-        function sortPubs(type) {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if (type === 'citations') {
-                filteredPublications.sort((a, b) => b.citations - a.citations);
-            } else if (type === 'year') {
-                filteredPublications.sort((a, b) => b.year - a.year);
-            }
-            
-            renderPublications();
-        }
-
-        // Data Management Functions
-        function exportData() {
-            const dataStr = JSON.stringify(allPublications, null, 2);
-            const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `koffas-lab-publications-${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            showMessage('Publications data exported successfully!', 'success');
-        }
-
-        function importData(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const importedData = JSON.parse(e.target.result);
-                    if (Array.isArray(importedData)) {
-                        allPublications = importedData;
-                        filteredPublications = [...allPublications];
-                        saveData();
-                        updateStats();
-                        renderPublications();
-                        showMessage(`Successfully imported ${importedData.length} publications!`, 'success');
-                    } else {
-                        throw new Error('Invalid file format');
-                    }
-                } catch (error) {
-                    showMessage('Error importing file. Please check the file format.', 'error');
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        function addDataManagementButtons() {
-            if (isLoggedIn) {
-                const adminSection = document.getElementById('admin-controls');
-                if (!document.getElementById('export-btn')) {
-                    const exportBtn = document.createElement('button');
-                    exportBtn.id = 'export-btn';
-                    exportBtn.className = 'btn btn-secondary';
-                    exportBtn.textContent = 'Export Data';
-                    exportBtn.onclick = exportData;
-                    
-                    const importBtn = document.createElement('input');
-                    importBtn.type = 'file';
-                    importBtn.accept = '.json';
-                    importBtn.style.display = 'none';
-                    importBtn.onchange = importData;
-                    
-                    const importBtnLabel = document.createElement('button');
-                    importBtnLabel.className = 'btn btn-secondary';
-                    importBtnLabel.textContent = 'Import Data';
-                    importBtnLabel.onclick = () => importBtn.click();
-                    
-                    const adminSectionInner = adminSection.querySelector('#admin-section');
-                    adminSectionInner.appendChild(exportBtn);
-                    adminSectionInner.appendChild(importBtn);
-                    adminSectionInner.appendChild(importBtnLabel);
-                }
-            }
-        }
-
-        // Event Listeners
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'n' && isLoggedIn) {
-                e.preventDefault();
-                toggleAddForm();
-            }
-            
-            if (e.key === 'Escape') {
-                const form = document.getElementById('add-publication-form');
-                const loginBox = document.getElementById('login-box');
-                
-                if (form.style.display !== 'none') {
-                    toggleAddForm();
-                } else if (loginBox.style.display !== 'none') {
-                    loginBox.style.display = 'none';
-                }
-            }
-            
-            if (e.key === 'Enter' && e.target.id === 'admin-password') {
-                login();
-            }
-        });
-
-        document.addEventListener('click', function(e) {
-            const loginBox = document.getElementById('login-box');
-            const loginTrigger = document.getElementById('login-trigger');
-            
-            if (loginBox.style.display !== 'none' && 
-                !loginBox.contains(e.target) && 
-                !loginTrigger.contains(e.target)) {
-                loginBox.style.display = 'none';
-            }
-        });
-
-        // Auto-fill URL listener
-        document.getElementById('pub-url')?.addEventListener('input', function() {
-            const url = this.value;
-            if (url && (url.includes('scholar.google.com') || url.includes('doi.org'))) {
-                const loadingEl = document.getElementById('url-loading');
-                loadingEl.textContent = 'URL detected! Click "Auto-Fill from URL" to fetch details.';
-                loadingEl.style.display = 'block';
-                loadingEl.style.color = 'var(--sage-dark)';
-            } else {
-                document.getElementById('url-loading').style.display = 'none';
-            }
-        });
-
-        // ===== INITIALIZATION AND EVENT LISTENERS =====
-        
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             initializeData();
             
-            // Add click event listener for login trigger
-            const loginTrigger = document.getElementById('login-trigger');
-            if (loginTrigger) {
-                loginTrigger.addEventListener('click', toggleLoginBox);
+            // Check if user was previously logged in (session-based)
+            const isSessionActive = sessionStorage.getItem('koffasLabSession');
+            if (isSessionActive === 'active') {
+                // Auto-login for session (but still require password on page refresh for security)
+                // This is just a UX enhancement - remove if you want full re-auth each time
             }
         });
-
-        // Save session state
-        window.addEventListener('beforeunload', function() {
-            if (isLoggedIn) {
-                sessionStorage.setItem('koffasLabSession', 'active');
-            } else {
-                sessionStorage.removeItem('koffasLabSession');
-            }
-        });
-    </script>
-</body>
-</html>
 
         // Save session state
         window.addEventListener('beforeunload', function() {
@@ -1874,7 +1271,7 @@
         // Add export/import buttons to admin section (you can add these to the HTML if needed)
         function addDataManagementButtons() {
             if (isLoggedIn) {
-                const adminSection = document.getElementById('admin-controls');
+                const adminSection = document.getElementById('admin-section');
                 if (!document.getElementById('export-btn')) {
                     const exportBtn = document.createElement('button');
                     exportBtn.id = 'export-btn';
@@ -1893,10 +1290,9 @@
                     importBtnLabel.textContent = 'Import Data';
                     importBtnLabel.onclick = () => importBtn.click();
                     
-                    const adminSectionInner = adminSection.querySelector('#admin-section');
-                    adminSectionInner.appendChild(exportBtn);
-                    adminSectionInner.appendChild(importBtn);
-                    adminSectionInner.appendChild(importBtnLabel);
+                    adminSection.appendChild(exportBtn);
+                    adminSection.appendChild(importBtn);
+                    adminSection.appendChild(importBtnLabel);
                 }
             }
         }
@@ -1906,8 +1302,8 @@
             const password = document.getElementById('admin-password').value;
             if (password === LAB_PASSWORD) {
                 isLoggedIn = true;
-                document.getElementById('discrete-login').style.display = 'none';
-                document.getElementById('admin-controls').style.display = 'block';
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('admin-section').style.display = 'flex';
                 showMessage('Successfully logged in!', 'success');
                 renderPublications(); // Re-render to show admin actions
                 addDataManagementButtons(); // Add export/import buttons
@@ -1915,7 +1311,6 @@
                 showMessage('Incorrect password. Please contact lab administrator.', 'error');
             }
             document.getElementById('admin-password').value = '';
-            document.getElementById('login-box').style.display = 'none';
         }
     </script>
 </body>
