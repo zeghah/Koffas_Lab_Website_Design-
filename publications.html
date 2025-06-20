@@ -701,10 +701,10 @@
                 if (externalData && externalData.length > 0) {
                     allPublications = externalData;
                     // Also save to localStorage as backup
-                    localStorage.setItem('koffasPublications', JSON.stringify(allPublications));
+                    localStorage.setItem('koffas-publications', JSON.stringify(allPublications));
                 } else {
                     // Fall back to localStorage or demo data
-                    const savedData = JSON.parse(localStorage.getItem('koffasPublications') || '[]');
+                    const savedData = JSON.parse(localStorage.getItem('koffas-publications') || '[]');
                     
                     if (savedData.length === 0) {
                         // Load demo data including patents
