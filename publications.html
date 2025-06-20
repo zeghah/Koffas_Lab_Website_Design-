@@ -858,6 +858,11 @@
             
             if (!isVisible) {
                 clearForm();
+                // Scroll to top of page when opening the form
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             }
         }
 
