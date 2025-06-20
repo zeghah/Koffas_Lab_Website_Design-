@@ -147,6 +147,69 @@
             animation: fadeIn 1s ease 0.6s forwards;
             overflow: hidden;
             background: transparent;
+            position: relative;
+        }
+
+        .visualization-container svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .protein-node {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .protein-node:hover {
+            filter: brightness(1.5);
+        }
+        
+        .connection-line {
+            stroke-width: 2;
+            opacity: 0.7;
+            stroke-linecap: round;
+        }
+        
+        .pulse-particle {
+            r: 3;
+            opacity: 0;
+        }
+        
+        .protein-label {
+            font-size: 12px;
+            font-weight: bold;
+            text-anchor: middle;
+            dominant-baseline: central;
+            pointer-events: none;
+        }
+        
+        .typing-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px 35px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(167, 196, 160, 0.2);
+            z-index: 10;
+            font-family: 'Courier New', monospace;
+            font-size: 22px;
+            font-weight: 900;
+            color: #566852;
+            text-align: center;
+            min-width: 300px;
+            min-height: 35px;
+            backdrop-filter: blur(2px);
+        }
+        
+        .cursor {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
 
         .network-iframe {
@@ -408,21 +471,35 @@
                     
                     <!-- Right side: Network Visualization -->
                     <div class="visualization-container">
-                        <iframe src="projects/NetworkGraphic.html" 
-                                class="network-iframe" 
-                                title="Network Visualization"
-                                frameborder="0"
-                                scrolling="no"
-                                seamless>
-                            <!-- Fallback content if iframe doesn't load -->
-                            <div class="iframe-fallback">
-                                <div>
-                                    <h3>Network Visualization</h3>
-                                    <p>Interactive network graphic loading...</p>
-                                    <p><small>Path: projects/NetworkGraphic.html</small></p>
-                                </div>
-                            </div>
-                        </iframe>
+                        <div class="typing-text" id="typingText"></div>
+                        <svg id="network-svg">
+                            <defs>
+                                <radialGradient id="proteinGradient1" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" style="stop-color:#a7c4a0;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#6d8b6b;stop-opacity:1" />
+                                </radialGradient>
+                                <radialGradient id="proteinGradient2" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" style="stop-color:#9bb896;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#5a7454;stop-opacity:1" />
+                                </radialGradient>
+                                <radialGradient id="proteinGradient3" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" style="stop-color:#b8d4b3;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#7a947a;stop-opacity:1" />
+                                </radialGradient>
+                                <radialGradient id="proteinGradient4" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" style="stop-color:#8fad8a;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#566852;stop-opacity:1" />
+                                </radialGradient>
+                                <radialGradient id="proteinGradient5" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" style="stop-color:#c1d8bd;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#84a07e;stop-opacity:1" />
+                                </radialGradient>
+                                <radialGradient id="proteinGradient6" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" style="stop-color:#a5c1a0;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#6e856e;stop-opacity:1" />
+                                </radialGradient>
+                            </defs>
+                        </svg>
                     </div>
                 </div>
 
@@ -451,41 +528,294 @@
     </div>
 
     <script>
-        // Add debugging for iframe loading
-        window.addEventListener('load', function() {
-            const iframe = document.querySelector('.network-iframe');
+        // Network visualization code
+        const svg = document.getElementById('network-svg');
+        const width = 500;
+        const height = 500;
+        
+        // Define proteins with their properties
+        const proteins = [
+            { id: 'n1', x: 250, y: 150, size: 35, color: 'url(#proteinGradient1)', connections: ['n2', 'n3', 'n8'] },
+            { id: 'n2', x: 400, y: 133, size: 22, color: 'url(#proteinGradient2)', connections: ['n1', 'n4', 'n9'] },
+            { id: 'n3', x: 117, y: 183, size: 28, color: 'url(#proteinGradient3)', connections: ['n1', 'n5'] },
+            { id: 'n4', x: 433, y: 200, size: 18, color: 'url(#proteinGradient4)', connections: ['n2', 'n6'] },
+            { id: 'n5', x: 67, y: 250, size: 32, color: 'url(#proteinGradient5)', connections: ['n3', 'n7'] },
+            { id: 'n6', x: 375, y: 267, size: 25, color: 'url(#proteinGradient6)', connections: ['n4', 'n8', 'n13'] },
+            { id: 'n7', x: 150, y: 317, size: 20, color: 'url(#proteinGradient1)', connections: ['n5', 'n9'] },
+            { id: 'n8', x: 317, y: 167, size: 24, color: 'url(#proteinGradient2)', connections: ['n1', 'n6'] },
+            { id: 'n9', x: 350, y: 233, size: 19, color: 'url(#proteinGradient3)', connections: ['n2', 'n7'] },
+            { id: 'n12', x: 100, y: 292, size: 29, color: 'url(#proteinGradient6)', connections: ['n13', 'n19'] },
+            { id: 'n13', x: 400, y: 317, size: 23, color: 'url(#proteinGradient1)', connections: ['n6', 'n12', 'n20'] },
+            { id: 'n14', x: 233, y: 350, size: 17, color: 'url(#proteinGradient2)', connections: ['n19'] },
+            { id: 'n19', x: 200, y: 292, size: 20, color: 'url(#proteinGradient1)', connections: ['n12', 'n14', 'n20'] },
+            { id: 'n20', x: 317, y: 350, size: 24, color: 'url(#proteinGradient2)', connections: ['n13', 'n19'] }
+        ];
+        
+        // Create connections array
+        const connections = [];
+        proteins.forEach(protein => {
+            protein.connections.forEach(targetId => {
+                const target = proteins.find(p => p.id === targetId);
+                if (target) {
+                    connections.push({
+                        source: protein,
+                        target: target,
+                        id: `${protein.id}-${targetId}`
+                    });
+                }
+            });
+        });
+        
+        // Remove duplicate connections
+        const uniqueConnections = connections.filter((conn, index, self) => 
+            index === self.findIndex(c => 
+                (c.source.id === conn.source.id && c.target.id === conn.target.id) ||
+                (c.source.id === conn.target.id && c.target.id === conn.source.id)
+            )
+        );
+        
+        // Draw connections with varied sage green colors
+        const connectionColors = [
+            '#6d8b6b', '#8fad8a', '#a7c4a0', '#b8d4b3', '#5a7454', '#84a07e',
+            '#9bb896', '#c1d8bd', '#566852', '#7a947a', '#a5c1a0', '#6e856e'
+        ];
+        
+        uniqueConnections.forEach((conn, index) => {
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', conn.source.x);
+            line.setAttribute('y1', conn.source.y);
+            line.setAttribute('x2', conn.target.x);
+            line.setAttribute('y2', conn.target.y);
+            line.setAttribute('stroke', connectionColors[index % connectionColors.length]);
+            line.setAttribute('class', 'connection-line');
+            line.setAttribute('id', `line-${conn.id}`);
+            svg.appendChild(line);
             
-            iframe.addEventListener('load', function() {
-                console.log('Iframe loaded successfully');
+            // Create animated particles
+            createParticleAnimation(conn.source, conn.target, connectionColors[index % connectionColors.length], index);
+            createParticleAnimation(conn.source, conn.target, connectionColors[index % connectionColors.length], index + uniqueConnections.length);
+            createParticleAnimation(conn.target, conn.source, connectionColors[index % connectionColors.length], index + uniqueConnections.length * 2);
+            createParticleAnimation(conn.target, conn.source, connectionColors[index % connectionColors.length], index + uniqueConnections.length * 3);
+        });
+        
+        // Draw protein nodes
+        proteins.forEach(protein => {
+            const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            group.setAttribute('class', 'protein-node');
+            
+            protein.energyLevel = 0;
+            
+            const createEnergyFluctuation = () => {
+                const change = Math.random() < 0.5 ? 1 : -1;
+                changeEnergyLevel(protein.id, change);
+                setTimeout(createEnergyFluctuation, 8000 + Math.random() * 12000);
+            };
+            
+            setTimeout(createEnergyFluctuation, Math.random() * 5000);
+            
+            // Outer glow
+            const glow = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            glow.setAttribute('cx', protein.x);
+            glow.setAttribute('cy', protein.y);
+            glow.setAttribute('r', protein.size + 8);
+            glow.setAttribute('fill', getEnergyColor(protein.energyLevel));
+            glow.setAttribute('opacity', '0.2');
+            glow.setAttribute('id', `glow-${protein.id}`);
+            group.appendChild(glow);
+            
+            // Outer plasmid ring
+            const outerRing = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            outerRing.setAttribute('cx', protein.x);
+            outerRing.setAttribute('cy', protein.y);
+            outerRing.setAttribute('r', protein.size);
+            outerRing.setAttribute('fill', 'none');
+            outerRing.setAttribute('stroke', getEnergyColor(protein.energyLevel));
+            outerRing.setAttribute('stroke-width', '4');
+            outerRing.setAttribute('opacity', '0.9');
+            outerRing.setAttribute('id', `outer-ring-${protein.id}`);
+            group.appendChild(outerRing);
+            
+            // Inner plasmid ring
+            const innerRing = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            innerRing.setAttribute('cx', protein.x);
+            innerRing.setAttribute('cy', protein.y);
+            innerRing.setAttribute('r', protein.size - 8);
+            innerRing.setAttribute('fill', 'none');
+            innerRing.setAttribute('stroke', getEnergyColor(protein.energyLevel));
+            innerRing.setAttribute('stroke-width', '2');
+            innerRing.setAttribute('opacity', '0.6');
+            innerRing.setAttribute('id', `inner-ring-${protein.id}`);
+            group.appendChild(innerRing);
+            
+            // Center filled circle
+            const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            center.setAttribute('cx', protein.x);
+            center.setAttribute('cy', protein.y);
+            center.setAttribute('r', '6');
+            center.setAttribute('fill', getEnergyColor(protein.energyLevel));
+            center.setAttribute('opacity', '0.8');
+            center.setAttribute('id', `center-${protein.id}`);
+            group.appendChild(center);
+            
+            // Add restriction sites
+            for (let i = 0; i < 4; i++) {
+                const angle = (i * 90) * Math.PI / 180;
+                const x1 = protein.x + (protein.size - 2) * Math.cos(angle);
+                const y1 = protein.y + (protein.size - 2) * Math.sin(angle);
+                const x2 = protein.x + (protein.size + 2) * Math.cos(angle);
+                const y2 = protein.y + (protein.size + 2) * Math.sin(angle);
+                
+                const site = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                site.setAttribute('x1', x1);
+                site.setAttribute('y1', y1);
+                site.setAttribute('x2', x2);
+                site.setAttribute('y2', y2);
+                site.setAttribute('stroke', getEnergyColor(protein.energyLevel));
+                site.setAttribute('stroke-width', '2');
+                site.setAttribute('opacity', '0.7');
+                site.setAttribute('class', `restriction-${protein.id}`);
+                group.appendChild(site);
+            }
+            
+            // Add animations
+            const animateRotate = document.createElementNS('http://www.w3.org/2000/svg', 'animateTransform');
+            animateRotate.setAttribute('attributeName', 'transform');
+            animateRotate.setAttribute('type', 'rotate');
+            animateRotate.setAttribute('values', `0 ${protein.x} ${protein.y};360 ${protein.x} ${protein.y}`);
+            animateRotate.setAttribute('dur', '8s');
+            animateRotate.setAttribute('repeatCount', 'indefinite');
+            outerRing.appendChild(animateRotate);
+            
+            const animate = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+            animate.setAttribute('attributeName', 'r');
+            animate.setAttribute('values', '6;8;6');
+            animate.setAttribute('dur', '3s');
+            animate.setAttribute('repeatCount', 'indefinite');
+            animate.setAttribute('begin', `${Math.random() * 2}s`);
+            center.appendChild(animate);
+            
+            svg.appendChild(group);
+        });
+        
+        function createParticleAnimation(source, target, color, delay) {
+            const particle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            particle.setAttribute('class', 'pulse-particle');
+            particle.setAttribute('fill', color);
+            particle.setAttribute('r', '4');
+            
+            const animateX = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+            animateX.setAttribute('attributeName', 'cx');
+            animateX.setAttribute('values', `${source.x};${target.x}`);
+            animateX.setAttribute('dur', '4s');
+            animateX.setAttribute('repeatCount', 'indefinite');
+            animateX.setAttribute('begin', `${delay * 0.5}s`);
+            
+            const animateY = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+            animateY.setAttribute('attributeName', 'cy');
+            animateY.setAttribute('values', `${source.y};${target.y}`);
+            animateY.setAttribute('dur', '4s');
+            animateY.setAttribute('repeatCount', 'indefinite');
+            animateY.setAttribute('begin', `${delay * 0.5}s`);
+            
+            const animateOpacity = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+            animateOpacity.setAttribute('attributeName', 'opacity');
+            animateOpacity.setAttribute('values', '0;1;1;0');
+            animateOpacity.setAttribute('dur', '4s');
+            animateOpacity.setAttribute('repeatCount', 'indefinite');
+            animateOpacity.setAttribute('begin', `${delay * 0.5}s`);
+            
+            particle.appendChild(animateX);
+            particle.appendChild(animateY);
+            particle.appendChild(animateOpacity);
+            
+            svg.appendChild(particle);
+        }
+        
+        function changeEnergyLevel(proteinId, change) {
+            const protein = proteins.find(p => p.id === proteinId);
+            if (!protein) return;
+            
+            protein.energyLevel = Math.max(-3, Math.min(5, protein.energyLevel + change));
+            const newColor = getEnergyColor(protein.energyLevel);
+            
+            const outerRing = document.querySelector(`#outer-ring-${proteinId}`);
+            const innerRing = document.querySelector(`#inner-ring-${proteinId}`);
+            const center = document.querySelector(`#center-${proteinId}`);
+            const glow = document.querySelector(`#glow-${proteinId}`);
+            const restrictions = document.querySelectorAll(`.restriction-${proteinId}`);
+            
+            if (outerRing) outerRing.setAttribute('stroke', newColor);
+            if (innerRing) innerRing.setAttribute('stroke', newColor);
+            if (center) center.setAttribute('fill', newColor);
+            if (glow) glow.setAttribute('fill', newColor);
+            restrictions.forEach(site => site.setAttribute('stroke', newColor));
+        }
+        
+        function getEnergyColor(energyLevel) {
+            const colors = [
+                '#f8faf8', '#e6f0e6', '#c8d6c8', '#a7c4a0', '#9bb8c4',
+                '#7a9db4', '#5f7a8a', '#4a6570', '#3d5560'
+            ];
+            const index = energyLevel + 3;
+            return colors[Math.max(0, Math.min(8, index))];
+        }
+        
+        // Typing animation
+        const typingElement = document.getElementById('typingText');
+        const phrases = [
+            'Sustainable Biomanufacturing', 'Synthetic Biology', 'Protein Engineering',
+            'Metabolic Flux', 'Plastic Upcycling', 'Gene Editing', 'Metabolic Burden',
+            'Microbial Stress Response', 'Microbial Networks', 'Media Optimization',
+            'Genetic Stability', 'Resource Allocation', 'Polymer Degradation',
+            'Redox Management', 'Metabolite Characterization', 'Multi-enzyme Regulation',
+            'Resource Circularity', 'Bioengineering', 'Pathway Optimization',
+            'Environmental Sustainability'
+        ];
+        
+        let currentPhraseIndex = 0;
+        let currentCharIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+        
+        function typeText() {
+            const currentPhrase = phrases[currentPhraseIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentPhrase.substring(0, currentCharIndex - 1) + '|';
+                currentCharIndex--;
+                typingSpeed = 50;
+                
+                if (currentCharIndex === 0) {
+                    isDeleting = false;
+                    currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+                    typingSpeed = 500;
+                }
+            } else {
+                typingElement.textContent = currentPhrase.substring(0, currentCharIndex + 1) + '|';
+                currentCharIndex++;
+                typingSpeed = 100;
+                
+                if (currentCharIndex === currentPhrase.length) {
+                    typingSpeed = 3000;
+                    isDeleting = true;
+                }
+            }
+            
+            setTimeout(typeText, typingSpeed);
+        }
+        
+        setTimeout(typeText, 1000);
+        
+        // Add hover effects
+        document.querySelectorAll('.protein-node').forEach(node => {
+            node.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1)';
+                this.style.transformOrigin = 'center';
             });
             
-            iframe.addEventListener('error', function() {
-                console.log('Iframe failed to load');
-                // Show fallback content
-                const container = document.querySelector('.visualization-container');
-                container.innerHTML = `
-                    <div class="iframe-fallback">
-                        <div>
-                            <h3>Network Visualization</h3>
-                            <p>Unable to load graphic from: projects/NetworkGraphic.html</p>
-                            <p><small>Please check the file path and try refreshing</small></p>
-                        </div>
-                    </div>
-                `;
+            node.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
             });
-            
-            // Test if file exists by trying to fetch it
-            fetch('projects/NetworkGraphic.html')
-                .then(response => {
-                    if (response.ok) {
-                        console.log('NetworkGraphic.html file found and accessible');
-                    } else {
-                        console.log('NetworkGraphic.html file not found - Status:', response.status);
-                    }
-                })
-                .catch(error => {
-                    console.log('Error accessing NetworkGraphic.html:', error);
-                });
         });
 
         // Rest of your existing JavaScript
