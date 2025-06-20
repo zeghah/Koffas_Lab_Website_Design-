@@ -95,15 +95,15 @@
 
         .content-wrapper {
             max-width: 1200px;
-            padding: 60px 40px 80px 40px;
+            padding: 40px 40px 80px 40px;
             height: auto;
             display: flex;
             flex-direction: column;
-            margin: 40px auto 0 auto;
+            margin: 20px auto 0 auto;
             justify-content: flex-start;
         }
 
-        /* Hero Content */
+        /* Hero Content - Vertical Layout */
         .hero-content {
             display: flex;
             flex-direction: column;
@@ -112,33 +112,71 @@
             gap: 2rem;
         }
 
+        .hero-title {
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
         .hero-title h1 {
             font-size: 3rem;
             font-weight: 300;
             margin-bottom: 0;
             color: var(--sage-darker);
             line-height: 1.2;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards;
         }
 
-        .hero-text h1 {
-            font-size: 3rem;
-            font-weight: 300;
-            margin-bottom: 1rem;
-            color: var(--sage-darker);
-            line-height: 1.2;
+        /* Network Visualization Container - Optimized for the new graphic */
+        .visualization-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 600px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
             opacity: 0;
-            animation: fadeInUp 1s ease forwards;
+            animation: fadeIn 1s ease 0.6s forwards;
+            overflow: hidden;
+            border-radius: 20px;
+            background: #f8f8f8;
+            box-shadow: 0 0 30px rgba(167, 196, 160, 0.4);
+            border: 2px solid rgba(167, 196, 160, 0.2);
         }
 
-        .hero-text p {
-            font-size: 1.2rem;
-            color: var(--gray-medium);
-            margin-bottom: 2rem;
-            line-height: 1.6;
+        .network-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+            display: block;
+            border-radius: 20px;
+        }
+
+        /* Fallback content styling */
+        .iframe-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--sage-light);
+            color: var(--gray-dark);
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 20px;
+            border-radius: 20px;
+        }
+
+        .hero-subtitle {
             opacity: 0;
             animation: fadeInUp 1s ease 0.8s forwards;
+        }
+
+        .hero-subtitle p {
+            font-size: 1.2rem;
+            color: var(--gray-medium);
+            margin-bottom: 0;
+            line-height: 1.6;
         }
 
         .hero-buttons {
@@ -178,52 +216,11 @@
             color: var(--white);
         }
 
-        /* Network Visualization Container - FIXED TO REMOVE SCROLLBARS */
-        .visualization-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 600px; 
-            width: 100%;
-            max-width: 600px; 
-            margin: 0 auto;
-            opacity: 0;
-            animation: fadeIn 1s ease 0.6s forwards;
-            overflow: hidden; /* Hide any overflow */
-            border-radius: 10px; /* Optional: adds rounded corners */
-        }
-
-        .network-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: transparent;
-            /* Remove transform scaling which can cause issues */
-            display: block;
-            /* Disable scrollbars in the iframe */
-            scrolling: no;
-        }
-
-        /* Fallback content styling */
-        .iframe-fallback {
-            width: 600px;
-            height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--sage-light);
-            color: var(--gray-dark);
-            font-size: 1.1rem;
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
         /* Feature Cards */
         .features-section {
             margin-top: 60px;
             opacity: 0;
-            animation: fadeInUp 1s ease 0.8s forwards;
+            animation: fadeInUp 1s ease 1.2s forwards;
         }
 
         .features-grid {
@@ -322,18 +319,18 @@
             }
 
             .content-wrapper {
-                padding: 40px 20px 60px 20px;
+                padding: 30px 20px 60px 20px;
                 height: auto;
-                margin: 20px auto 0 auto;
+                margin: 10px auto 0 auto;
             }
 
             .hero-content {
                 flex-direction: column;
-                gap: 2rem;
+                gap: 1.5rem;
                 text-align: center;
             }
 
-            .hero-text h1 {
+            .hero-title h1 {
                 font-size: 2.2rem;
             }
 
@@ -374,9 +371,12 @@
         <div class="main-content">
             <div class="content-wrapper">
                 <div class="hero-content">
-                    <div class="hero-text">
-                        <h1> Koffas Research Group @ Rensselaer Polytechnic Institute </h1>  
-                        <p>Metabolic Engineering for Advanced Cellular Design</p>
+                    <!-- 1. Title First -->
+                    <div class="hero-title">
+                        <h1>Koffas Research Group @ Rensselaer Polytechnic Institute</h1>
+                    </div>
+                    
+                    <!-- 2. Network Visualization Second -->
                     <div class="visualization-container">
                         <iframe src="projects/NetworkGraphic.html" 
                                 class="network-iframe" 
@@ -394,10 +394,16 @@
                             </div>
                         </iframe>
                     </div>
-                        <div class="hero-buttons">
-                            <a href="research.html" class="cta-button">Explore Research</a>
-                            <a href="news.html" class="cta-button secondary">Latest News</a>
-                        </div>
+
+                    <!-- 3. Subtitle Third -->
+                    <div class="hero-subtitle">
+                        <p>Metabolic Engineering for Advanced Cellular Design</p>
+                    </div>
+
+                    <!-- 4. Buttons Fourth -->
+                    <div class="hero-buttons">
+                        <a href="research.html" class="cta-button">Explore Research</a>
+                        <a href="news.html" class="cta-button secondary">Latest News</a>
                     </div>
                 </div>
 
@@ -432,30 +438,6 @@
             
             iframe.addEventListener('load', function() {
                 console.log('Iframe loaded successfully');
-                // Try to access iframe content to remove scrollbars
-                try {
-                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                    if (iframeDoc) {
-                        // Hide scrollbars in the iframe content
-                        const style = iframeDoc.createElement('style');
-                        style.textContent = `
-                            body { 
-                                overflow: hidden !important; 
-                                margin: 0 !important; 
-                                padding: 0 !important;
-                            }
-                            html { 
-                                overflow: hidden !important; 
-                                margin: 0 !important; 
-                                padding: 0 !important;
-                            }
-                        `;
-                        iframeDoc.head.appendChild(style);
-                    }
-                } catch (e) {
-                    // Cross-origin restrictions prevent access, but iframe attributes should handle it
-                    console.log('Cross-origin iframe - using HTML attributes for scrollbar control');
-                }
             });
             
             iframe.addEventListener('error', function() {
