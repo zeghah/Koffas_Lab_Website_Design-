@@ -103,18 +103,28 @@
             justify-content: flex-start;
         }
 
-        /* Hero Content - Vertical Layout */
+        /* Hero Content - Horizontal Layout */
         .hero-content {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            text-align: center;
-            gap: 2rem;
+            justify-content: space-between;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-text-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
         }
 
         .hero-title {
             opacity: 0;
             animation: fadeInUp 1s ease forwards;
+            margin-bottom: 2rem;
         }
 
         .hero-title h1 {
@@ -125,22 +135,18 @@
             line-height: 1.2;
         }
 
-        /* Network Visualization Container - Optimized for the new graphic */
+        /* Network Visualization Container - Seamless design */
         .visualization-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 600px;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
+            height: 500px;
+            width: 500px;
+            flex-shrink: 0;
             opacity: 0;
             animation: fadeIn 1s ease 0.6s forwards;
             overflow: hidden;
-            border-radius: 20px;
-            background: #f8f8f8;
-            box-shadow: 0 0 30px rgba(167, 196, 160, 0.4);
-            border: 2px solid rgba(167, 196, 160, 0.2);
+            background: transparent;
         }
 
         .network-iframe {
@@ -149,7 +155,6 @@
             border: none;
             background: transparent;
             display: block;
-            border-radius: 20px;
         }
 
         /* Fallback content styling */
@@ -159,17 +164,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--sage-light);
+            background: transparent;
             color: var(--gray-dark);
             font-size: 1.1rem;
             text-align: center;
             padding: 20px;
-            border-radius: 20px;
         }
 
         .hero-subtitle {
             opacity: 0;
             animation: fadeInUp 1s ease 0.8s forwards;
+            margin-bottom: 1rem;
         }
 
         .hero-subtitle p {
@@ -183,7 +188,7 @@
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: flex-start;
             opacity: 0;
             animation: fadeInUp 1s ease 1s forwards;
         }
@@ -328,15 +333,26 @@
                 flex-direction: column;
                 gap: 1.5rem;
                 text-align: center;
+                align-items: center;
+            }
+
+            .hero-text-section {
+                align-items: center;
+                text-align: center;
             }
 
             .hero-title h1 {
                 font-size: 2.2rem;
             }
 
+            .hero-buttons {
+                justify-content: center;
+            }
+
             /* Mobile visualization adjustments */
             .visualization-container {
                 height: 400px;
+                width: 400px;
                 max-width: 400px;
                 margin: 0 auto;
             }
@@ -371,12 +387,26 @@
         <div class="main-content">
             <div class="content-wrapper">
                 <div class="hero-content">
-                    <!-- 1. Title First -->
-                    <div class="hero-title">
-                        <h1>Koffas Research Group @ Rensselaer Polytechnic Institute</h1>
+                    <!-- Left side: Text content -->
+                    <div class="hero-text-section">
+                        <!-- 1. Title First -->
+                        <div class="hero-title">
+                            <h1>Koffas Research Group @ Rensselaer Polytechnic Institute</h1>
+                        </div>
+
+                        <!-- 2. Subtitle Second -->
+                        <div class="hero-subtitle">
+                            <p>Metabolic Engineering for Advanced Cellular Design</p>
+                        </div>
+
+                        <!-- 3. Buttons Third -->
+                        <div class="hero-buttons">
+                            <a href="research.html" class="cta-button">Explore Research</a>
+                            <a href="news.html" class="cta-button secondary">Latest News</a>
+                        </div>
                     </div>
                     
-                    <!-- 2. Network Visualization Second -->
+                    <!-- Right side: Network Visualization -->
                     <div class="visualization-container">
                         <iframe src="projects/NetworkGraphic.html" 
                                 class="network-iframe" 
@@ -393,17 +423,6 @@
                                 </div>
                             </div>
                         </iframe>
-                    </div>
-
-                    <!-- 3. Subtitle Third -->
-                    <div class="hero-subtitle">
-                        <p>Metabolic Engineering for Advanced Cellular Design</p>
-                    </div>
-
-                    <!-- 4. Buttons Fourth -->
-                    <div class="hero-buttons">
-                        <a href="research.html" class="cta-button">Explore Research</a>
-                        <a href="news.html" class="cta-button secondary">Latest News</a>
                     </div>
                 </div>
 
