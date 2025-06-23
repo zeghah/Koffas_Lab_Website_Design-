@@ -1,6 +1,6 @@
 [ {
   "id": 1750704748594,
-  "title": "Complete Biosynthesis of Anthocyanins Using<i>E. coli</i> Polycultures",
+  "title": "Complete Biosynthesis of Anthocyanins Using <i>E. coli</i> Polycultures",
   "authors": "J. Andrew Jones, Victoria R. Vernacchio, Shannon M. Collins, Abhijit N. Shirke, Yu Xiu, Jacob A. Englaender, Brady F. Cress, Catherine C. McCutcheon, Robert J. Linhardt, Richard A. Gross, Mattheos A. G. Koffas",
   "journal": "mBio 8(3)",
   "year": 2017,
@@ -72,7 +72,7 @@
 },
   {
   "id": 1750704512155,
-  "title": "Tailor-made exopolysaccharides—CRISPR-Cas9 mediated genome editing in Paenibacillus polymyxa",
+  "title": "Tailor-made exopolysaccharides—<i>CRISPR-Cas9<i> mediated genome editing in <i>Paenibacillus polymyxa<i>",
   "authors": "Marius Rütering, Brady F Cress, Martin Schilling, Broder Rühmann, Mattheos A G Koffas, Volker Sieber, Jochen Schmid",
   "journal": "Synthetic Biology 2(1)",
   "year": 2017,
@@ -84,7 +84,7 @@
 },
   {
   "id": 1750704486565,
-  "title": "Deciphering flux adjustments of engineered E. coli cells during fermentation with changing growth conditions",
+  "title": "Deciphering flux adjustments of engineered <i>E. coli<i> cells during fermentation with changing growth conditions",
   "authors": "Lian He, Yu Xiu, J. Andrew Jones, Edward E.K. Baidoo, Jay D. Keasling, Yinjie J. Tang, Mattheos A.G. Koffas",
   "journal": "Metabolic Engineering 39, 247-256",
   "year": 2017,
@@ -96,7 +96,7 @@
 },
   {
   "id": 1750704459842,
-  "title": "Engineering the biological conversion of methanol to specialty chemicals in Escherichia coli",
+  "title": "Engineering the biological conversion of methanol to specialty chemicals in <i>Escherichia coli<i>",
   "authors": "W. Brian Whitaker, J. Andrew Jones, R. Kyle Bennett, Jacqueline E. Gonzalez, Victoria R. Vernacchio, Shannon M. Collins, Michael A. Palmer, Samuel Schmidt, Maciek R. Antoniewicz, Mattheos A. Koffas, Eleftherios T. Papoutsakis",
   "journal": "Metabolic Engineering 39, 49-59",
   "year": 2017,
@@ -120,7 +120,7 @@
 },
   {
   "id": 1750704401687,
-  "title": "Draft Genome Sequence of Bacillus subtilis Ia1a, a New Strain for Poly-γ-Glutamic Acid and Exopolysaccharide Production",
+  "title": "Draft Genome Sequence of <i>Bacillus subtilis Ia1a<i>, a New Strain for Poly-γ-Glutamic Acid and Exopolysaccharide Production",
   "authors": "Mohammad H. A. Ibrahim, Brady F. Cress, Robert J. Linhardt, Mattheos A. G. Koffas, Richard A. Gross",
   "journal": "Genome Announcements 4(6)",
   "year": 2016,
@@ -168,7 +168,7 @@
 },
   {
   "id": 1750704124556,
-  "title": "Rapid generation of CRISPR/dCas9-regulated, orthogonally repressible hybrid T7-lac promoters for modular, tuneable control of metabolic pathway fluxes in<i>Escherichia coli</i>",
+  "title": "Rapid generation of <i>CRISPR/dCas9<i>-regulated, orthogonally repressible hybrid T7-lac promoters for modular, tuneable control of metabolic pathway fluxes in<i>Escherichia coli</i>",
   "authors": "Brady F. Cress, J. Andrew Jones, Daniel C. Kim, Quentin D. Leitz, Jacob A. Englaender, Shannon M. Collins, Robert J. Linhardt, Mattheos A. G. Koffas",
   "journal": "Nucleic Acids Research 44(9), 4472-4485",
   "year": 2016,
@@ -192,7 +192,7 @@
 },
   {
   "id": 1750701490898,
-  "title": "Experimental and computational optimization of an Escherichia coli co-culture for the efficient production of flavonoids",
+  "title": "Experimental and computational optimization of an <i>Escherichia coli<i> co-culture for the efficient production of flavonoids",
   "authors": "J. Andrew Jones, Victoria R. Vernacchio, Andrew L. Sinkoe, Shannon M. Collins, Mohammad H.A. Ibrahim, Daniel M. Lachance, Juergen Hahn, Mattheos A.G. Koffas",
   "journal": "Metabolic Engineering 35, 55-63",
   "year": 2016,
@@ -276,7 +276,7 @@
 },
   {
   "id": 1750701095954,
-  "title": "CRISPathBrick: Modular Combinatorial Assembly of Type II-A CRISPR Arrays for dCas9-Mediated Multiplex Transcriptional Repression in <i>E. coli</i>",
+  "title": "CRISPathBrick: Modular Combinatorial Assembly of Type II-A CRISPR Arrays for <i>dCas9<i>-Mediated Multiplex Transcriptional Repression in <i>E. coli</i>",
   "authors": "Brady F. Cress, Ö. Duhan Toparlak, Sanjay Guleria, Matthew Lebovich, Jessica T. Stieglitz, Jacob A. Englaender, J. Andrew Jones, Robert J. Linhardt, Mattheos A. G. Koffas",
   "journal": "ACS Synthetic Biology 4(9), 987-1000",
   "year": 2015,
@@ -288,7 +288,7 @@
 }, 
   {
   "id": 1750701036984,
-  "title": "Development of a Recombinant Escherichia coli Strain for Overproduction of the Plant Pigment Anthocyanin",
+  "title": "Development of a Recombinant <i>Escherichia coli<i> Strain for Overproduction of the Plant Pigment Anthocyanin",
   "authors": "Chin Giaw Lim, Lynn Wong, Namita Bhan, Hila Dvora, Peng Xu, Sankaranarayanan Venkiteswaran, Mattheos A. G. Koffas",
   "journal": "Applied and Environmental Microbiology 81(18), 6276-6284",
   "year": 2015,
