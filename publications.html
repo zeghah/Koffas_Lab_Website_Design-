@@ -20,10 +20,6 @@
             --gray-light: #f8f9fa;
             --gray-medium: #6c757d;
             --gray-dark: #343a40;
-            --blue: #0066cc;
-            --green: #28a745;
-            --red: #dc3545;
-            --yellow: #ffc107;
         }
 
         body {
@@ -124,99 +120,6 @@
             max-width: 600px;
             margin: 0 auto;
             line-height: 1.6;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: var(--sage-dark);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--sage-darker);
-        }
-
-        .btn-secondary {
-            background: var(--gray-medium);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: var(--gray-dark);
-        }
-
-        .btn-success {
-            background: var(--green);
-            color: white;
-        }
-
-        .btn-danger {
-            background: var(--red);
-            color: white;
-        }
-
-        .btn-small {
-            padding: 4px 8px;
-            font-size: 0.8rem;
-        }
-
-        /* Add Publication Form */
-        .add-publication-form {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid rgba(107, 142, 90, 0.2);
-            margin-bottom: 30px;
-            display: none;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: var(--sage-darker);
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--sage-medium);
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .form-group textarea {
-            height: 80px;
-            resize: vertical;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .loading-indicator {
-            display: none;
-            color: var(--sage-dark);
-            font-style: italic;
-            margin-top: 10px;
         }
 
         /* Statistics Section */
@@ -397,52 +300,20 @@
             text-decoration: underline;
         }
 
-        .status-badge {
-            padding: 2px 8px;
+        /* Loading and Error States */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray-medium);
+        }
+
+        .error {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray-medium);
+            background: var(--sage-light);
             border-radius: 10px;
-            font-size: 0.7rem;
-            font-weight: 500;
-        }
-
-        .status-pending {
-            background: var(--yellow);
-            color: #856404;
-        }
-
-        .status-approved {
-            background: var(--green);
-            color: white;
-        }
-
-        .status-failed {
-            background: var(--red);
-            color: white;
-        }
-
-        /* Messages */
-        .message {
-            padding: 12px 16px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .message-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .message-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .message-info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
+            margin: 20px 0;
         }
 
         /* Responsive Design */
@@ -461,10 +332,6 @@
 
             .content-wrapper {
                 padding: 20px;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
             }
 
             .card-footer {
@@ -500,86 +367,27 @@
                 <!-- Page Header -->
                 <div class="page-header">
                     <h1>Publications</h1>
-                    <p>Complete research contributions from the Koffas Lab</p>
+                    <p>Research contributions from the Koffas Lab</p>
                 </div>
-
-                <!-- Add Publication Form -->
-                <div id="add-publication-form" class="add-publication-form">
-                    <h3 style="margin-bottom: 20px; color: var(--sage-darker);">Add New Publication</h3>
-                    
-                    <div class="form-group">
-                        <label for="pub-url">Publication URL</label>
-                        <input type="text" id="pub-url" placeholder="https://scholar.google.com/... OR DOI">
-                        <small style="color: var(--gray-medium); font-size: 0.8rem;">
-                            Supports: Google Scholar, DOI links, or other publication URLs
-                        </small>
-                    </div>
-
-                    <div class="loading-indicator" id="url-loading">Fetching details...</div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="pub-title">Title</label>
-                            <input type="text" id="pub-title" placeholder="Will be auto-filled from URL">
-                        </div>
-                        <div class="form-group">
-                            <label for="pub-year">Year</label>
-                            <input type="number" id="pub-year" min="1990" max="2030">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="pub-authors">Authors</label>
-                        <textarea id="pub-authors" placeholder="Will be auto-filled from URL"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="pub-journal">Journal/Conference</label>
-                        <input type="text" id="pub-journal" placeholder="Will be auto-filled from URL">
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="pub-citations">Citations</label>
-                            <input type="number" id="pub-citations" min="0">
-                        </div>
-                        <div class="form-group">
-                            <label for="pub-status">Status</label>
-                            <select id="pub-status">
-                                <option value="approved">Approved</option>
-                                <option value="pending">Pending Review</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button class="btn btn-success" onclick="addPublication()">Add Publication</button>
-                        <button class="btn btn-secondary" onclick="toggleAddForm()">Cancel</button>
-                        <button class="btn btn-primary" onclick="autoFetchDetails()">Auto-Fill from URL</button>
-                    </div>
-                </div>
-
-                <!-- Messages -->
-                <div id="messages"></div>
 
                 <!-- Statistics Section -->
                 <div class="stats-section">
                     <h2 style="color: var(--sage-darker); margin-bottom: 15px;">Research Impact</h2>
                     <div class="stats-grid">
                         <div class="stat-item">
-                            <div class="stat-number" id="total-pubs">0</div>
+                            <div class="stat-number" id="total-pubs">-</div>
                             <div class="stat-label">Publications</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="total-citations">0</div>
+                            <div class="stat-number" id="total-citations">-</div>
                             <div class="stat-label">Citations</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="h-index">0</div>
+                            <div class="stat-number" id="h-index">-</div>
                             <div class="stat-label">H-Index</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="years-active">0</div>
+                            <div class="stat-number" id="years-active">-</div>
                             <div class="stat-label">Years Active</div>
                         </div>
                     </div>
@@ -596,289 +404,190 @@
 
                 <!-- Publications Container -->
                 <div id="publications-container" class="publications-container">
-                    <!-- Publications will be loaded here -->
-                </div>
-
-                <!-- Discrete Admin Login at Bottom -->
-                <div style="margin-top: 60px; padding: 30px 0; border-top: 1px solid var(--sage-light); text-align: center;">
-                    <div id="login-section" style="display: inline-block;">
-                        <div style="color: var(--gray-medium); font-size: 0.9rem; margin-bottom: 10px;">Lab Member Access</div>
-                        <div style="display: flex; gap: 8px; justify-content: center; align-items: center;">
-                            <input type="password" id="admin-password" placeholder="Password" style="padding: 8px 12px; border: 1px solid var(--sage-medium); border-radius: 4px; font-size: 0.9rem; width: 150px;">
-                            <button class="btn btn-primary" onclick="login()" style="padding: 8px 16px; font-size: 0.9rem;">Login</button>
-                        </div>
-                    </div>
-                    
-                    <div id="admin-section" style="display: none;">
-                        <div style="color: var(--sage-darker); font-size: 1rem; margin-bottom: 15px; font-weight: 600;">✓ Welcome, Lab Member!</div>
-                        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                            <button class="btn btn-success" onclick="toggleAddForm()">Add Publication</button>
-                            <button class="btn btn-primary" onclick="exportPublications()">📥 Export All Data</button>
-                            <button class="btn btn-secondary" onclick="document.getElementById('import-file').click()">📤 Import Data</button>
-                            <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importPublications(event)">
-                            <button class="btn btn-secondary" onclick="checkExternalFile()">🔄 Reload from GitHub</button>
-                            <button class="btn btn-secondary" onclick="logout()">Logout</button>
-                        </div>
-                    </div>
+                    <div class="loading">Loading publications...</div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Configuration
-        const LAB_PASSWORD = 'koffaslab2025';
-        let isLoggedIn = false;
         let allPublications = [];
         let filteredPublications = [];
 
-        // Initialize data - only from JSON file or localStorage
-        function initializeData() {
-            console.log('🚀 Initializing publications data...');
-            
-            // Try to load from external JSON file first, then fall back to localStorage
-            loadFromExternalFile().then(externalData => {
-                console.log('📊 External data result:', externalData ? `Array with ${externalData.length} items` : 'null');
-                
-                if (externalData && externalData.length > 0) {
-                    console.log('✅ Using external data with', externalData.length, 'publications');
-                    console.log('📝 First publication sample:', externalData[0]);
-                    
-                    allPublications = externalData;
-                    // Also save to localStorage as backup
-                    localStorage.setItem('koffasPublications', JSON.stringify(allPublications));
-                    showMessage(`Loaded ${externalData.length} publications from GitHub!`, 'success');
-                } else {
-                    console.log('⚠️ No external data found, checking localStorage...');
-                    // Fall back to localStorage only
-                    const savedData = JSON.parse(localStorage.getItem('koffasPublications') || '[]');
-                    console.log('💾 LocalStorage data:', savedData.length, 'publications');
-                    
-                    if (savedData.length === 0) {
-                        console.log('📭 No publications found anywhere - starting with empty dataset');
-                        allPublications = [];
-                        showMessage('No publications found. Please upload a JSON file or add publications manually after logging in.', 'info');
-                    } else {
-                        console.log('📖 Using saved local data with', savedData.length, 'publications');
-                        allPublications = savedData;
-                    }
-                }
-                
-                console.log('🔢 Final allPublications length:', allPublications.length);
-                filteredPublications = [...allPublications];
-                console.log('🔢 Final filteredPublications length:', filteredPublications.length);
-                
-                updateStats();
-                renderPublications();
-                console.log('✅ Initialization complete!');
-            });
-        }
-
-        // Load data from external JSON file
-        async function loadFromExternalFile() {
-            const filePath = './projects/koffas-publications.json';
-            
-            console.log('🔍 Searching for publications file at:', filePath);
-            
+        // Load publications from JSON file
+        async function loadPublications() {
             try {
-                const response = await fetch(filePath + '?' + new Date().getTime()); // Cache busting
-                console.log('📡 Response status:', response.status);
-                console.log('📡 Response ok:', response.ok);
-                console.log('📡 Response headers:', response.headers.get('content-type'));
-                
-                if (response.ok) {
-                    const text = await response.text();
-                    console.log('📄 Raw response length:', text.length);
-                    console.log('📄 First 200 chars:', text.substring(0, 200));
-                    
-                    try {
-                        const data = JSON.parse(text);
-                        console.log('✅ Successfully parsed JSON - Count:', data.length);
-                        console.log('📊 Data type:', typeof data);
-                        console.log('📊 Is array:', Array.isArray(data));
-                        
-                        // Validate the data structure
-                        if (Array.isArray(data) && data.length > 0) {
-                            console.log('📝 First item structure:', Object.keys(data[0]));
-                            console.log('📝 Has title:', !!data[0].title);
-                            console.log('📝 Sample title:', data[0].title);
-                            return data;
-                        } else {
-                            console.log('❌ Invalid data structure - not an array or empty');
-                            return null;
-                        }
-                    } catch (parseError) {
-                        console.log('❌ JSON parse error:', parseError.message);
-                        return null;
-                    }
-                } else {
-                    console.log('❌ File not found at:', filePath, '- Status:', response.status);
-                    return null;
+                const response = await fetch('./projects/koffas-publications.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                const publications = await response.json();
+                return publications;
             } catch (error) {
-                console.log('❌ Network error loading from:', filePath, '- Error:', error.message);
+                console.error('Error loading publications:', error);
                 return null;
             }
         }
 
-        // Authentication
-        function login() {
-            const password = document.getElementById('admin-password').value;
-            if (password === LAB_PASSWORD) {
-                isLoggedIn = true;
-                document.getElementById('login-section').style.display = 'none';
-                document.getElementById('admin-section').style.display = 'flex';
-                showMessage('Successfully logged in!', 'success');
-                renderPublications();
-            } else {
-                showMessage('Incorrect password. Please contact lab administrator.', 'error');
+        // Calculate statistics
+        function updateStats() {
+            const totalPubs = allPublications.length;
+            const totalCitations = allPublications.reduce((sum, pub) => sum + (pub.citations || 0), 0);
+            const years = allPublications.map(pub => pub.year).filter(year => year);
+            const yearsActive = years.length > 0 ? Math.max(...years) - Math.min(...years) + 1 : 0;
+            
+            // Calculate H-index
+            const sortedCitations = allPublications.map(pub => pub.citations || 0).sort((a, b) => b - a);
+            let hIndex = 0;
+            for (let i = 0; i < sortedCitations.length; i++) {
+                if (sortedCitations[i] >= i + 1) {
+                    hIndex = i + 1;
+                }
             }
-            document.getElementById('admin-password').value = '';
+            
+            document.getElementById('total-pubs').textContent = totalPubs;
+            document.getElementById('total-citations').textContent = totalCitations.toLocaleString();
+            document.getElementById('h-index').textContent = hIndex;
+            document.getElementById('years-active').textContent = yearsActive;
         }
 
-        function logout() {
-            isLoggedIn = false;
-            document.getElementById('login-section').style.display = 'flex';
-            document.getElementById('admin-section').style.display = 'none';
-            document.getElementById('add-publication-form').style.display = 'none';
+        // Render publications
+        function renderPublications() {
+            const container = document.getElementById('publications-container');
+            
+            if (filteredPublications.length === 0) {
+                container.innerHTML = `
+                    <div class="error">
+                        <h3>No Publications Found</h3>
+                        <p>There are currently no publications to display.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Group by year
+            const publicationsByYear = {};
+            filteredPublications.forEach(pub => {
+                const year = pub.year || 'Unknown';
+                if (!publicationsByYear[year]) {
+                    publicationsByYear[year] = [];
+                }
+                publicationsByYear[year].push(pub);
+            });
+            
+            // Sort years in descending order
+            const sortedYears = Object.keys(publicationsByYear).sort((a, b) => {
+                if (a === 'Unknown') return 1;
+                if (b === 'Unknown') return -1;
+                return b - a;
+            });
+            
+            let html = '';
+            sortedYears.forEach(year => {
+                const publications = publicationsByYear[year];
+                html += `
+                    <div class="year-section">
+                        <div class="year-header">
+                            ${year}
+                            <span class="year-count">${publications.length}</span>
+                        </div>
+                `;
+                
+                publications.forEach(pub => {
+                    // Clean up HTML tags in titles
+                    const cleanTitle = (pub.title || 'Untitled').replace(/<\/?[^>]+(>|$)/g, "");
+                    const authors = pub.authors || 'Authors not specified';
+                    const journal = pub.journal || 'Journal not specified';
+                    const citations = pub.citations || 0;
+                    const url = pub.url || '#';
+                    
+                    html += `
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>
+                                    <a href="${url}" target="_blank">${cleanTitle}</a>
+                                </h4>
+                                <p class="authors">${authors}</p>
+                                <p class="journal">${journal}</p>
+                            </div>
+                            <div class="card-footer">
+                                <div>
+                                    <small>Published in <strong>${year}</strong> | Citations: <strong>${citations}</strong></small>
+                                </div>
+                                <div class="actions">
+                                    <a href="#" onclick="searchDOI('${cleanTitle.replace(/'/g, "\\'")}')">📄 Find DOI</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Filter publications
+        function filterPubs(type) {
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (type === 'all') {
+                filteredPublications = [...allPublications];
+            } else if (type === 'highly-cited') {
+                filteredPublications = allPublications.filter(pub => (pub.citations || 0) >= 100);
+            } else if (type === 'recent') {
+                filteredPublications = allPublications.filter(pub => (pub.year || 0) >= 2020);
+            }
+            
             renderPublications();
         }
 
-        // Publication Management
-        function toggleAddForm() {
-            const form = document.getElementById('add-publication-form');
-            const isVisible = form.style.display !== 'none';
-            form.style.display = isVisible ? 'none' : 'block';
-            
-            if (!isVisible) {
-                clearForm();
-                // Scroll to top of page when opening the form
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-        }
+        // Sort publications
+        function sortPubs(type) {
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
 
-        function clearForm() {
-            document.getElementById('pub-url').value = '';
-            document.getElementById('pub-title').value = '';
-            document.getElementById('pub-authors').value = '';
-            document.getElementById('pub-journal').value = '';
-            document.getElementById('pub-year').value = '';
-            document.getElementById('pub-citations').value = '';
-            document.getElementById('pub-status').value = 'approved';
-        }
-
-        async function autoFetchDetails() {
-            const input = document.getElementById('pub-url').value.trim();
-            
-            if (!input) {
-                showMessage('Please enter a URL first.', 'error');
-                return;
-            }
-
-            const loadingEl = document.getElementById('url-loading');
-            loadingEl.style.display = 'block';
-            loadingEl.textContent = 'Fetching details...';
-
-            try {
-                let publicationData = null;
-
-                if (input.includes('scholar.google.com')) {
-                    publicationData = await fetchFromGoogleScholar(input);
-                } else if (input.includes('doi.org') || input.includes('dx.doi.org')) {
-                    publicationData = await fetchFromDOI(input);
-                } else {
-                    publicationData = await fetchGeneric(input);
-                }
-
-                if (publicationData) {
-                    fillFormWithData(publicationData);
-                    showMessage('Details auto-filled! Please review and edit as needed.', 'success');
-                } else {
-                    showMessage('Could not extract details from this URL. Please fill manually.', 'error');
-                }
-
-            } catch (error) {
-                console.error('Auto-fetch error:', error);
-                showMessage('Error fetching details. Please fill manually.', 'error');
+            if (type === 'citations') {
+                filteredPublications.sort((a, b) => (b.citations || 0) - (a.citations || 0));
+            } else if (type === 'year') {
+                filteredPublications.sort((a, b) => (b.year || 0) - (a.year || 0));
             }
             
-            loadingEl.style.display = 'none';
+            renderPublications();
         }
 
-        async function fetchFromGoogleScholar(url) {
-            try {
-                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-                const response = await fetch(proxyUrl);
-                const data = await response.json();
-                
-                if (!data.contents) {
-                    throw new Error('No content received');
-                }
+        // Search for DOI
+        function searchDOI(title) {
+            const query = encodeURIComponent(title);
+            window.open(`https://www.crossref.org/guestquery/?q=${query}`, '_blank');
+        }
 
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data.contents, 'text/html');
-
-                const title = doc.querySelector('#gsc_oci_title')?.textContent?.trim() ||
-                             doc.querySelector('.gsc_oci_title_link')?.textContent?.trim();
-                
-                const authors = doc.querySelector('.gsc_oci_author_new')?.textContent?.trim() ||
-                               doc.querySelector('.gsc_oci_author')?.textContent?.trim();
-                
-                const journalInfo = doc.querySelector('.gsc_oci_journal')?.textContent?.trim();
-                
-                const citationCount = doc.querySelector('.gsc_oci_citedby .gsc_oci_citedby_value')?.textContent?.trim();
-                
-                let year = new Date().getFullYear();
-                const yearMatch = journalInfo?.match(/(\d{4})/);
-                if (yearMatch) {
-                    year = parseInt(yearMatch[1]);
-                }
-
-                return {
-                    title: title || '',
-                    authors: authors || '',
-                    journal: journalInfo || '',
-                    year: year,
-                    citations: citationCount ? parseInt(citationCount) : 0
-                };
-
-            } catch (error) {
-                console.error('Google Scholar fetch error:', error);
-                return null;
+        // Initialize everything
+        async function init() {
+            const publications = await loadPublications();
+            
+            if (publications && Array.isArray(publications)) {
+                allPublications = publications;
+                filteredPublications = [...allPublications];
+                updateStats();
+                renderPublications();
+            } else {
+                document.getElementById('publications-container').innerHTML = `
+                    <div class="error">
+                        <h3>Error Loading Publications</h3>
+                        <p>Could not load publications from projects/koffas-publications.json</p>
+                        <p>Please make sure the file exists and is properly formatted.</p>
+                    </div>
+                `;
             }
         }
 
-        async function fetchFromDOI(url) {
-            try {
-                const doiMatch = url.match(/10\.\d{4,}\/[^\s]+/);
-                if (!doiMatch) {
-                    throw new Error('Could not extract DOI from URL');
-                }
-                
-                const doi = doiMatch[0];
-                
-                const apiUrl = `https://api.crossref.org/works/${doi}`;
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                
-                if (!data.message) {
-                    throw new Error('Publication not found');
-                }
-                
-                const work = data.message;
-                
-                const authors = work.author?.map(author => 
-                    `${author.given || ''} ${author.family || ''}`.trim()
-                )?.join(', ') || '';
-                
-                const journal = `${work['container-title']?.[0] || ''} ${work.volume ? `${work.volume}` : ''}${work.issue ? `(${work.issue})` : ''}${work.page ? `, ${work.page}` : ''}`.trim();
-                
-                const year = work.published?.['date-parts']?.[0]?.[0] || new Date().getFullYear();
-                
-                return {
-                    title: work.title?.[0] || '',
-                    authors: authors,
-                    journal: journal,
+        // Start the app
+        init();
+    </script>
+</body>
+</html>
