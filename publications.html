@@ -24,7 +24,6 @@
             --green: #28a745;
             --red: #dc3545;
             --yellow: #ffc107;
-            --purple: #6f42c1;
         }
 
         body {
@@ -125,30 +124,6 @@
             max-width: 600px;
             margin: 0 auto;
             line-height: 1.6;
-        }
-
-        /* Admin Controls */
-        .admin-controls {
-            background: var(--sage-light);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .login-section {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .login-section input {
-            padding: 8px 12px;
-            border: 1px solid var(--sage-medium);
-            border-radius: 4px;
-            font-size: 0.9rem;
         }
 
         .btn {
@@ -354,10 +329,6 @@
             border-color: var(--sage-medium);
         }
 
-        .card.patent {
-            border-left: 4px solid var(--purple);
-        }
-
         .card-body {
             padding: 20px;
         }
@@ -448,20 +419,6 @@
             color: white;
         }
 
-        .type-badge {
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            margin-left: 8px;
-        }
-
-        .type-publication {
-            background: var(--blue);
-            color: white;
-        }
-
-
         /* Messages */
         .message {
             padding: 12px 16px;
@@ -504,12 +461,6 @@
 
             .content-wrapper {
                 padding: 20px;
-            }
-
-            .admin-controls {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
             }
 
             .form-row {
@@ -556,20 +507,12 @@
                 <div id="add-publication-form" class="add-publication-form">
                     <h3 style="margin-bottom: 20px; color: var(--sage-darker);">Add New Publication</h3>
                     
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="pub-type">Type</label>
-                            <select id="pub-type" onchange="toggleFormFields()">
-                                <option value="publication">Publication</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="pub-url">URL or Patent Number</label>
-                            <input type="text" id="pub-url" placeholder="https://scholar.google.com/... OR US1234567">
-                            <small style="color: var(--gray-medium); font-size: 0.8rem;">
-                                Supports: Google Scholar, DOI, Patents.google.com, or patent numbers (US1234567, EP1234567)
-                            </small>
-                        </div>
+                    <div class="form-group">
+                        <label for="pub-url">Publication URL</label>
+                        <input type="text" id="pub-url" placeholder="https://scholar.google.com/... OR DOI">
+                        <small style="color: var(--gray-medium); font-size: 0.8rem;">
+                            Supports: Google Scholar, DOI links, or other publication URLs
+                        </small>
                     </div>
 
                     <div class="loading-indicator" id="url-loading">Fetching details...</div>
@@ -586,12 +529,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="pub-authors" id="authors-label">Authors</label>
+                        <label for="pub-authors">Authors</label>
                         <textarea id="pub-authors" placeholder="Will be auto-filled from URL"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="pub-journal" id="journal-label">Journal/Conference</label>
+                        <label for="pub-journal">Journal/Conference</label>
                         <input type="text" id="pub-journal" placeholder="Will be auto-filled from URL">
                     </div>
 
@@ -610,7 +553,7 @@
                     </div>
 
                     <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button class="btn btn-success" onclick="addPublication()">Add Item</button>
+                        <button class="btn btn-success" onclick="addPublication()">Add Publication</button>
                         <button class="btn btn-secondary" onclick="toggleAddForm()">Cancel</button>
                         <button class="btn btn-primary" onclick="autoFetchDetails()">Auto-Fill from URL</button>
                     </div>
@@ -626,10 +569,6 @@
                         <div class="stat-item">
                             <div class="stat-number" id="total-pubs">0</div>
                             <div class="stat-label">Publications</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="total-patents">0</div>
-                            <div class="stat-label">Patents</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-number" id="total-citations">0</div>
@@ -648,9 +587,7 @@
 
                 <!-- Filter Controls -->
                 <div class="filter-controls">
-                    <button class="filter-btn active" onclick="filterPubs('all')">All Items</button>
-                    <button class="filter-btn" onclick="filterPubs('publications')">Publications Only</button>
-                    <button class="filter-btn" onclick="filterPubs('patents')">Patents Only</button>
+                    <button class="filter-btn active" onclick="filterPubs('all')">All Publications</button>
                     <button class="filter-btn" onclick="filterPubs('recent')">Recent (2020+)</button>
                     <button class="filter-btn" onclick="filterPubs('highly-cited')">Highly Cited (100+)</button>
                     <button class="filter-btn" onclick="sortPubs('citations')">Sort by Citations</button>
@@ -675,10 +612,11 @@
                     <div id="admin-section" style="display: none;">
                         <div style="color: var(--sage-darker); font-size: 1rem; margin-bottom: 15px; font-weight: 600;">✓ Welcome, Lab Member!</div>
                         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                            <button class="btn btn-success" onclick="toggleAddForm()">Add Publication/Patent</button>
+                            <button class="btn btn-success" onclick="toggleAddForm()">Add Publication</button>
                             <button class="btn btn-primary" onclick="exportPublications()">📥 Export All Data</button>
                             <button class="btn btn-secondary" onclick="document.getElementById('import-file').click()">📤 Import Data</button>
                             <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importPublications(event)">
+                            <button class="btn btn-secondary" onclick="checkExternalFile()">🔄 Reload from GitHub</button>
                             <button class="btn btn-secondary" onclick="logout()">Logout</button>
                         </div>
                     </div>
@@ -694,132 +632,77 @@
         let allPublications = [];
         let filteredPublications = [];
 
-        // Initialize with demo data
+        // Initialize data - only from JSON file or localStorage
         function initializeData() {
+            console.log('🚀 Initializing publications data...');
+            
             // Try to load from external JSON file first, then fall back to localStorage
             loadFromExternalFile().then(externalData => {
                 if (externalData && externalData.length > 0) {
+                    console.log('✅ Using external data with', externalData.length, 'publications');
                     allPublications = externalData;
                     // Also save to localStorage as backup
-                    localStorage.setItem('koffas-publications', JSON.stringify(allPublications));
+                    localStorage.setItem('koffasPublications', JSON.stringify(allPublications));
+                    showMessage(`Loaded ${externalData.length} publications from GitHub!`, 'success');
                 } else {
-                    // Fall back to localStorage or demo data
-                    const savedData = JSON.parse(localStorage.getItem('koffas-publications') || '[]');
+                    console.log('⚠️ No external data found, checking localStorage...');
+                    // Fall back to localStorage only
+                    const savedData = JSON.parse(localStorage.getItem('koffasPublications') || '[]');
                     
                     if (savedData.length === 0) {
-                        // Load demo data including patents
-                        allPublications = [
-                            {
-                                id: 1,
-                                title: "Metabolic burden: cornerstones in synthetic biology and metabolic engineering applications",
-                                authors: "G Wu, Q Yan, JA Jones, YJ Tang, SS Fong, MAG Koffas",
-                                journal: "Trends in biotechnology 34 (8), 652-664",
-                                year: 2016,
-                                citations: 660,
-                                url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=iibrJwkAAAAJ&citation_for_view=iibrJwkAAAAJ:2osOgNQ5qMEC",
-                                status: "approved",
-                                type: "publication",
-                                dateAdded: new Date().toISOString()
-                            },
-                            {
-                                id: 2,
-                                title: "Modular optimization of multi-gene pathways for fatty acids production in E. coli",
-                                authors: "P Xu, Q Gu, W Wang, L Wong, AGW Bower, CH Collins, MAG Koffas",
-                                journal: "Nature communications 4 (1), 1409",
-                                year: 2013,
-                                citations: 574,
-                                url: "#",
-                                status: "approved",
-                                type: "publication",
-                                dateAdded: new Date().toISOString()
-                            },
-                            {
-                                id: 3,
-                                title: "Methods for producing flavonoids in recombinant microorganisms",
-                                authors: "MAG Koffas, E Leonard, KH Lim",
-                                journal: "Patent US8367390B2 - Rensselaer Polytechnic Institute",
-                                year: 2013,
-                                citations: 45,
-                                url: "https://patents.google.com/patent/US8367390B2",
-                                status: "approved",
-                                type: "patent",
-                                dateAdded: new Date().toISOString()
-                            },
-                            {
-                                id: 4,
-                                title: "Engineered biosynthesis of plant polyketides in microorganisms",
-                                authors: "MAG Koffas, P Xu, G Wu",
-                                journal: "Patent US9580727B2 - Rensselaer Polytechnic Institute",
-                                year: 2017,
-                                citations: 23,
-                                url: "https://patents.google.com/patent/US9580727B2",
-                                status: "approved",
-                                type: "patent",
-                                dateAdded: new Date().toISOString()
-                            },
-                            {
-                                id: 5,
-                                title: "Advanced synthetic biology approaches for sustainable biomanufacturing",
-                                authors: "MAG Koffas, P Chen, L Wang, J Smith",
-                                journal: "Nature Biotechnology 42 (3), 123-134",
-                                year: 2024,
-                                citations: 23,
-                                url: "#",
-                                status: "approved",
-                                type: "publication",
-                                dateAdded: new Date().toISOString()
-                            }
-                        ];
-                        saveData();
+                        console.log('📭 No publications found anywhere - starting with empty dataset');
+                        allPublications = [];
+                        showMessage('No publications found. Please upload a JSON file or add publications manually after logging in.', 'info');
                     } else {
+                        console.log('📖 Using saved local data with', savedData.length, 'publications');
                         allPublications = savedData;
-                        // Add type field for backwards compatibility
-                        allPublications.forEach(pub => {
-                            if (!pub.type) {
-                                pub.type = pub.journal && pub.journal.toLowerCase().includes('patent') ? 'patent' : 'publication';
-                            }
-                        });
-                        saveData();
                     }
                 }
                 
                 filteredPublications = [...allPublications];
                 updateStats();
                 renderPublications();
+                console.log('✅ Initialization complete!');
             });
         }
 
         // Load data from external JSON file
         async function loadFromExternalFile() {
-            try {
-                const response = await fetch('projects/koffas-publications.json' + new Date().getTime()); // Cache busting
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log('Loaded publications from external file:', data.length);
-                    return data;
-                }
-            } catch (error) {
-                console.log('No external publications file found, using local data');
-            }
-            return null;
-        }
+            // Try multiple possible paths for the JSON file
+            const possiblePaths = [
+                './projects/koffas-publications.json',
+                './koffas-publications.json',
+                '../koffas-publications.json',
+                '/projects/koffas-publications.json',
+                '/koffas-publications.json'
+            ];
 
-        // Form field toggling
-        function toggleFormFields() {
-            const type = document.getElementById('pub-type').value;
-            const authorsLabel = document.getElementById('authors-label');
-            const journalLabel = document.getElementById('journal-label');
-            const urlInput = document.getElementById('pub-url');
+            console.log('Starting to search for publications file...');
             
-            if (type === 'patent') {
-                authorsLabel.textContent = 'Inventors';
-                journalLabel.textContent = 'Patent Number/Assignee';
-                urlInput.placeholder = 'https://patents.google.com/... OR US1234567';
-            } else {
-                authorsLabel.textContent = 'Authors';
-                journalLabel.textContent = 'Journal/Conference';
-                urlInput.placeholder = 'https://scholar.google.com/... OR DOI';
+            for (const path of possiblePaths) {
+                try {
+                    console.log('Trying to load from:', path);
+                    const response = await fetch(path + '?' + new Date().getTime()); // Cache busting
+                    console.log('Response status for', path, ':', response.status);
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('✅ Successfully loaded publications from:', path, '- Count:', data.length);
+                        
+                        // Validate the data structure
+                        if (Array.isArray(data) && data.length > 0 && data[0].title) {
+                            return data;
+                        } else {
+                            console.log('❌ Invalid data structure in file:', path);
+                        }
+                    }
+                } catch (error) {
+                    console.log('❌ Failed to load from:', path, '- Error:', error.message);
+                }
             }
+            
+            console.log('❌ No external publications file found in any location, using local data');
+            return null;
         }
 
         // Authentication
@@ -862,7 +745,6 @@
         }
 
         function clearForm() {
-            document.getElementById('pub-type').value = 'publication';
             document.getElementById('pub-url').value = '';
             document.getElementById('pub-title').value = '';
             document.getElementById('pub-authors').value = '';
@@ -870,15 +752,13 @@
             document.getElementById('pub-year').value = '';
             document.getElementById('pub-citations').value = '';
             document.getElementById('pub-status').value = 'approved';
-            toggleFormFields();
         }
 
         async function autoFetchDetails() {
             const input = document.getElementById('pub-url').value.trim();
-            const type = document.getElementById('pub-type').value;
             
             if (!input) {
-                showMessage('Please enter a URL or patent number first.', 'error');
+                showMessage('Please enter a URL first.', 'error');
                 return;
             }
 
@@ -889,11 +769,7 @@
             try {
                 let publicationData = null;
 
-                if (input.includes('patents.google.com') || /^(US|EP|WO|CN|JP)\d+/i.test(input)) {
-                    publicationData = await fetchFromGooglePatents(input);
-                    document.getElementById('pub-type').value = 'patent';
-                    toggleFormFields();
-                } else if (input.includes('scholar.google.com')) {
+                if (input.includes('scholar.google.com')) {
                     publicationData = await fetchFromGoogleScholar(input);
                 } else if (input.includes('doi.org') || input.includes('dx.doi.org')) {
                     publicationData = await fetchFromDOI(input);
@@ -914,92 +790,6 @@
             }
             
             loadingEl.style.display = 'none';
-        }
-
-        async function fetchFromGooglePatents(input) {
-            try {
-                let url = input;
-                
-                // If just a patent number is provided, construct the Google Patents URL
-                const patentNumberMatch = input.match(/^(US|EP|WO|CN|JP)(\d+[A-Z]?\d*)$/i);
-                if (patentNumberMatch) {
-                    const country = patentNumberMatch[1].toUpperCase();
-                    const number = patentNumberMatch[2];
-                    url = `https://patents.google.com/patent/${country}${number}`;
-                }
-                
-                // Use CORS proxy to fetch the page
-                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-                const response = await fetch(proxyUrl);
-                const data = await response.json();
-                
-                if (!data.contents) {
-                    throw new Error('No content received');
-                }
-
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data.contents, 'text/html');
-
-                // Extract patent data from Google Patents page
-                const title = doc.querySelector('meta[name="DC.title"]')?.getAttribute('content') ||
-                             doc.querySelector('meta[property="og:title"]')?.getAttribute('content') ||
-                             doc.querySelector('[data-result="title"]')?.textContent?.trim() ||
-                             doc.querySelector('h1')?.textContent?.trim();
-                
-                // Extract inventors
-                let inventors = [];
-                const inventorElements = doc.querySelectorAll('[data-result="inventor"]');
-                inventorElements.forEach(el => {
-                    const name = el.textContent?.trim();
-                    if (name) inventors.push(name);
-                });
-                
-                // Fallback for inventors
-                if (inventors.length === 0) {
-                    const inventorMeta = doc.querySelector('meta[name="DC.contributor"]')?.getAttribute('content');
-                    if (inventorMeta) {
-                        inventors = inventorMeta.split(',').map(name => name.trim());
-                    }
-                }
-                
-                // Extract assignee
-                const assignee = doc.querySelector('[data-result="assignee"]')?.textContent?.trim() ||
-                                doc.querySelector('meta[name="DC.publisher"]')?.getAttribute('content') ||
-                                'Patent';
-                
-                // Extract filing/publication date
-                const dateElements = doc.querySelectorAll('[data-result="filing-date"], [data-result="publication-date"]');
-                let year = new Date().getFullYear();
-                
-                for (const dateEl of dateElements) {
-                    const dateText = dateEl.textContent?.trim();
-                    const yearMatch = dateText?.match(/(\d{4})/);
-                    if (yearMatch) {
-                        year = parseInt(yearMatch[1]);
-                        break;
-                    }
-                }
-                
-                // Get patent number for journal field
-                const patentNumber = doc.querySelector('meta[name="DC.identifier"]')?.getAttribute('content') ||
-                                   input.match(/(US|EP|WO|CN|JP)\d+[A-Z]?\d*/i)?.[0] ||
-                                   '';
-                
-                // Format journal field for patents
-                const journal = `Patent ${patentNumber}${assignee && assignee !== 'Patent' ? ` - ${assignee}` : ''}`;
-
-                return {
-                    title: title || '',
-                    authors: inventors.join(', ') || '',
-                    journal: journal,
-                    year: year,
-                    citations: 0
-                };
-
-            } catch (error) {
-                console.error('Google Patents fetch error:', error);
-                return null;
-            }
         }
 
         async function fetchFromGoogleScholar(url) {
@@ -1076,389 +866,3 @@
                     title: work.title?.[0] || '',
                     authors: authors,
                     journal: journal,
-                    year: year,
-                    citations: work['is-referenced-by-count'] || 0
-                };
-
-            } catch (error) {
-                console.error('DOI fetch error:', error);
-                return null;
-            }
-        }
-
-        async function fetchGeneric(url) {
-            try {
-                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-                const response = await fetch(proxyUrl);
-                const data = await response.json();
-                
-                if (!data.contents) {
-                    throw new Error('No content received');
-                }
-
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data.contents, 'text/html');
-
-                const title = doc.querySelector('meta[name="citation_title"]')?.getAttribute('content') ||
-                             doc.querySelector('meta[property="og:title"]')?.getAttribute('content') ||
-                             doc.querySelector('title')?.textContent?.trim() ||
-                             doc.querySelector('h1')?.textContent?.trim();
-
-                const authors = doc.querySelector('meta[name="citation_author"]')?.getAttribute('content') ||
-                               doc.querySelector('meta[name="author"]')?.getAttribute('content') ||
-                               doc.querySelector('meta[name="citation_authors"]')?.getAttribute('content');
-
-                const journal = doc.querySelector('meta[name="citation_journal_title"]')?.getAttribute('content') ||
-                               doc.querySelector('meta[name="citation_conference_title"]')?.getAttribute('content');
-
-                const yearMeta = doc.querySelector('meta[name="citation_publication_date"]')?.getAttribute('content') ||
-                                doc.querySelector('meta[name="citation_year"]')?.getAttribute('content');
-                
-                let year = new Date().getFullYear();
-                if (yearMeta) {
-                    const yearMatch = yearMeta.match(/(\d{4})/);
-                    if (yearMatch) {
-                        year = parseInt(yearMatch[1]);
-                    }
-                }
-
-                if (title) {
-                    return {
-                        title: title,
-                        authors: authors || '',
-                        journal: journal || '',
-                        year: year,
-                        citations: 0
-                    };
-                }
-
-                return null;
-            } catch (error) {
-                console.error('Generic fetch error:', error);
-                return null;
-            }
-        }
-
-        function fillFormWithData(data) {
-            if (data.title) document.getElementById('pub-title').value = data.title;
-            if (data.authors) document.getElementById('pub-authors').value = data.authors;
-            if (data.journal) document.getElementById('pub-journal').value = data.journal;
-            if (data.year) document.getElementById('pub-year').value = data.year;
-            if (data.citations !== undefined) document.getElementById('pub-citations').value = data.citations;
-        }
-
-        // Export/Import functionality
-        function exportPublications() {
-            const dataStr = JSON.stringify(allPublications, null, 2);
-            const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'koffas-publications.json';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            showMessage('Publications data exported! Upload this file to your GitHub repository to update the website for everyone.', 'success');
-        }
-
-        function importPublications(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const importedData = JSON.parse(e.target.result);
-                    if (Array.isArray(importedData)) {
-                        allPublications = importedData;
-                        filteredPublications = [...allPublications];
-                        saveData();
-                        updateStats();
-                        renderPublications();
-                        showMessage(`Successfully imported ${importedData.length} publications!`, 'success');
-                    } else {
-                        throw new Error('Invalid file format');
-                    }
-                } catch (error) {
-                    showMessage('Error importing file. Please check the file format.', 'error');
-                }
-            };
-            reader.readAsText(file);
-            
-            // Reset the file input
-            event.target.value = '';
-        }
-
-        // Enhanced addPublication function with export prompt
-        function addPublication() {
-            const type = document.getElementById('pub-type').value;
-            const title = document.getElementById('pub-title').value;
-            const authors = document.getElementById('pub-authors').value;
-            const journal = document.getElementById('pub-journal').value;
-            const year = parseInt(document.getElementById('pub-year').value);
-            const citations = parseInt(document.getElementById('pub-citations').value) || 0;
-            const url = document.getElementById('pub-url').value;
-            const status = document.getElementById('pub-status').value;
-
-            if (!title || !authors || !year) {
-                showMessage('Please fill in at least title, authors/inventors, and year.', 'error');
-                return;
-            }
-
-            const newPublication = {
-                id: Date.now(),
-                title,
-                authors,
-                journal: journal || (type === 'patent' ? 'Patent information not available' : 'Journal information not available'),
-                year,
-                citations,
-                url: url || '#',
-                status,
-                type,
-                dateAdded: new Date().toISOString()
-            };
-
-            allPublications.unshift(newPublication);
-            filteredPublications = [...allPublications];
-            saveData();
-            updateStats();
-            renderPublications();
-            toggleAddForm();
-            
-            showMessage(`${type === 'patent' ? 'Patent' : 'Publication'} added successfully! Remember to export and upload to GitHub to share with everyone.`, 'success');
-            
-            // Auto-prompt for export after adding
-            setTimeout(() => {
-                if (confirm('Would you like to export the updated data now to share with your lab members?')) {
-                    exportPublications();
-                }
-            }, 2000);
-        }
-
-        function deletePublication(id) {
-            const pub = allPublications.find(p => p.id === id);
-            const itemType = pub?.type === 'patent' ? 'patent' : 'publication';
-            
-            if (confirm(`Are you sure you want to delete this ${itemType}?`)) {
-                allPublications = allPublications.filter(pub => pub.id !== id);
-                filteredPublications = [...allPublications];
-                saveData();
-                updateStats();
-                renderPublications();
-                showMessage(`${itemType} deleted.`, 'info');
-            }
-        }
-
-        function toggleStatus(id) {
-            const pub = allPublications.find(p => p.id === id);
-            if (pub) {
-                pub.status = pub.status === 'approved' ? 'pending' : 'approved';
-                saveData();
-                renderPublications();
-                showMessage(`Status changed to ${pub.status}.`, 'info');
-            }
-        }
-
-        // Data Management
-        function saveData() {
-            try {
-                localStorage.setItem('koffasPublications', JSON.stringify(allPublications));
-            } catch (error) {
-                console.error('Error saving data:', error);
-            }
-        }
-
-        // Statistics
-        function updateStats() {
-            const approvedItems = allPublications.filter(pub => pub.status === 'approved');
-            const totalPubs = approvedItems.filter(pub => pub.type === 'publication').length;
-            const totalPatents = approvedItems.filter(pub => pub.type === 'patent').length;
-            const totalCitations = approvedItems.reduce((sum, pub) => sum + pub.citations, 0);
-            const years = approvedItems.map(pub => pub.year);
-            const yearsActive = years.length > 0 ? Math.max(...years) - Math.min(...years) + 1 : 0;
-            
-            // Calculate H-index (only for publications with citations)
-            const sortedCitations = approvedItems.filter(pub => pub.type === 'publication').map(pub => pub.citations).sort((a, b) => b - a);
-            let hIndex = 0;
-            for (let i = 0; i < sortedCitations.length; i++) {
-                if (sortedCitations[i] >= i + 1) {
-                    hIndex = i + 1;
-                }
-            }
-            
-            document.getElementById('total-pubs').textContent = totalPubs;
-            document.getElementById('total-patents').textContent = totalPatents;
-            document.getElementById('total-citations').textContent = totalCitations.toLocaleString();
-            document.getElementById('h-index').textContent = hIndex;
-            document.getElementById('years-active').textContent = yearsActive;
-        }
-
-        // Rendering
-        function renderPublications() {
-            const container = document.getElementById('publications-container');
-            
-            // Group by year
-            const publicationsByYear = {};
-            filteredPublications.forEach(pub => {
-                if (!publicationsByYear[pub.year]) {
-                    publicationsByYear[pub.year] = [];
-                }
-                publicationsByYear[pub.year].push(pub);
-            });
-            
-            // Sort years in descending order
-            const sortedYears = Object.keys(publicationsByYear).sort((a, b) => b - a);
-            
-            let html = '';
-            sortedYears.forEach(year => {
-                const publications = publicationsByYear[year];
-                html += `
-                    <div class="year-section">
-                        <div class="year-header">
-                            ${year}
-                            <span class="year-count">${publications.length}</span>
-                        </div>
-                `;
-                
-                publications.forEach(pub => {
-                    const statusBadge = `<span class="status-badge status-${pub.status}">${pub.status}</span>`;
-                    const typeBadge = `<span class="type-badge type-${pub.type}">${pub.type === 'patent' ? '📄 Patent' : '📖 Publication'}</span>`;
-                    const cardClass = pub.type === 'patent' ? 'card patent' : 'card';
-                    const adminActions = isLoggedIn ? `
-                        <button class="btn btn-danger btn-small" onclick="deletePublication(${pub.id})">Delete</button>
-                        <button class="btn btn-secondary btn-small" onclick="toggleStatus(${pub.id})">Toggle Status</button>
-                    ` : '';
-                    
-                    html += `
-                        <div class="${cardClass}">
-                            <div class="card-body">
-                                <h4>
-                                    <a href="${pub.url}" target="_blank">${pub.title}</a>
-                                    ${typeBadge}
-                                </h4>
-                                <p class="authors">${pub.authors}</p>
-                                <p class="journal">${pub.journal}</p>
-                            </div>
-                            <div class="card-footer">
-                                <div>
-                                    <small>Published in <strong>${pub.year}</strong> | Citations: <strong>${pub.citations}</strong></small>
-                                    ${statusBadge}
-                                </div>
-                                <div class="actions">
-                                    ${pub.type === 'patent' ? 
-                                        `<a href="#" onclick="searchPatent('${pub.title.replace(/'/g, "\\'")}')">🔍 Search</a>` :
-                                        `<a href="#" onclick="searchDOI('${pub.title.replace(/'/g, "\\'")}')">📄 DOI</a>`
-                                    }
-                                    ${adminActions}
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                html += '</div>';
-            });
-            
-            if (html === '') {
-                html = '<p style="text-align: center; color: var(--gray-medium); padding: 40px;">No items found matching current filters.</p>';
-            }
-            
-            container.innerHTML = html;
-        }
-
-        // Filter and Sort Functions
-        function filterPubs(type) {
-            // Update active button
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if (type === 'all') {
-                filteredPublications = [...allPublications];
-            } else if (type === 'publications') {
-                filteredPublications = allPublications.filter(pub => pub.type === 'publication');
-            } else if (type === 'patents') {
-                filteredPublications = allPublications.filter(pub => pub.type === 'patent');
-            } else if (type === 'highly-cited') {
-                filteredPublications = allPublications.filter(pub => pub.citations >= 100);
-            } else if (type === 'recent') {
-                filteredPublications = allPublications.filter(pub => pub.year >= 2020);
-            }
-            
-            renderPublications();
-        }
-
-        function sortPubs(type) {
-            // Update active button
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if (type === 'citations') {
-                filteredPublications.sort((a, b) => b.citations - a.citations);
-            } else if (type === 'year') {
-                filteredPublications.sort((a, b) => b.year - a.year);
-            }
-            
-            renderPublications();
-        }
-
-        // Utility Functions
-        function searchDOI(title) {
-            const query = encodeURIComponent(title);
-            window.open(`https://www.crossref.org/guestquery/?q=${query}`, '_blank');
-        }
-
-        function searchPatent(title) {
-            const query = encodeURIComponent(title);
-            window.open(`https://patents.google.com/?q=${query}`, '_blank');
-        }
-
-        function showMessage(message, type) {
-            const messagesDiv = document.getElementById('messages');
-            const messageEl = document.createElement('div');
-            messageEl.className = `message message-${type}`;
-            messageEl.textContent = message;
-            
-            messagesDiv.appendChild(messageEl);
-            
-            // Auto-remove after 5 seconds
-            setTimeout(() => {
-                messageEl.remove();
-            }, 5000);
-        }
-
-        // Auto-fill detection
-        document.getElementById('pub-url').addEventListener('input', function() {
-            const input = this.value.trim();
-            const loadingEl = document.getElementById('url-loading');
-            
-            if (input && (
-                input.includes('scholar.google.com') || 
-                input.includes('doi.org') || 
-                input.includes('patents.google.com') ||
-                /^(US|EP|WO|CN|JP)\d+/i.test(input)
-            )) {
-                loadingEl.textContent = 'URL/Patent detected! Click "Auto-Fill" to fetch details.';
-                loadingEl.style.display = 'block';
-                loadingEl.style.color = 'var(--sage-dark)';
-                
-                // Auto-detect patent vs publication
-                if (input.includes('patents.google.com') || /^(US|EP|WO|CN|JP)\d+/i.test(input)) {
-                    document.getElementById('pub-type').value = 'patent';
-                    toggleFormFields();
-                }
-            } else {
-                loadingEl.style.display = 'none';
-            }
-        });
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeData();
-            toggleFormFields(); // Set initial form labels
-        });
-    </script>
-</body>
-</html>
