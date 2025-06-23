@@ -471,7 +471,7 @@
             document.getElementById('citation-result').style.display = 'none';
         }
 
-        // DOI Citation Generator - Multiple DOIs
+        // DOI Citation Generator - Simplified and More Robust
         async function generateCitations() {
             const doiInput = document.getElementById('doi-input').value.trim();
             if (!doiInput) {
@@ -479,12 +479,16 @@
                 return;
             }
 
+            console.log('Starting citation generation...');
+
             // Parse DOIs from input (support comma-separated or line-separated)
             const rawDois = doiInput.split(/[,\n]/).map(doi => doi.trim()).filter(doi => doi);
             if (rawDois.length === 0) {
                 alert('No valid DOIs found');
                 return;
             }
+
+            console.log('Found DOIs:', rawDois);
 
             // Clean up DOIs
             const dois = rawDois.map(doiInput => {
@@ -497,6 +501,8 @@
                 return doi;
             });
 
+            console.log('Cleaned DOIs:', dois);
+
             const loadingEl = document.getElementById('citation-loading');
             const resultEl = document.getElementById('citation-result');
             const progressBar = document.getElementById('progress-bar');
@@ -505,6 +511,7 @@
             loadingEl.style.display = 'block';
             resultEl.style.display = 'none';
             progressBar.style.width = '0%';
+            progressText.textContent = 'Starting...';
 
             const citations = [];
             const errors = [];
@@ -513,32 +520,26 @@
                 const doi = dois[i];
                 const progress = ((i + 1) / dois.length) * 100;
                 
+                console.log(`Processing DOI ${i + 1}/${dois.length}: ${doi}`);
                 progressText.textContent = `Processing ${i + 1}/${dois.length}: ${doi}`;
                 progressBar.style.width = `${progress}%`;
 
                 try {
-                    // Get basic publication data from CrossRef
+                    // Simple approach - just use CrossRef for now
+                    console.log(`Fetching from CrossRef: ${doi}`);
                     const response = await fetch(`https://api.crossref.org/works/${doi}`);
+                    
+                    console.log(`CrossRef response status: ${response.status}`);
                     if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}`);
+                        throw new Error(`CrossRef API returned ${response.status}`);
                     }
                     
                     const data = await response.json();
                     const work = data.message;
                     
-                    // Try to get citation count from Semantic Scholar
-                    let citationCount = 0;
-                    try {
-                        const semanticResponse = await fetch(`https://api.semanticscholar.org/graph/v1/paper/DOI:${doi}?fields=citationCount`);
-                        if (semanticResponse.ok) {
-                            const semanticData = await semanticResponse.json();
-                            citationCount = semanticData.citationCount || 0;
-                        }
-                    } catch (semanticError) {
-                        console.log(`Semantic Scholar failed for ${doi}`);
-                    }
+                    console.log(`CrossRef data received for ${doi}:`, work.title?.[0]);
                     
-                    // Generate JSON citation
+                    // Generate simple citation without trying Semantic Scholar for now
                     const citation = {
                         id: Date.now() + i, // Ensure unique IDs
                         title: work.title?.[0] || 'Unknown Title',
@@ -547,7 +548,7 @@
                         )?.join(', ') || 'Unknown Authors',
                         journal: formatJournal(work),
                         year: work.published?.['date-parts']?.[0]?.[0] || new Date().getFullYear(),
-                        citations: citationCount,
+                        citations: 0, // Will be 0 for now - user can update manually
                         url: `https://doi.org/${doi}`,
                         status: "approved",
                         type: "publication",
@@ -555,15 +556,18 @@
                     };
                     
                     citations.push(citation);
+                    console.log(`Successfully processed ${doi}`);
                     
-                    // Small delay to avoid overwhelming APIs
-                    await new Promise(resolve => setTimeout(resolve, 200));
+                    // Small delay to avoid overwhelming API
+                    await new Promise(resolve => setTimeout(resolve, 500));
                     
                 } catch (error) {
                     console.error(`Error fetching DOI ${doi}:`, error);
                     errors.push(`${doi}: ${error.message}`);
                 }
             }
+
+            console.log(`Finished processing. Citations: ${citations.length}, Errors: ${errors.length}`);
 
             // Display results
             if (citations.length > 0) {
@@ -581,7 +585,7 @@
                 
                 showCopyMessage(`✅ Generated ${citations.length} citations${errors.length > 0 ? ` (${errors.length} errors)` : ''}!`);
             } else {
-                alert('No citations could be generated. Check your DOIs and try again.');
+                alert('No citations could be generated. Check the browser console for errors and try again.');
             }
             
             loadingEl.style.display = 'none';
