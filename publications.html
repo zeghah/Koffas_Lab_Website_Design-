@@ -880,6 +880,28 @@
                     </div>
                 `;
             }
+
+            // Set up event listeners for citation generator
+            setupCitationGenerator();
+        }
+
+        function setupCitationGenerator() {
+            const generateBtn = document.getElementById('generate-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            
+            if (generateBtn) {
+                generateBtn.addEventListener('click', function() {
+                    console.log('Generate button clicked!');
+                    generateCitations();
+                });
+            }
+            
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function() {
+                    console.log('Clear button clicked!');
+                    clearInput();
+                });
+            }
         }
 
         // Start the app
