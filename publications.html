@@ -535,23 +535,39 @@
         }
 
         function copyCitation() {
-            const citationText = document.getElementById('citation-json').value;
+            const textarea = document.getElementById('citation-json');
+            const citationText = textarea.value;
             
-            // Add comma and format for easy insertion into array
+            if (!citationText) {
+                alert('No citation to copy!');
+                return;
+            }
+            
+            // Add comma for easy pasting into JSON array
             const citationWithComma = citationText + ',';
             
-            // Modern clipboard API
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(citationWithComma).then(() => {
-                    showCopyMessage('Citation copied to clipboard with comma! 📋');
-                }).catch(err => {
-                    // Fallback to older method
-                    fallbackCopy(citationWithComma);
-                });
-            } else {
-                // Fallback for older browsers or non-HTTPS
-                fallbackCopy(citationWithComma);
+            // Simple fallback copy method that works everywhere
+            const tempTextarea = document.createElement('textarea');
+            tempTextarea.value = citationWithComma;
+            tempTextarea.style.position = 'fixed';
+            tempTextarea.style.left = '-999999px';
+            tempTextarea.style.top = '-999999px';
+            document.body.appendChild(tempTextarea);
+            tempTextarea.focus();
+            tempTextarea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    alert('Citation copied to clipboard with comma! 📋');
+                } else {
+                    alert('Copy failed. Please manually select and copy the text.');
+                }
+            } catch (err) {
+                alert('Copy failed. Please manually select and copy the text.');
             }
+            
+            document.body.removeChild(tempTextarea);
         }
 
         function downloadCitation() {
