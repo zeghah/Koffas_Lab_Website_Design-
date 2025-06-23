@@ -82,7 +82,6 @@
   "type": "publication",
   "dateAdded": "2025-06-23T18:48:32.155Z"
 },
-  
   {
   "id": 1750704486565,
   "title": "Deciphering flux adjustments of engineered E. coli cells during fermentation with changing growth conditions",
@@ -94,7 +93,7 @@
   "status": "approved",
   "type": "publication",
   "dateAdded": "2025-06-23T18:48:06.565Z"
-}
+},
   {
   "id": 1750704459842,
   "title": "Engineering the biological conversion of methanol to specialty chemicals in Escherichia coli",
@@ -275,7 +274,6 @@
   "type": "publication",
   "dateAdded": "2025-06-23T17:52:39.446Z"
 },
-  
   {
   "id": 1750701095954,
   "title": "CRISPathBrick: Modular Combinatorial Assembly of Type II-A CRISPR Arrays for dCas9-Mediated Multiplex Transcriptional Repression in <i>E. coli</i>",
