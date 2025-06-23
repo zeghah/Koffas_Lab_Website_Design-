@@ -752,8 +752,11 @@
                 `;
                 
                 publications.forEach(pub => {
-                    // Clean up HTML tags in titles
-                    const cleanTitle = (pub.title || 'Untitled').replace(/<\/?[^>]+(>|$)/g, "");
+                    // Handle HTML tags in titles - convert <i> tags to italics, remove others
+                    const formattedTitle = (pub.title || 'Untitled')
+                        .replace(/<i>(.*?)<\/i>/g, '<em>$1</em>') // Convert <i> to <em>
+                        .replace(/<\/?[^>]+(>|$)/g, ""); // Remove other HTML tags
+                    
                     const authors = pub.authors || 'Authors not specified';
                     const journal = pub.journal || 'Journal not specified';
                     const citations = pub.citations || 0;
@@ -763,7 +766,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4>
-                                    <a href="${url}" target="_blank">${cleanTitle}</a>
+                                    <a href="${url}" target="_blank">${formattedTitle}</a>
                                 </h4>
                                 <p class="authors">${authors}</p>
                                 <p class="journal">${journal}</p>
