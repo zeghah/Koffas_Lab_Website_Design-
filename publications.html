@@ -753,9 +753,13 @@
                 
                 publications.forEach(pub => {
                     // Handle HTML tags in titles - convert <i> tags to italics, remove others
-                    const formattedTitle = (pub.title || 'Untitled')
-                        .replace(/<i>(.*?)<\/i>/g, '<em>$1</em>') // Convert <i> to <em>
-                        .replace(/<\/?[^>]+(>|$)/g, ""); // Remove other HTML tags
+                    let formattedTitle = (pub.title || 'Untitled');
+                    
+                    // Convert <i> tags to <em> for proper italics rendering
+                    formattedTitle = formattedTitle.replace(/<i>(.*?)<\/i>/g, '<em>$1</em>');
+                    
+                    // Remove any other HTML tags except <em>
+                    formattedTitle = formattedTitle.replace(/<(?!\/?(em)\b)[^>]*>/g, '');
                     
                     const authors = pub.authors || 'Authors not specified';
                     const journal = pub.journal || 'Journal not specified';
