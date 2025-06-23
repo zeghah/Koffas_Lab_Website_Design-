@@ -1,5 +1,41 @@
 [
   {
+  "id": 1750699185775,
+  "title": "Enzymatic formation of a resorcylic acid by creating a structure‐guided single‐point mutation in stilbene synthase",
+  "authors": "Namita Bhan, Lingyun Li, Chao Cai, Peng Xu, Robert J. Linhardt, Mattheos A. G. Koffas",
+  "journal": "Protein Science 24(2), 167-173",
+  "year": 2014,
+  "citations": 0,
+  "url": "https://doi.org/10.1002/pro.2600",
+  "status": "approved",
+  "type": "publication",
+  "dateAdded": "2025-06-23T17:19:45.775Z"
+},
+  {
+  "id": 1750699159233,
+  "title": "Antimicrobial mechanism of resveratrol‐<i>trans</i>‐dihydrodimer produced from peroxidase‐catalyzed oxidation of resveratrol",
+  "authors": "Mauricio Mora‐Pale, Namita Bhan, Sayaka Masuko, Paul James, Julia Wood, Scott McCallum, Robert J. Linhardt, Jonathan S. Dordick, Mattheos A. G. Koffas",
+  "journal": "Biotechnology and Bioengineering 112(12), 2417-2428",
+  "year": 2015,
+  "citations": 0,
+  "url": "https://doi.org/10.1002/bit.25686",
+  "status": "approved",
+  "type": "publication",
+  "dateAdded": "2025-06-23T17:19:19.233Z"
+},
+  {
+  "id": 1750699104944,
+  "title": "Expanding the chemical space of polyketides through structure-guided mutagenesis of Vitis vinifera stilbene synthase",
+  "authors": "Namita Bhan, Brady F. Cress, Robert J. Linhardt, Mattheos Koffas",
+  "journal": "Biochimie 115, 136-143",
+  "year": 2015,
+  "citations": 0,
+  "url": "https://doi.org/10.1016/j.biochi.2015.05.019",
+  "status": "approved",
+  "type": "publication",
+  "dateAdded": "2025-06-23T17:18:24.944Z"
+},
+  {
   "id": 1750697692449,
   "title": "Production of chondroitin in metabolically engineered E. coli",
   "authors": "Wenqin He, Li Fu, Guoyun Li, J. Andrew Jones, Robert J. Linhardt, Mattheos Koffas",
