@@ -1,5 +1,29 @@
 [
   {
+  "id": 1750697692449,
+  "title": "Production of chondroitin in metabolically engineered E. coli",
+  "authors": "Wenqin He, Li Fu, Guoyun Li, J. Andrew Jones, Robert J. Linhardt, Mattheos Koffas",
+  "journal": "Metabolic Engineering 27, 92-100",
+  "year": 2015,
+  "citations": 0,
+  "url": "https://doi.org/10.1016/j.ymben.2014.11.003",
+  "status": "approved",
+  "type": "publication",
+  "dateAdded": "2025-06-23T16:54:52.449Z"
+}
+  {
+  "id": 1750697657029,
+  "title": "A novel cleaning process for industrial production of xylose in pilot scale from corncob by using screw-steam-explosive extruder",
+  "authors": "Hong-Jia Zhang, Xiao-Guang Fan, Xue-Liang Qiu, Qiu-Xiang Zhang, Wen-Ya Wang, Shuang-Xi Li, Li-Hong Deng, Mattheos A. G. Koffas, Dong-Sheng Wei, Qi-Peng Yuan",
+  "journal": "Bioprocess and Biosystems Engineering 37(12), 2425-2436",
+  "year": 2014,
+  "citations": 0,
+  "url": "https://doi.org/10.1007/s00449-014-1219-0",
+  "status": "approved",
+  "type": "publication",
+  "dateAdded": "2025-06-23T16:54:17.029Z"
+}
+  {
     "id": 1750451543256,
     "title": "Masquerading microbial pathogens: capsular polysaccharides mimic host-tissue molecules",
     "authors": "Brady F. Cress, Jacob A. Englaender, Wenqin He, Dennis Kasper, Robert J. Linhardt, Mattheos A.G. Koffas",
