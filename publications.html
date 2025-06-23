@@ -9,6 +9,30 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        // Add event listeners for real-time search and filtering
+        function setupEventListeners() {
+            const searchInput = document.getElementById('search-input');
+            const yearFilter = document.getElementById('year-filter');
+            const topicFilter = document.getElementById('topic-filter');
+            
+            // Real-time search with debouncing
+            let searchTimeout;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(searchPublications, 300);
+            });
+            
+            // Filter changes
+            yearFilter.addEventListener('change', searchPublications);
+            topicFilter.addEventListener('change', searchPublications);
+            
+            // Allow Enter key to trigger search immediately
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    clearTimeout(searchTimeout);
+                    searchPublications();
+                }
+            });
         }
 
         :root {
@@ -707,11 +731,16 @@
         // Load publications from JSON file
         async function loadPublications() {
             try {
+                console.log('Attempting to load publications from ./projects/koffas-publications.json');
                 const response = await fetch('./projects/koffas-publications.json');
+                console.log('Response status:', response.status);
+                
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                
                 const publications = await response.json();
+                console.log('Successfully loaded publications:', publications.length, 'items');
                 return publications;
             } catch (error) {
                 console.error('Error loading publications:', error);
