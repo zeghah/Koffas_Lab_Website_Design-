@@ -638,8 +638,12 @@
             
             // Try to load from external JSON file first, then fall back to localStorage
             loadFromExternalFile().then(externalData => {
+                console.log('📊 External data result:', externalData ? `Array with ${externalData.length} items` : 'null');
+                
                 if (externalData && externalData.length > 0) {
                     console.log('✅ Using external data with', externalData.length, 'publications');
+                    console.log('📝 First publication sample:', externalData[0]);
+                    
                     allPublications = externalData;
                     // Also save to localStorage as backup
                     localStorage.setItem('koffasPublications', JSON.stringify(allPublications));
@@ -648,6 +652,7 @@
                     console.log('⚠️ No external data found, checking localStorage...');
                     // Fall back to localStorage only
                     const savedData = JSON.parse(localStorage.getItem('koffasPublications') || '[]');
+                    console.log('💾 LocalStorage data:', savedData.length, 'publications');
                     
                     if (savedData.length === 0) {
                         console.log('📭 No publications found anywhere - starting with empty dataset');
@@ -659,7 +664,10 @@
                     }
                 }
                 
+                console.log('🔢 Final allPublications length:', allPublications.length);
                 filteredPublications = [...allPublications];
+                console.log('🔢 Final filteredPublications length:', filteredPublications.length);
+                
                 updateStats();
                 renderPublications();
                 console.log('✅ Initialization complete!');
@@ -675,16 +683,32 @@
             try {
                 const response = await fetch(filePath + '?' + new Date().getTime()); // Cache busting
                 console.log('📡 Response status:', response.status);
+                console.log('📡 Response ok:', response.ok);
+                console.log('📡 Response headers:', response.headers.get('content-type'));
                 
                 if (response.ok) {
-                    const data = await response.json();
-                    console.log('✅ Successfully loaded publications from:', filePath, '- Count:', data.length);
+                    const text = await response.text();
+                    console.log('📄 Raw response length:', text.length);
+                    console.log('📄 First 200 chars:', text.substring(0, 200));
                     
-                    // Validate the data structure
-                    if (Array.isArray(data) && data.length > 0 && data[0].title) {
-                        return data;
-                    } else {
-                        console.log('❌ Invalid data structure in file:', filePath);
+                    try {
+                        const data = JSON.parse(text);
+                        console.log('✅ Successfully parsed JSON - Count:', data.length);
+                        console.log('📊 Data type:', typeof data);
+                        console.log('📊 Is array:', Array.isArray(data));
+                        
+                        // Validate the data structure
+                        if (Array.isArray(data) && data.length > 0) {
+                            console.log('📝 First item structure:', Object.keys(data[0]));
+                            console.log('📝 Has title:', !!data[0].title);
+                            console.log('📝 Sample title:', data[0].title);
+                            return data;
+                        } else {
+                            console.log('❌ Invalid data structure - not an array or empty');
+                            return null;
+                        }
+                    } catch (parseError) {
+                        console.log('❌ JSON parse error:', parseError.message);
                         return null;
                     }
                 } else {
@@ -692,7 +716,7 @@
                     return null;
                 }
             } catch (error) {
-                console.log('❌ Failed to load from:', filePath, '- Error:', error.message);
+                console.log('❌ Network error loading from:', filePath, '- Error:', error.message);
                 return null;
             }
         }
