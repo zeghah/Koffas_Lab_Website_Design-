@@ -1,4 +1,27 @@
-[
+[ {
+  "id": 1750701490898,
+  "title": "Experimental and computational optimization of an Escherichia coli co-culture for the efficient production of flavonoids",
+  "authors": "J. Andrew Jones, Victoria R. Vernacchio, Andrew L. Sinkoe, Shannon M. Collins, Mohammad H.A. Ibrahim, Daniel M. Lachance, Juergen Hahn, Mattheos A.G. Koffas",
+  "journal": "Metabolic Engineering 35, 55-63",
+  "year": 2016,
+  "citations": 280,
+  "url": "https://doi.org/10.1016/j.ymben.2016.01.006",
+  "status": "approved",
+  "type": "publication",
+  "dateAdded": "2025-06-23T17:58:10.898Z"
+},
+  {
+  "id": 1750701371800,
+  "title": "Microbial production of value-added nutraceuticals",
+  "authors": "Jian Wang, Sanjay Guleria, Mattheos AG Koffas, Yajun Yan",
+  "journal": "Current Opinion in Biotechnology 37, 97-104",
+  "year": 2016,
+  "citations": 195,
+  "url": "https://doi.org/10.1016/j.copbio.2015.11.003",
+  "status": "approved",
+  "type": "publication",
+  "dateAdded": "2025-06-23T17:56:11.800Z"
+},
   {
   "id": 1750701319480,
   "title": "Pathway and Strain Design for Biofuels Production",
