@@ -668,41 +668,33 @@
 
         // Load data from external JSON file
         async function loadFromExternalFile() {
-            // Try multiple possible paths for the JSON file
-            const possiblePaths = [
-                './projects/koffas-publications.json',
-                './koffas-publications.json',
-                '../koffas-publications.json',
-                '/projects/koffas-publications.json',
-                '/koffas-publications.json'
-            ];
-
-            console.log('Starting to search for publications file...');
+            const filePath = './projects/koffas-publications.json';
             
-            for (const path of possiblePaths) {
-                try {
-                    console.log('Trying to load from:', path);
-                    const response = await fetch(path + '?' + new Date().getTime()); // Cache busting
-                    console.log('Response status for', path, ':', response.status);
+            console.log('🔍 Searching for publications file at:', filePath);
+            
+            try {
+                const response = await fetch(filePath + '?' + new Date().getTime()); // Cache busting
+                console.log('📡 Response status:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('✅ Successfully loaded publications from:', filePath, '- Count:', data.length);
                     
-                    if (response.ok) {
-                        const data = await response.json();
-                        console.log('✅ Successfully loaded publications from:', path, '- Count:', data.length);
-                        
-                        // Validate the data structure
-                        if (Array.isArray(data) && data.length > 0 && data[0].title) {
-                            return data;
-                        } else {
-                            console.log('❌ Invalid data structure in file:', path);
-                        }
+                    // Validate the data structure
+                    if (Array.isArray(data) && data.length > 0 && data[0].title) {
+                        return data;
+                    } else {
+                        console.log('❌ Invalid data structure in file:', filePath);
+                        return null;
                     }
-                } catch (error) {
-                    console.log('❌ Failed to load from:', path, '- Error:', error.message);
+                } else {
+                    console.log('❌ File not found at:', filePath, '- Status:', response.status);
+                    return null;
                 }
+            } catch (error) {
+                console.log('❌ Failed to load from:', filePath, '- Error:', error.message);
+                return null;
             }
-            
-            console.log('❌ No external publications file found in any location, using local data');
-            return null;
         }
 
         // Authentication
