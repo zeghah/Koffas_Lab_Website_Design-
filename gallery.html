@@ -198,8 +198,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(to top, rgba(74, 103, 65, 0.95), rgba(74, 103, 65, 0.3));
-            opacity: 0;
+            background: linear-gradient(to top, rgba(74, 103, 65, 0.85), rgba(74, 103, 65, 0.1));
+            opacity: 1;
             transition: all 0.4s ease;
             display: flex;
             flex-direction: column;
@@ -208,7 +208,7 @@
         }
 
         .gallery-item:hover .gallery-overlay {
-            opacity: 1;
+            background: linear-gradient(to top, rgba(74, 103, 65, 0.95), rgba(74, 103, 65, 0.3));
         }
 
         .gallery-item:hover .gallery-image {
@@ -227,7 +227,7 @@
             font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
-            transform: translateY(20px);
+            transform: translateY(0);
             transition: transform 0.4s ease 0.1s;
         }
 
@@ -235,13 +235,17 @@
             font-size: 0.95rem;
             line-height: 1.5;
             opacity: 0.9;
-            transform: translateY(20px);
+            transform: translateY(0);
             transition: transform 0.4s ease 0.2s;
         }
 
-        .gallery-item:hover .gallery-caption h3,
+        .gallery-item:hover .gallery-caption h3 {
+            transform: translateY(-3px);
+        }
+
         .gallery-item:hover .gallery-caption p {
-            transform: translateY(0);
+            transform: translateY(-3px);
+            opacity: 1;
         }
 
         /* Category Filter */
