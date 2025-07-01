@@ -902,6 +902,38 @@
             </div>
         </div>
     </div>
+   <script>
+// Auto-open external links in new tabs
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all links on the page
+    const links = document.querySelectorAll('a[href]');
+    
+    links.forEach(link => {
+        const href = link.getAttribute('href');
+        
+        // Skip if already has target attribute or is internal navigation
+        if (link.hasAttribute('target') || !href) return;
+        
+        // Check if it's an external link
+        if (href.startsWith('http://') || 
+            href.startsWith('https://') || 
+            href.startsWith('mailto:') || 
+            href.startsWith('tel:')) {
+            
+            // Don't open mailto and tel links in new tab
+            if (!href.startsWith('mailto:') && !href.startsWith('tel:')) {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+                
+                // Optional: Add visual indicator
+                if (!link.classList.contains('no-external-indicator')) {
+                    link.classList.add('external-indicator');
+                }
+            }
+        }
+    });
+});
+</script>
 </body>
 </html>
 
