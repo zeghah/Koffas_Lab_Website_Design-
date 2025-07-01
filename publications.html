@@ -498,6 +498,32 @@
         let currentYearFilter = 'all';
         let currentTopicFilter = 'all';
 
+        // Auto-open external links in new tabs
+        function setupExternalLinks() {
+            // Get all links on the page
+            const links = document.querySelectorAll('a[href]');
+            
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                
+                // Skip if already has target attribute or is internal navigation
+                if (link.hasAttribute('target') || !href) return;
+                
+                // Check if it's an external link
+                if (href.startsWith('http://') || 
+                    href.startsWith('https://') || 
+                    href.startsWith('mailto:') || 
+                    href.startsWith('tel:')) {
+                    
+                    // Don't open mailto and tel links in new tab
+                    if (!href.startsWith('mailto:') && !href.startsWith('tel:')) {
+                        link.setAttribute('target', '_blank');
+                        link.setAttribute('rel', 'noopener noreferrer');
+                    }
+                }
+            });
+        }
+
         // Load publications from JSON file
         async function loadPublications() {
             try {
@@ -663,7 +689,7 @@
                         <div class="publication-card">
                             <div class="card-content">
                                 <h3 class="publication-title">
-                                    <a href="${url}" target="_blank">${formattedTitle}</a>
+                                    <a href="${url}">${formattedTitle}</a>
                                 </h3>
                                 <p class="publication-authors">${authors}</p>
                                 <p class="publication-journal">${journal}</p>
@@ -673,7 +699,7 @@
                                     <small class="publication-year">Published in <strong>${year}</strong></small>
                                 </div>
                                 <div class="actions">
-                                    <a href="${url}" target="_blank" class="doi-link">📄 DOI</a>
+                                    <a href="${url}" class="doi-link">📄 DOI</a>
                                 </div>
                             </div>
                         </div>
@@ -684,6 +710,9 @@
             });
             
             container.innerHTML = html;
+            
+            // Setup external links for dynamically added content
+            setupExternalLinks();
         }
 
         // Setup event listeners
@@ -741,6 +770,9 @@
             // Show loading state
             document.getElementById('results-info').textContent = 'Loading publications...';
             
+            // Setup external links for existing content
+            setupExternalLinks();
+            
             try {
                 const publications = await loadPublications();
                 
@@ -786,8 +818,8 @@
             }
         }
 
-        // Start the app
-        init();
+        // Start the app when DOM is ready
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
