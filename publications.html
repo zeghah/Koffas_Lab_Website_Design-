@@ -118,12 +118,12 @@
             font-size: 1.1rem;
             color: var(--gray-medium);
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 20px auto;
             line-height: 1.6;
         }
         
         .scholar-btn {
-            padding: 6px 14px;
+            padding: 10px 20px;
             border: 2px solid var(--sage-dark);
             background: transparent;
             color: var(--sage-dark);
@@ -131,7 +131,8 @@
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            display: inline-block;
         }
 
         .scholar-btn:hover {
@@ -140,74 +141,108 @@
             transform: translateY(-2px);
         }
 
-        /* Filter Section */
-        .search-section {
-            background: var(--sage-light);
-            padding: 25px;
-            border-radius: 15px;
+        /* Minimal Filter Section */
+        .filter-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--sage-light);
             margin-bottom: 30px;
         }
 
-        .filters-grid {
+        .filter-pills {
             display: flex;
             gap: 15px;
             align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
         }
 
-        .filter-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .filter-pill {
+            padding: 8px 16px;
+            border: 1px solid var(--sage-medium);
+            border-radius: 25px;
+            background: var(--white);
+            color: var(--sage-dark);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
         }
 
-        .filter-label {
-            font-weight: 600;
-            color: var(--sage-darker);
+        .filter-pill:hover, .filter-pill.active {
+            background: var(--sage-medium);
+            color: var(--white);
+        }
+
+        .filter-pill.dropdown {
+            padding-right: 30px;
+        }
+
+        .filter-pill.dropdown::after {
+            content: '▼';
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+
+        .filter-pill.dropdown:hover::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            border: 1px solid var(--sage-medium);
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            z-index: 1000;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .filter-pill:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 12px 18px;
+            color: var(--gray-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--sage-light);
             font-size: 0.9rem;
         }
 
-        .filter-select {
-            padding: 8px 12px;
-            border: 2px solid var(--sage-medium);
-            border-radius: 6px;
-            background: var(--white);
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: var(--sage-light);
             color: var(--sage-darker);
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            outline: none;
         }
 
-        .filter-select:focus {
-            border-color: var(--sage-dark);
-        }
-
-        .filter-actions {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .clear-btn {
+        .dropdown-item.selected {
             background: var(--sage-medium);
             color: var(--white);
-            border: none;
-            padding: 12px 20px;
-            border-radius: 20px;
-            cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .clear-btn:hover {
-            background: var(--sage-dark);
-            transform: translateY(-1px);
         }
 
         .results-info {
-            margin-top: 15px;
             color: var(--sage-darker);
             font-weight: 500;
             font-size: 0.95rem;
@@ -331,14 +366,6 @@
             text-decoration: underline;
         }
 
-        /* Search Highlighting */
-        .highlight {
-            background: linear-gradient(120deg, #fff3cd, #ffeaa7);
-            padding: 2px 4px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-
         /* Loading and Error States */
         .loading, .error, .no-results {
             text-align: center;
@@ -380,18 +407,15 @@
                 font-size: 2.2rem;
             }
 
-            .search-section {
-                padding: 20px;
-            }
-
-            .filters-grid {
+            .filter-section {
                 flex-direction: column;
+                gap: 15px;
                 align-items: stretch;
-                gap: 10px;
             }
 
-            .filter-group {
-                justify-content: space-between;
+            .filter-pills {
+                justify-content: center;
+                flex-wrap: wrap;
             }
 
             .card-footer {
@@ -428,37 +452,33 @@
                     <a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en" class="scholar-btn">Google Scholar Profile</a>
                 </div>
 
-                <!-- Filter Section -->
-                <div class="search-section">
-                    <div class="filters-grid">
-                        <div class="filter-group">
-                            <label class="filter-label" for="year-filter">Publication Year</label>
-                            <select id="year-filter" class="filter-select">
-                                <option value="all">All Years</option>
-                                <option value="2020+">2020 and later</option>
-                                <option value="2015-2019">2015-2019</option>
-                                <option value="2010-2014">2010-2014</option>
-                                <option value="before-2010">Before 2010</option>
-                            </select>
+                <!-- Minimal Filter Section -->
+                <div class="filter-section">
+                    <div class="filter-pills">
+                        <div class="filter-pill dropdown active" id="year-filter-pill">
+                            All Years
+                            <div class="dropdown-menu">
+                                <div class="dropdown-item selected" data-value="all">All Years</div>
+                                <div class="dropdown-item" data-value="2020+">2020 and later</div>
+                                <div class="dropdown-item" data-value="2015-2019">2015-2019</div>
+                                <div class="dropdown-item" data-value="2010-2014">2010-2014</div>
+                                <div class="dropdown-item" data-value="before-2010">Before 2010</div>
+                            </div>
                         </div>
-                        
-                        <div class="filter-group">
-                            <label class="filter-label" for="topic-filter">Research Area</label>
-                            <select id="topic-filter" class="filter-select">
-                                <option value="all">All Topics</option>
-                                <option value="metabolic">Metabolic Engineering</option>
-                                <option value="synthetic">Synthetic Biology</option>
-                                <option value="biotechnology">Biotechnology</option>
-                                <option value="biofuels">Biofuels</option>
-                                <option value="fermentation">Fermentation</option>
-                            </select>
+                        <div class="filter-pill dropdown" id="topic-filter-pill">
+                            All Topics
+                            <div class="dropdown-menu">
+                                <div class="dropdown-item selected" data-value="all">All Topics</div>
+                                <div class="dropdown-item" data-value="metabolic">Metabolic Engineering</div>
+                                <div class="dropdown-item" data-value="synthetic">Synthetic Biology</div>
+                                <div class="dropdown-item" data-value="biotechnology">Biotechnology</div>
+                                <div class="dropdown-item" data-value="biofuels">Biofuels</div>
+                                <div class="dropdown-item" data-value="fermentation">Fermentation</div>
+                                <div class="dropdown-item" data-value="protein">Protein Engineering</div>
+                            </div>
                         </div>
+                        <div class="filter-pill" id="clear-filters-btn">Clear Filters</div>
                     </div>
-                    
-                    <div class="filter-actions">
-                        <button class="clear-btn" onclick="clearFilters()">Clear All Filters</button>
-                    </div>
-                    
                     <div class="results-info" id="results-info">
                         Loading publications...
                     </div>
@@ -475,6 +495,8 @@
     <script>
         let allPublications = [];
         let filteredPublications = [];
+        let currentYearFilter = 'all';
+        let currentTopicFilter = 'all';
 
         // Load publications from JSON file
         async function loadPublications() {
@@ -496,18 +518,15 @@
             }
         }
 
-        // Filter functionality (no search)
+        // Filter functionality
         function filterPublications() {
-            const yearFilter = document.getElementById('year-filter').value;
-            const topicFilter = document.getElementById('topic-filter').value;
-            
             let filtered = [...allPublications];
             
             // Apply year filter
-            if (yearFilter !== 'all') {
+            if (currentYearFilter !== 'all') {
                 filtered = filtered.filter(pub => {
                     const year = pub.year || 0;
-                    switch (yearFilter) {
+                    switch (currentYearFilter) {
                         case '2020+':
                             return year >= 2020;
                         case '2015-2019':
@@ -523,12 +542,12 @@
             }
             
             // Apply topic filter
-            if (topicFilter !== 'all') {
+            if (currentTopicFilter !== 'all') {
                 filtered = filtered.filter(pub => {
                     const title = (pub.title || '').toLowerCase();
                     const journal = (pub.journal || '').toLowerCase();
                     
-                    switch (topicFilter) {
+                    switch (currentTopicFilter) {
                         case 'metabolic':
                             return title.includes('metabolic') || title.includes('metabolism');
                         case 'synthetic':
@@ -539,6 +558,8 @@
                             return title.includes('biofuel') || title.includes('ethanol') || title.includes('biodiesel');
                         case 'fermentation':
                             return title.includes('fermentation') || title.includes('cultivation');
+                        case 'protein':
+                            return title.includes('protein') || title.includes('enzyme');
                         default:
                             return true;
                     }
@@ -551,8 +572,22 @@
         }
 
         function clearFilters() {
-            document.getElementById('year-filter').value = 'all';
-            document.getElementById('topic-filter').value = 'all';
+            currentYearFilter = 'all';
+            currentTopicFilter = 'all';
+            
+            // Reset dropdown selections
+            document.querySelectorAll('.dropdown-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.querySelector('[data-value="all"]').classList.add('selected');
+            document.querySelectorAll('[data-value="all"]').forEach(item => {
+                item.classList.add('selected');
+            });
+            
+            // Reset pill text
+            document.getElementById('year-filter-pill').childNodes[0].textContent = 'All Years ';
+            document.getElementById('topic-filter-pill').childNodes[0].textContent = 'All Topics ';
+            
             filterPublications();
         }
 
@@ -568,7 +603,7 @@
             }
         }
 
-        // Render publications (no search highlighting)
+        // Render publications
         function renderPublications() {
             const container = document.getElementById('publications-container');
             
@@ -651,14 +686,52 @@
             container.innerHTML = html;
         }
 
-        // Add event listeners for filtering
+        // Setup event listeners
         function setupEventListeners() {
-            const yearFilter = document.getElementById('year-filter');
-            const topicFilter = document.getElementById('topic-filter');
-            
-            // Filter changes
-            yearFilter.addEventListener('change', filterPublications);
-            topicFilter.addEventListener('change', filterPublications);
+            // Handle dropdown item selection
+            document.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    // Update the dropdown pill text
+                    const dropdownPill = this.closest('.filter-pill');
+                    const pillText = dropdownPill.childNodes[0];
+                    pillText.textContent = this.textContent + ' ';
+                    
+                    // Remove selected from siblings and add to this item
+                    this.parentElement.querySelectorAll('.selected').forEach(selected => {
+                        selected.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    
+                    // Update filter values
+                    const filterValue = this.dataset.value;
+                    if (dropdownPill.id === 'year-filter-pill') {
+                        currentYearFilter = filterValue;
+                    } else if (dropdownPill.id === 'topic-filter-pill') {
+                        currentTopicFilter = filterValue;
+                    }
+                    
+                    // Apply filters
+                    filterPublications();
+                    
+                    // Hide dropdown after selection
+                    const dropdown = this.closest('.dropdown-menu');
+                    dropdown.style.opacity = '0';
+                    dropdown.style.visibility = 'hidden';
+                    dropdown.style.transform = 'translateY(-10px)';
+                    
+                    // Reset dropdown visibility after a short delay
+                    setTimeout(() => {
+                        dropdown.style.opacity = '';
+                        dropdown.style.visibility = '';
+                        dropdown.style.transform = '';
+                    }, 300);
+                });
+            });
+
+            // Clear filters button
+            document.getElementById('clear-filters-btn').addEventListener('click', clearFilters);
         }
 
         // Initialize everything
