@@ -93,7 +93,7 @@
         }
 
         .content-wrapper {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 60px 40px;
         }
@@ -139,21 +139,45 @@
 
         .research-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
         }
 
         .research-card {
-            background: var(--sage-light);
-            padding: 2.5rem;
-            border-radius: 10px;
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
             transition: all 0.3s ease;
-            border-left: 4px solid var(--sage-medium);
+            border: 1px solid rgba(107, 142, 90, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
 
         .research-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(107, 142, 90, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(107, 142, 90, 0.15);
+        }
+
+        .research-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--sage-light), var(--sage-medium));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--sage-darker);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .research-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .research-content {
+            padding: 1.5rem;
         }
 
         .research-card h3 {
@@ -189,124 +213,97 @@
             left: 0;
         }
 
-        /* Publications Section */
-        .publications-section {
-            margin-bottom: 80px;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.4s forwards;
-        }
-
-        .publications-grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .publication-card {
-            background: var(--sage-light);
-            padding: 2rem;
-            border-radius: 10px;
-            border-left: 4px solid var(--sage-medium);
-            transition: all 0.3s ease;
-        }
-
-        .publication-card:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 20px rgba(107, 142, 90, 0.1);
-        }
-
-        .publication-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--sage-darker);
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-
-        .publication-authors {
-            color: var(--sage-dark);
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        .publication-journal {
-            color: var(--gray-medium);
-            font-style: italic;
-            font-size: 0.95rem;
-        }
-
-        /* Current Projects */
-        .current-projects {
+        /* Collaborators Section */
+        .collaborators-section {
             margin-bottom: 80px;
             opacity: 0;
             animation: fadeInUp 1s ease 0.6s forwards;
         }
 
-        .projects-grid {
+        .collaborators-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
+            margin-bottom: 40px;
         }
 
-        .project-card {
+        .collaborator-card {
             background: var(--white);
             border: 2px solid var(--sage-light);
+            border-radius: 15px;
             padding: 2rem;
-            border-radius: 10px;
+            text-align: center;
             transition: all 0.3s ease;
             text-decoration: none;
             color: inherit;
-            display: block;
         }
 
-        .project-card:hover {
+        .collaborator-card:hover {
             border-color: var(--sage-medium);
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(107, 142, 90, 0.1);
+            box-shadow: 0 8px 25px rgba(107, 142, 90, 0.15);
             text-decoration: none;
             color: inherit;
         }
 
-        .project-status {
-            display: inline-block;
-            background: var(--sage-dark);
+        .collaborator-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sage-dark), var(--sage-medium));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
             color: var(--white);
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
+            font-weight: bold;
+            overflow: hidden;
         }
 
-        .project-card h3 {
+        .collaborator-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .collaborator-name {
+            font-size: 1.1rem;
+            font-weight: 600;
             color: var(--sage-darker);
             margin-bottom: 0.5rem;
-            font-size: 1.2rem;
         }
 
-        .project-card p {
+        .collaborator-title {
+            color: var(--sage-dark);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .collaborator-institution {
             color: var(--gray-medium);
-            line-height: 1.6;
+            font-size: 0.85rem;
+            font-style: italic;
         }
 
-        /* Collaboration Section */
-        .collaboration-section {
-            text-align: center;
+        /* Partnership Info */
+        .partnership-info {
             background: var(--sage-light);
             padding: 3rem;
-            border-radius: 10px;
+            border-radius: 15px;
+            text-align: center;
             border-left: 4px solid var(--sage-medium);
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.8s forwards;
         }
 
-        .collaboration-section h2 {
+        .partnership-info h3 {
             color: var(--sage-darker);
-            font-size: 2rem;
-            font-weight: 300;
+            font-size: 1.5rem;
+            font-weight: 600;
             margin-bottom: 1.5rem;
         }
 
-        .collaboration-section p {
+        .partnership-info p {
             color: var(--gray-medium);
             font-size: 1.1rem;
             line-height: 1.7;
@@ -384,8 +381,12 @@
                 grid-template-columns: 1fr;
             }
 
+            .collaborators-grid {
+                grid-template-columns: 1fr;
+            }
+
             .research-card {
-                padding: 2rem;
+                margin-bottom: 1rem;
             }
         }
     </style>
@@ -394,9 +395,9 @@
     <div class="tab-container">
         <!-- Vertical Tab Sidebar -->
         <div class="tab-sidebar">
-            <div class="logo">Koffas Lab </div>
+            <div class="logo">Koffas Lab</div>
             <ul class="tab-nav">
-                <li><a href="index.html" >Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="research.html" class="active">Research</a></li>
                 <li><a href="members.html">Lab Members</a></li>
                 <li><a href="publications.html">Publications</a></li>
@@ -411,135 +412,211 @@
             <div class="content-wrapper">
                 <div class="page-header">
                     <h1>Our Research</h1>
-                    <p>Exploring the frontiers of cellular biology through innovative approaches in plasmid engineering, molecular mechanisms, and computational analysis.</p>
+                    <p>Exploring the frontiers of cellular biology through innovative approaches in metabolic engineering, synthetic biology, and bioengineering applications.</p>
                 </div>
 
                 <div class="research-areas">
                     <h2 class="section-title">Research Areas</h2>
                     <div class="research-grid">
                         <div class="research-card">
-                            <h3>Biopolymers</h3>
-                            <p>Focused in Chondroitin, Gamma PGA, Silk, Chromoproteins and Gynas Protein</p>
-                            <ul class="research-highlights">
-                                <li>Novel vector design for improved transfection efficiency</li>
-                                <li>Stability optimization in various cellular environments</li>
-                                <li>Modular cloning systems for rapid prototyping</li>
-                                <li>Therapeutic vector development</li>
-                            </ul>
+                            <div class="research-image">
+                                <!-- Replace with actual image: <img src="research/biopolymers.jpg" alt="Biopolymers Research"> -->
+                                🧬
+                            </div>
+                            <div class="research-content">
+                                <h3>Biopolymers</h3>
+                                <p>Engineering microbial systems for the production of valuable biopolymers including chondroitin sulfate, gamma-PGA, silk proteins, and chromoproteins.</p>
+                                <ul class="research-highlights">
+                                    <li>Chondroitin sulfate biosynthesis optimization</li>
+                                    <li>Recombinant silk protein production</li>
+                                    <li>Gamma-PGA scale-up processes</li>
+                                    <li>Novel chromoprotein applications</li>
+                                </ul>
+                            </div>
                         </div>
 
                         <div class="research-card">
-                            <h3>Cell-free Metabolic Engineering</h3>
-                            <p>Our lab pioneers innovative cell culture methodologies that enhance reproducibility, scalability, and physiological relevance of in vitro studies.</p>
-                            <ul class="research-highlights">
-                                <li>3D organoid culture optimization</li>
-                                <li>Microfluidic cell culture platforms</li>
-                                <li>Co-culture system development</li>
-                                <li>Automated culture monitoring systems</li>
-                            </ul>
+                            <div class="research-image">
+                                <!-- Replace with actual image: <img src="research/cell-free.jpg" alt="Cell-free Systems"> -->
+                                ⚗️
+                            </div>
+                            <div class="research-content">
+                                <h3>Cell-free Metabolic Engineering</h3>
+                                <p>Developing cell-free biosynthetic systems that enable rapid prototyping and optimization of metabolic pathways without cellular constraints.</p>
+                                <ul class="research-highlights">
+                                    <li>Cell-free protein synthesis platforms</li>
+                                    <li>Metabolic pathway reconstruction</li>
+                                    <li>Enzyme cascade optimization</li>
+                                    <li>High-throughput screening systems</li>
+                                </ul>
+                            </div>
                         </div>
 
                         <div class="research-card">
-                            <h3>Bioengineering Scale-Up</h3>
-                            <p>We advance molecular cloning techniques through innovative strategies that enable precise genetic manipulation for research and therapeutic applications.</p>
-                            <ul class="research-highlights">
-                                <li>CRISPR-Cas system optimization</li>
-                                <li>High-throughput cloning protocols</li>
-                                <li>Error-free assembly methods</li>
-                                <li>Synthetic biology applications</li>
-                            </ul>
+                            <div class="research-image">
+                                <!-- Replace with actual image: <img src="research/scale-up.jpg" alt="Bioengineering Scale-up"> -->
+                                🏭
+                            </div>
+                            <div class="research-content">
+                                <h3>Bioengineering Scale-Up</h3>
+                                <p>Translating laboratory-scale biotechnology innovations to industrial production through advanced bioprocess engineering and optimization.</p>
+                                <ul class="research-highlights">
+                                    <li>Bioreactor design and optimization</li>
+                                    <li>Process control strategies</li>
+                                    <li>Scale-up modeling and simulation</li>
+                                    <li>Industrial biotechnology applications</li>
+                                </ul>
+                            </div>
                         </div>
                         
                         <div class="research-card">
-                            <h3>Plastic Upcycling</h3>
-                            <p>We advance molecular cloning techniques through innovative strategies that enable precise genetic manipulation for research and therapeutic applications.</p>
-                            <ul class="research-highlights">
-                                <li>CRISPR-Cas system optimization</li>
-                                <li>High-throughput cloning protocols</li>
-                                <li>Error-free assembly methods</li>
-                                <li>Synthetic biology applications</li>
-                            </ul>
+                            <div class="research-image">
+                                <!-- Replace with actual image: <img src="research/plastic-upcycling.jpg" alt="Plastic Upcycling"> -->
+                                ♻️
+                            </div>
+                            <div class="research-content">
+                                <h3>Plastic Upcycling</h3>
+                                <p>Engineering microorganisms to convert plastic waste into valuable products, contributing to circular economy and environmental sustainability.</p>
+                                <ul class="research-highlights">
+                                    <li>PET and polyethylene degradation</li>
+                                    <li>Plastic-to-protein conversion</li>
+                                    <li>Enzymatic plastic breakdown</li>
+                                    <li>Sustainable valorization pathways</li>
+                                </ul>
+                            </div>
                         </div>
                         
                         <div class="research-card">
-                            <h3>Textile Engineering</h3>
-                            <p>We advance molecular cloning techniques through innovative strategies that enable precise genetic manipulation for research and therapeutic applications.</p>
-                            <ul class="research-highlights">
-                                <li>CRISPR-Cas system optimization</li>
-                                <li>High-throughput cloning protocols</li>
-                                <li>Error-free assembly methods</li>
-                                <li>Synthetic biology applications</li>
-                            </ul>
+                            <div class="research-image">
+                                <!-- Replace with actual image: <img src="research/textiles.jpg" alt="Textile Engineering"> -->
+                                🧵
+                            </div>
+                            <div class="research-content">
+                                <h3>Textile Engineering</h3>
+                                <p>Developing sustainable alternatives to conventional textiles through bio-based materials and innovative fiber production technologies.</p>
+                                <ul class="research-highlights">
+                                    <li>Bio-based fiber production</li>
+                                    <li>Sustainable textile manufacturing</li>
+                                    <li>Functional textile properties</li>
+                                    <li>Eco-friendly dyeing processes</li>
+                                </ul>
+                            </div>
                         </div>
+
                         <div class="research-card">
-                            <h3>Genome Editing</h3>
-                            <p>We integrate computational approaches with experimental biology to understand complex cellular processes and predict biological outcomes.</p>
-                            <ul class="research-highlights">
-                                <li>Machine learning for biological prediction</li>
-                                <li>Systems biology modeling</li>
-                                <li>Genomic data analysis pipelines</li>
-                                <li>Predictive algorithm development</li>
-                            </ul>
+                            <div class="research-image">
+                                <!-- Replace with actual image: <img src="research/genome-editing.jpg" alt="Genome Editing"> -->
+                                🧬
+                            </div>
+                            <div class="research-content">
+                                <h3>Genome Editing</h3>
+                                <p>Advancing precision genome editing technologies for therapeutic applications and enhanced biotechnology production systems.</p>
+                                <ul class="research-highlights">
+                                    <li>CRISPR-Cas system optimization</li>
+                                    <li>Base and prime editing techniques</li>
+                                    <li>Therapeutic genome editing</li>
+                                    <li>Delivery system development</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!--<div class="current-projects">
-                    <h2 class="section-title">Current Projects</h2>
-                    <div class="projects-grid">
-                        <a href="projects/smart-plasmid-vectors.html" class="project-card">
-                            <span class="project-status">Active</span>
-                            <h3>Smart Plasmid Vectors</h3>
-                            <p>Development of self-regulating plasmid systems with built-in feedback mechanisms for optimal gene expression control.</p>
+                <div class="collaborators-section">
+                    <h2 class="section-title">Collaborators & Partners</h2>
+                    
+                    <div class="collaborators-grid">
+                        <a href="https://example-university.edu/researcher1" class="collaborator-card">
+                            <div class="collaborator-photo">
+                                <!-- Replace with actual image: <img src="collaborators/researcher1.jpg" alt="Dr. Jane Smith"> -->
+                                JS
+                            </div>
+                            <div class="collaborator-name">Dr. Jane Smith</div>
+                            <div class="collaborator-title">Professor of Chemical Engineering</div>
+                            <div class="collaborator-institution">Stanford University</div>
                         </a>
-                        <a href="projects/organoid-chip-platform.html" class="project-card">
-                            <span class="project-status">Active</span>
-                            <h3>Organoid-on-Chip Platform</h3>
-                            <p>Creating microfluidic devices that support long-term organoid culture for drug screening and disease modeling applications.</p>
+
+                        <a href="https://example-institute.org/researcher2" class="collaborator-card">
+                            <div class="collaborator-photo">
+                                <!-- Replace with actual image: <img src="collaborators/researcher2.jpg" alt="Prof. Michael Chen"> -->
+                                MC
+                            </div>
+                            <div class="collaborator-name">Prof. Michael Chen</div>
+                            <div class="collaborator-title">Director of Bioengineering</div>
+                            <div class="collaborator-institution">MIT</div>
                         </a>
-                        <a href="projects/ai-driven-cloning.html" class="project-card">
-                            <span class="project-status">Active</span>
-                            <h3>AI-Driven Cloning</h3>
-                            <p>Machine learning algorithms to predict optimal cloning strategies and reduce experimental failure rates.</p>
+
+                        <a href="https://example-lab.com/researcher3" class="collaborator-card">
+                            <div class="collaborator-photo">
+                                <!-- Replace with actual image: <img src="collaborators/researcher3.jpg" alt="Dr. Sarah Johnson"> -->
+                                SJ
+                            </div>
+                            <div class="collaborator-name">Dr. Sarah Johnson</div>
+                            <div class="collaborator-title">Principal Scientist</div>
+                            <div class="collaborator-institution">Genentech</div>
+                        </a>
+
+                        <a href="https://example-university.edu/researcher4" class="collaborator-card">
+                            <div class="collaborator-photo">
+                                <!-- Replace with actual image: <img src="collaborators/researcher4.jpg" alt="Prof. David Rodriguez"> -->
+                                DR
+                            </div>
+                            <div class="collaborator-name">Prof. David Rodriguez</div>
+                            <div class="collaborator-title">Department of Biotechnology</div>
+                            <div class="collaborator-institution">UC Berkeley</div>
+                        </a>
+
+                        <a href="https://example-research.org/researcher5" class="collaborator-card">
+                            <div class="collaborator-photo">
+                                <!-- Replace with actual image: <img src="collaborators/researcher5.jpg" alt="Dr. Lisa Wang"> -->
+                                LW
+                            </div>
+                            <div class="collaborator-name">Dr. Lisa Wang</div>
+                            <div class="collaborator-title">Senior Research Scientist</div>
+                            <div class="collaborator-institution">Broad Institute</div>
+                        </a>
+
+                        <a href="https://example-pharma.com/researcher6" class="collaborator-card">
+                            <div class="collaborator-photo">
+                                <!-- Replace with actual image: <img src="collaborators/researcher6.jpg" alt="Prof. Andreas Mueller"> -->
+                                AM
+                            </div>
+                            <div class="collaborator-name">Prof. Andreas Mueller</div>
+                            <div class="collaborator-title">Head of R&D</div>
+                            <div class="collaborator-institution">Novartis</div>
                         </a>
                     </div>
-                </div>
-
-                <div class="publications-section">
-                    <h2 class="section-title">Recent Publications</h2>
-                    <div class="publications-grid">
-                        <div class="publication-card">
-                            <div class="publication-title">Enhanced Plasmid Stability Through Novel Vector Architecture</div>
-                            <div class="publication-authors">Smith, J., Johnson, M., Chen, L.</div>
-                            <div class="publication-journal">Journal of Molecular Biology, 2024</div>
-                        </div>
-                        
-                        <div class="publication-card">
-                            <div class="publication-title">Computational Approaches to Predicting Gene Expression in Engineered Systems</div>
-                            <div class="publication-authors">Chen, L., Rodriguez, A., Smith, J.</div>
-                            <div class="publication-journal">Nature Biotechnology, 2024</div>
-                        </div>
-                        
-                        <div class="publication-card">
-                            <div class="publication-title">Microfluidic Cell Culture: Bridging the Gap Between In Vitro and In Vivo</div>
-                            <div class="publication-authors">Johnson, M., Williams, K., Chen, L.</div>
-                            <div class="publication-journal">Cell Systems, 2023</div>
-                        </div>
-                        
-                        <div class="publication-card">
-                            <div class="publication-title">CRISPR-Mediated Therapeutic Vector Development: Current Challenges and Future Directions</div>
-                            <div class="publication-authors">Williams, K., Smith, J., Rodriguez, A.</div>
-                            <div class="publication-journal">Molecular Therapy, 2023</div>
-                        </div>
-                    </div>
-                </div>-->
-
-                <div class="collaboration-section">
-                    <h2>Collaborations & Partnerships</h2>
-                    <p>Our research thrives through collaborative partnerships with leading institutions worldwide. We actively engage with pharmaceutical companies, academic institutions, and research centers to translate our discoveries into real-world applications. We welcome opportunities for collaboration and are always interested in discussing potential research partnerships that advance the field of cellular biology.</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Auto-open external links in new tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all links on the page
+            const links = document.querySelectorAll('a[href]');
+            
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                
+                // Skip if already has target attribute or is internal navigation
+                if (link.hasAttribute('target') || !href) return;
+                
+                // Check if it's an external link
+                if (href.startsWith('http://') || 
+                    href.startsWith('https://') || 
+                    href.startsWith('mailto:') || 
+                    href.startsWith('tel:')) {
+                    
+                    // Don't open mailto and tel links in new tab
+                    if (!href.startsWith('mailto:') && !href.startsWith('tel:')) {
+                        link.setAttribute('target', '_blank');
+                        link.setAttribute('rel', 'noopener noreferrer');
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
