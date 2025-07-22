@@ -211,14 +211,18 @@
             left: 0;
         }
 
-        /* Biopolymers section styling */
-        .biopolymers-section {
+        /* Research Section Styling */
+        .research-section {
             margin-bottom: 80px;
             opacity: 0;
-            animation: fadeInUp 1s ease 0.4s forwards;
+            animation: fadeInUp 1s ease 0.2s forwards;
         }
 
-        .biopolymer-subsection {
+        .research-section:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .research-subsection {
             background: var(--white);
             border-radius: 15px;
             overflow: hidden;
@@ -228,12 +232,12 @@
             margin-bottom: 3rem;
         }
 
-        .biopolymer-subsection:hover {
+        .research-subsection:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(107, 142, 90, 0.15);
         }
 
-        .biopolymer-image {
+        .research-image {
             width: 100%;
             height: 250px;
             background: linear-gradient(135deg, var(--sage-light), var(--sage-medium));
@@ -246,31 +250,31 @@
             overflow: hidden;
         }
 
-        .biopolymer-image img {
+        .research-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .biopolymer-content {
+        .research-content {
             padding: 2.5rem;
         }
 
-        .biopolymer-subsection h3 {
+        .research-subsection h3 {
             color: var(--sage-darker);
             margin-bottom: 1.5rem;
             font-size: 1.8rem;
             font-weight: 600;
         }
 
-        .biopolymer-subsection p {
+        .research-subsection p {
             color: var(--gray-medium);
             margin-bottom: 1.5rem;
             line-height: 1.7;
             font-size: 0.9rem;
         }
 
-        .biopolymer-subsection ul {
+        .research-subsection ul {
             margin-bottom: 1.5rem;
         }
 
@@ -497,28 +501,30 @@
                     <p>Exploring the frontiers of cellular biology through innovative approaches in metabolic engineering, synthetic biology, and bioengineering applications.</p>
                 </div>
 
-                <div class="biopolymers-section">
+                <div class="research-section">
                     <h2 class="section-title">Biopolymers Research</h2>
                     
-                    <div class="biopolymer-subsection">
-                        <div class="biopolymer-image">
+                    <div class="research-subsection">
+                        <div class="research-image">
                             <!-- Replace with actual image: <img src="research/chondroitin.jpg" alt="Chondroitin Research"> -->
                             🦴
                         </div>
-                        <div class="biopolymer-content">
+                        <div class="research-content">
                             <h3>Chondroitin Sulfate</h3>
                             <p>Add your detailed paragraph about chondroitin sulfate research here. This section can include information about biosynthesis optimization, medical applications, and your specific research approaches.</p>
                             
                             <p>Additional paragraphs can be added here to provide comprehensive coverage of your chondroitin sulfate work, including methodology, results, and future directions.</p>
+                            
+                            <p><strong>Team Members:</strong> Aditi, Fiona, Hana</p>
                         </div>
                     </div>
 
-                    <div class="biopolymer-subsection">
-                        <div class="biopolymer-image">
+                    <div class="research-subsection">
+                        <div class="research-image">
                             <!-- Replace with actual image: <img src="research/silk.jpg" alt="Silk Research"> -->
                             🕷️
                         </div>
-                        <div class="biopolymer-content">
+                        <div class="research-content">
                             <h3>Recombinant Silk Production</h3>
                             <p>Silk is one of nature's most remarkable biomaterials, combining exceptional tensile strength with extraordinary extensibility—traits that make it highly desirable for textile and structural applications. In addition to its mechanical properties, silk is inherently biocompatible and biodegradable, lending itself to promising uses in tissue engineering, drug delivery, and as a sustainable alternative to petroleum-based polymers. However, one major limitation is the difficulty of producing silk at the scale required for widespread industrial and biomedical use.</p>
                             
@@ -530,105 +536,114 @@
                             </ul>
                             
                             <p>Through this approach, we seek to bridge the gap between natural silk's performance and the demands of modern materials science and biotechnology.</p>
+                            
+                            <p><strong>Team Members:</strong> Bobby and Sahiti</p>
                         </div>
                     </div>
 
-                    <div class="biopolymer-subsection">
-                        <div class="biopolymer-image">
+                    <div class="research-subsection">
+                        <div class="research-image">
                             <!-- Replace with actual image: <img src="research/gamma-pga.jpg" alt="Gamma-PGA Research"> -->
                             🧪
                         </div>
-                        <div class="biopolymer-content">
+                        <div class="research-content">
                             <h3>Gamma-PGA</h3>
                             <p>Add your detailed paragraph about gamma-PGA research here. This section can cover scale-up processes, applications, and research methodologies.</p>
                             
                             <p>Additional content about gamma-PGA research can be added in subsequent paragraphs.</p>
+                            
+                            <p><strong>Team Member:</strong> Steve</p>
                         </div>
                     </div>
 
-                    <div class="biopolymer-subsection">
-                        <div class="biopolymer-image">
+                    <div class="research-subsection">
+                        <div class="research-image">
                             <!-- Replace with actual image: <img src="research/chromoproteins.jpg" alt="Chromoprotein Research"> -->
                             🌈
                         </div>
-                        <div class="biopolymer-content">
+                        <div class="research-content">
                             <h3>Chromoproteins</h3>
                             <p>Add your detailed paragraph about chromoprotein applications and research here. This can include novel applications, engineering approaches, and biotechnology uses.</p>
                             
                             <p>Further details about your chromoprotein research can be expanded in additional paragraphs.</p>
+                            
+                            <p><strong>Team Member:</strong> Sahiti</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="research-areas">
+                <div class="research-section">
                     <h2 class="section-title">Research Areas</h2>
-                    <div class="research-grid">
-                        <div class="research-card featured">
-                            <div class="research-image">
-                                <img src="research/Plastic_Upscycling_Labwebsite.png" alt="Plastic Upcycling">
-                            </div>
-                            <div class="research-content">
-                                <h3>Plastic Upcycling</h3>
-                                <p>Plastic pollution is one of the most pressing environmental challenges of our time, with millions of tons of plastic waste accumulating in landfills and natural ecosystems each year. Conventional recycling methods are often inefficient, and many plastics are not recycled at all, leading to long-term ecological harm.</p>
-                                
-                                <p>In our lab, we are addressing this challenge by developing sustainable plastic upcycling strategies. Our research focuses on converting non-biodegradable plastics such as polystyrene and polyethylene terephthalate (PET) into high-value bioproducts through a combination of chemical and biological processes. Using approaches that integrate depolymerization with microbial fermentation, we transform plastic-derived compounds into functional materials like biopolymers and platform chemicals. This work supports the advancement of a circular economy and provides innovative pathways for mitigating plastic waste.</p>
-                                
-                                <p><strong>Team Members:</strong> Bobby and Steve </p>
-                            </div>
+                    
+                    <div class="research-subsection">
+                        <div class="research-image">
+                            <!-- Replace with actual image: <img src="research/plastic-upcycling.jpg" alt="Plastic Upcycling"> -->
+                            ♻️
                         </div>
-
-                        <div class="research-card">
-                            <div class="research-image">
-                                <!-- Replace with actual image: <img src="research/genome-editing.jpg" alt="Genome Editing"> -->
-                                ✂️
-                            </div>
-                            <div class="research-content">
-                                <h3>Genome Editing</h3>
-                                <p>Advancing precision genome editing technologies for therapeutic applications and enhanced biotechnology production systems.</p>
-                                <ul class="research-highlights">
-                                    <li>CRISPR-Cas system optimization</li>
-                                    <li>Base and prime editing techniques</li>
-                                    <li>Therapeutic genome editing</li>
-                                    <li>Delivery system development</li>
-                                </ul>
-                                <p><strong>Team Member:</strong> Will is leading this research area.</p>
-                            </div>
+                        <div class="research-content">
+                            <h3>Plastic Upcycling</h3>
+                            <p>Plastic pollution is one of the most pressing environmental challenges of our time, with millions of tons of plastic waste accumulating in landfills and natural ecosystems each year. Conventional recycling methods are often inefficient, and many plastics are not recycled at all, leading to long-term ecological harm.</p>
+                            
+                            <p>In our lab, we are addressing this challenge by developing sustainable plastic upcycling strategies. Our research focuses on converting non-biodegradable plastics such as polystyrene and polyethylene terephthalate (PET) into high-value bioproducts through a combination of chemical and biological processes. Using approaches that integrate depolymerization with microbial fermentation, we transform plastic-derived compounds into functional materials like biopolymers and platform chemicals. This work supports the advancement of a circular economy and provides innovative pathways for mitigating plastic waste.</p>
+                            
+                            <p><strong>Team Members:</strong> Bobby and Steve</p>
                         </div>
+                    </div>
 
-                        <div class="research-card">
-                            <div class="research-image">
-                                <!-- Replace with actual image: <img src="research/scale-up.jpg" alt="Bioengineering Scale-up"> -->
-                                🏭
-                            </div>
-                            <div class="research-content">
-                                <h3>Bioengineering Scale-Up / Fermentation</h3>
-                                <p>Translating laboratory-scale biotechnology innovations to industrial production through advanced bioprocess engineering and optimization.</p>
-                                <ul class="research-highlights">
-                                    <li>Bioreactor design and optimization</li>
-                                    <li>Process control strategies</li>
-                                    <li>Scale-up modeling and simulation</li>
-                                    <li>Industrial biotechnology applications</li>
-                                </ul>
-                                <p><strong>Team Members:</strong> Sweta, Sahiti, Anarul, Hana, and Bobby are working on scale-up and fermentation processes.</p>
-                            </div>
+                    <div class="research-subsection">
+                        <div class="research-image">
+                            <!-- Replace with actual image: <img src="research/genome-editing.jpg" alt="Genome Editing"> -->
+                            ✂️
                         </div>
+                        <div class="research-content">
+                            <h3>Genome Editing</h3>
+                            <p>Add your detailed paragraph about genome editing research here. This section can include information about CRISPR optimization, therapeutic applications, and delivery systems.</p>
+                            
+                            <ul class="research-highlights">
+                                <li>CRISPR-Cas system optimization</li>
+                                <li>Base and prime editing techniques</li>
+                                <li>Therapeutic genome editing</li>
+                                <li>Delivery system development</li>
+                            </ul>
+                            <p><strong>Team Member:</strong> Will</p>
+                        </div>
+                    </div>
 
-                        <div class="research-card">
-                            <div class="research-image">
-                                <!-- Replace with actual image: <img src="research/cell-free.jpg" alt="Cell-free Systems"> -->
-                                ⚗️
-                            </div>
-                            <div class="research-content">
-                                <h3>Cell-free Metabolic Engineering</h3>
-                                <p>Developing cell-free biosynthetic systems that enable rapid prototyping and optimization of metabolic pathways without cellular constraints.</p>
-                                <ul class="research-highlights">
-                                    <li>Cell-free protein synthesis platforms</li>
-                                    <li>Metabolic pathway reconstruction</li>
-                                    <li>Enzyme cascade optimization</li>
-                                    <li>High-throughput screening systems</li>
-                                </ul>
-                                <p><strong>Team Member:</strong> Saurabh is leading this research area.</p>
-                            </div>
+                    <div class="research-subsection">
+                        <div class="research-image">
+                            <!-- Replace with actual image: <img src="research/scale-up.jpg" alt="Bioengineering Scale-up"> -->
+                            🏭
+                        </div>
+                        <div class="research-content">
+                            <h3>Bioengineering Scale-Up / Fermentation</h3>
+                            <p>Add your detailed paragraph about bioengineering scale-up and fermentation research here. This section can cover bioreactor optimization, process control, and industrial applications.</p>
+                            
+                            <ul class="research-highlights">
+                                <li>Bioreactor design and optimization</li>
+                                <li>Process control strategies</li>
+                                <li>Scale-up modeling and simulation</li>
+                                <li>Industrial biotechnology applications</li>
+                            </ul>
+                            <p><strong>Team Members:</strong> Sweta, Sahiti, Anarul, Hana, and Bobby</p>
+                        </div>
+                    </div>
+
+                    <div class="research-subsection">
+                        <div class="research-image">
+                            <!-- Replace with actual image: <img src="research/cell-free.jpg" alt="Cell-free Systems"> -->
+                            ⚗️
+                        </div>
+                        <div class="research-content">
+                            <h3>Cell-free Metabolic Engineering</h3>
+                            <p>Add your detailed paragraph about cell-free metabolic engineering research here. This section can cover platform development, pathway optimization, and applications.</p>
+                            
+                            <ul class="research-highlights">
+                                <li>Cell-free protein synthesis platforms</li>
+                                <li>Metabolic pathway reconstruction</li>
+                                <li>Enzyme cascade optimization</li>
+                                <li>High-throughput screening systems</li>
+                            </ul>
+                            <p><strong>Team Member:</strong> Saurabh</p>
                         </div>
                     </div>
                 </div>
