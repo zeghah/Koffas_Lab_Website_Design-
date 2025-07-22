@@ -119,96 +119,13 @@
             line-height: 1.6;
         }
 
-        /* Research Areas */
-        .research-areas {
-            margin-bottom: 80px;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.2s forwards;
-        }
-
+        /* Section Title */
         .section-title {
-            font-size: 1rem;
+            font-size: 2rem;
             font-weight: 300;
-            color: var(--sage-darker);
+            color: var(--gray-dark);
             margin-bottom: 40px;
             text-align: center;
-        }
-
-        .research-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .research-card {
-            background: var(--white);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(107, 142, 90, 0.1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .research-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(107, 142, 90, 0.15);
-        }
-
-        .research-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, var(--sage-light), var(--sage-medium));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: var(--sage-darker);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .research-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .research-content {
-            padding: 1.5rem;
-        }
-
-        .research-card h3 {
-            color: var(--sage-darker);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .research-card p {
-            color: var(--gray-medium);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-            font-size: 0.9rem;
-        }
-
-        .research-highlights {
-            list-style: none;
-        }
-
-        .research-highlights li {
-            color: var(--gray-medium);
-            padding: 5px 0;
-            position: relative;
-            padding-left: 20px;
-            font-size: 0.85rem;
-        }
-
-        .research-highlights li:before {
-            content: "▸";
-            color: var(--sage-dark);
-            font-weight: bold;
-            position: absolute;
-            left: 0;
         }
 
         /* Research Section Styling */
@@ -277,11 +194,40 @@
             color: var(--gray-medium);
             margin-bottom: 1rem;
             line-height: 1.6;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
         }
 
         .research-subsection ul {
             margin-bottom: 1rem;
+        }
+
+        .research-highlights {
+            list-style: none;
+        }
+
+        .research-highlights li {
+            color: var(--gray-medium);
+            padding: 5px 0;
+            position: relative;
+            padding-left: 20px;
+            font-size: 0.85rem;
+        }
+
+        .research-highlights li:before {
+            content: "▸";
+            color: var(--sage-dark);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Biopolymers specific styling */
+        .biopolymers-section {
+            background: linear-gradient(135deg, rgba(240, 244, 240, 0.3), rgba(255, 255, 255, 0.9));
+            border-radius: 15px;
+            padding: 2rem;
+            border: 2px solid rgba(107, 142, 90, 0.2);
+            margin-bottom: 60px;
         }
 
         /* Plastic Upcycling specific styling */
@@ -293,16 +239,6 @@
             margin-bottom: 60px;
         }
 
-        .plastic-upcycling-section .section-title,
-        .genome-editing-section .section-title,
-        .scale-up-section .section-title,
-        .cell-free-section .section-title {
-            color: var(--gray-dark);
-        }
-            content: "";
-            margin-right: 0;
-        }
-
         /* Genome Editing specific styling */
         .genome-editing-section {
             background: linear-gradient(135deg, rgba(107, 142, 90, 0.2), rgba(255, 255, 255, 0.9));
@@ -310,11 +246,6 @@
             padding: 2rem;
             border: 2px solid rgba(107, 142, 90, 0.3);
             margin-bottom: 60px;
-        }
-
-        .genome-editing-section .section-title:before {
-            content: "";
-            margin-right: 0;
         }
 
         /* Scale-up specific styling */
@@ -326,11 +257,6 @@
             margin-bottom: 60px;
         }
 
-        .scale-up-section .section-title:before {
-            content: "";
-            margin-right: 0;
-        }
-
         /* Cell-free specific styling */
         .cell-free-section {
             background: linear-gradient(135deg, rgba(156, 175, 136, 0.15), rgba(255, 255, 255, 0.9));
@@ -340,76 +266,31 @@
             margin-bottom: 60px;
         }
 
-        .cell-free-section .section-title:before {
-            content: "";
-            margin-right: 0;
-        }
-        .biopolymers-section {
-            background: linear-gradient(135deg, rgba(240, 244, 240, 0.3), rgba(255, 255, 255, 0.9));
-            border-radius: 15px;
-            padding: 2rem;
-            border: 2px solid rgba(107, 142, 90, 0.2);
-            margin-bottom: 60px;
-        }
-
-        .biopolymers-section .section-title {
-            margin-bottom: 2rem;
-            color: var(--gray-dark);
-            position: relative;
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .biopolymers-section .section-title:before {
-            content: "";
-            margin-right: 0;
-        }
-
-        /* Special styling for subsections within research cards */
-        .subsection {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(107, 142, 90, 0.2);
-        }
-
-        .subsection:first-child {
-            margin-top: 1rem;
-            padding-top: 0;
-            border-top: none;
-        }
-
-        .subsection h4 {
-            color: var(--sage-darker);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .research-card.featured .subsection h4 {
-            font-size: 1.2rem;
-        }
-        .research-card.featured {
-            grid-column: span 2;
-            background: linear-gradient(135deg, rgba(240, 244, 240, 0.3), rgba(255, 255, 255, 0.9));
-            border: 2px solid var(--sage-medium);
-        }
-
-        .research-card.featured .research-content {
-            padding: 2rem;
-        }
-
-        .research-card.featured h3 {
-            font-size: 1.5rem;
-        }
-
-        .research-card.featured p {
-            font-size: 1rem;
-        }
-
-      
-  
-        
-
-        /* Responsive Design */
+        /* Mobile responsiveness for horizontal layout */
         @media (max-width: 768px) {
+            .research-subsection {
+                flex-direction: column;
+                max-width: 100%;
+            }
+
+            .research-image {
+                width: 100%;
+                min-width: auto;
+                height: 220px;
+            }
+
             .tab-container {
                 flex-direction: column;
                 height: auto;
@@ -461,22 +342,6 @@
             .page-header h1 {
                 font-size: 2.2rem;
             }
-
-            .research-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .research-card.featured {
-                grid-column: span 1;
-            }
-
-            .collaborators-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .research-card {
-                margin-bottom: 1rem;
-            }
         }
     </style>
 </head>
@@ -501,6 +366,7 @@
             <div class="content-wrapper">
                 <div class="page-header">
                     <h1>Our Research</h1>
+                    <p>Exploring the frontiers of cellular biology through innovative approaches in metabolic engineering, synthetic biology, and bioengineering applications.</p>
                 </div>
 
                 <div class="research-section biopolymers-section">
