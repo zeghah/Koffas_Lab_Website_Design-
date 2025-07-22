@@ -27,13 +27,11 @@
             line-height: 1.6;
             color: var(--gray-dark);
             background-color: var(--white);
-            height: 100vh;
-            overflow: hidden;
         }
 
         /* Tab Navigation */
         .tab-container {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
         }
 
@@ -87,8 +85,6 @@
         /* Main Content Area */
         .main-content {
             flex: 1;
-            height: 100vh;
-            overflow-y: auto;
             background: var(--white);
         }
 
@@ -213,6 +209,47 @@
             left: 0;
         }
 
+        /* Special styling for subsections within research cards */
+        .subsection {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(107, 142, 90, 0.2);
+        }
+
+        .subsection:first-child {
+            margin-top: 1rem;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .subsection h4 {
+            color: var(--sage-darker);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .research-card.featured .subsection h4 {
+            font-size: 1.2rem;
+        }
+        .research-card.featured {
+            grid-column: span 2;
+            background: linear-gradient(135deg, rgba(240, 244, 240, 0.3), rgba(255, 255, 255, 0.9));
+            border: 2px solid var(--sage-medium);
+        }
+
+        .research-card.featured .research-content {
+            padding: 2rem;
+        }
+
+        .research-card.featured h3 {
+            font-size: 1.5rem;
+        }
+
+        .research-card.featured p {
+            font-size: 1rem;
+        }
+
         /* Collaborators Section */
         .collaborators-section {
             margin-bottom: 80px;
@@ -287,30 +324,6 @@
             font-style: italic;
         }
 
-        /* Partnership Info */
-        .partnership-info {
-            background: var(--sage-light);
-            padding: 3rem;
-            border-radius: 15px;
-            text-align: center;
-            border-left: 4px solid var(--sage-medium);
-        }
-
-        .partnership-info h3 {
-            color: var(--sage-darker);
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
-        .partnership-info p {
-            color: var(--gray-medium);
-            font-size: 1.1rem;
-            line-height: 1.7;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -381,6 +394,10 @@
                 grid-template-columns: 1fr;
             }
 
+            .research-card.featured {
+                grid-column: span 1;
+            }
+
             .collaborators-grid {
                 grid-template-columns: 1fr;
             }
@@ -418,20 +435,39 @@
                 <div class="research-areas">
                     <h2 class="section-title">Research Areas</h2>
                     <div class="research-grid">
-                        <div class="research-card">
+                        <div class="research-card featured">
                             <div class="research-image">
                                 <!-- Replace with actual image: <img src="research/biopolymers.jpg" alt="Biopolymers Research"> -->
                                 🧬
                             </div>
                             <div class="research-content">
                                 <h3>Biopolymers</h3>
-                                <p>Engineering microbial systems for the production of valuable biopolymers including chondroitin sulfate, gamma-PGA, silk proteins, and chromoproteins.</p>
-                                <ul class="research-highlights">
-                                    <li>Chondroitin sulfate biosynthesis optimization</li>
-                                    <li>Recombinant silk protein production</li>
-                                    <li>Gamma-PGA scale-up processes</li>
-                                    <li>Novel chromoprotein applications</li>
-                                </ul>
+                                <p>Engineering microbial systems for the production of valuable biopolymers with applications ranging from biomedicine to sustainable materials.</p>
+                                
+                                <div class="subsection">
+                                    <h4>Recombinant Silk Production</h4>
+                                    <p>Silk is one of nature's most remarkable biomaterials, combining exceptional tensile strength with extraordinary extensibility—traits that make it highly desirable for textile and structural applications. In addition to its mechanical properties, silk is inherently biocompatible and biodegradable, lending itself to promising uses in tissue engineering, drug delivery, and as a sustainable alternative to petroleum-based polymers. However, one major limitation is the difficulty of producing silk at the scale required for widespread industrial and biomedical use.</p>
+                                    
+                                    <p>Our research aims to overcome this bottleneck by developing a microbial platform for scalable, recombinant silk production. The unique properties of silk arise from the hierarchical assembly of its protein building blocks. By replicating the amino acid sequences of native silk proteins, we can engineer synthetic analogs with tailored functionality. Specifically, we aim to:</p>
+                                    
+                                    <ul class="research-highlights">
+                                        <li>Design and characterize novel recombinant silk proteins with enhanced mechanical or biomedical properties suited for specialized applications</li>
+                                        <li>Genetically engineer microbial hosts for improved expression, yield, and assembly of these recombinant silk proteins</li>
+                                    </ul>
+                                    
+                                    <p>Through this approach, we seek to bridge the gap between natural silk's performance and the demands of modern materials science and biotechnology.</p>
+                                    <p><strong>Team Members:</strong>Bobby and Sahiti </p>
+
+                                </div>
+                                
+                                <div class="subsection">
+                                    <h4>Other Biopolymer Research</h4>
+                                    <ul class="research-highlights">
+                                        <li>Chondroitin sulfate biosynthesis optimization</li>
+                                        <li>Gamma-PGA scale-up processes</li>
+                                        <li>Novel chromoprotein applications</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
 
@@ -455,7 +491,7 @@
                         <div class="research-card">
                             <div class="research-image">
                                 <!-- Replace with actual image: <img src="research/scale-up.jpg" alt="Bioengineering Scale-up"> -->
-                                🏭
+                            
                             </div>
                             <div class="research-content">
                                 <h3>Bioengineering Scale-Up</h3>
@@ -469,20 +505,18 @@
                             </div>
                         </div>
                         
-                        <div class="research-card">
+                        <div class="research-card featured">
                             <div class="research-image">
                                 <!-- Replace with actual image: <img src="research/plastic-upcycling.jpg" alt="Plastic Upcycling"> -->
                                 ♻️
                             </div>
                             <div class="research-content">
                                 <h3>Plastic Upcycling</h3>
-                                <p>Engineering microorganisms to convert plastic waste into valuable products, contributing to circular economy and environmental sustainability.</p>
-                                <ul class="research-highlights">
-                                    <li>PET and polyethylene degradation</li>
-                                    <li>Plastic-to-protein conversion</li>
-                                    <li>Enzymatic plastic breakdown</li>
-                                    <li>Sustainable valorization pathways</li>
-                                </ul>
+                                <p>Plastic pollution is one of the most pressing environmental challenges of our time, with millions of tons of plastic waste accumulating in landfills and natural ecosystems each year. Conventional recycling methods are often inefficient, and many plastics are not recycled at all, leading to long-term ecological harm.</p>
+                                
+                                <p>In our lab, we are addressing this challenge by developing sustainable plastic upcycling strategies. Our research focuses on converting non-biodegradable plastics such as polystyrene and polyethylene terephthalate (PET) into high-value bioproducts through a combination of chemical and biological processes. Using approaches that integrate depolymerization with microbial fermentation, we transform plastic-derived compounds into functional materials like biopolymers and platform chemicals. This work supports the advancement of a circular economy and provides innovative pathways for mitigating plastic waste.</p>
+                                
+                                <p><strong>Team Members:</strong> Steve and Bobby </p>
                             </div>
                         </div>
                         
@@ -506,7 +540,7 @@
                         <div class="research-card">
                             <div class="research-image">
                                 <!-- Replace with actual image: <img src="research/genome-editing.jpg" alt="Genome Editing"> -->
-                                🧬
+                                ✂️
                             </div>
                             <div class="research-content">
                                 <h3>Genome Editing</h3>
@@ -519,72 +553,6 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="collaborators-section">
-                    <h2 class="section-title">Collaborators & Partners</h2>
-                    
-                    <div class="collaborators-grid">
-                        <a href="https://example-university.edu/researcher1" class="collaborator-card">
-                            <div class="collaborator-photo">
-                                <!-- Replace with actual image: <img src="collaborators/researcher1.jpg" alt="Dr. Jane Smith"> -->
-                                JS
-                            </div>
-                            <div class="collaborator-name">Dr. Jane Smith</div>
-                            <div class="collaborator-title">Professor of Chemical Engineering</div>
-                            <div class="collaborator-institution">Stanford University</div>
-                        </a>
-
-                        <a href="https://example-institute.org/researcher2" class="collaborator-card">
-                            <div class="collaborator-photo">
-                                <!-- Replace with actual image: <img src="collaborators/researcher2.jpg" alt="Prof. Michael Chen"> -->
-                                MC
-                            </div>
-                            <div class="collaborator-name">Prof. Michael Chen</div>
-                            <div class="collaborator-title">Director of Bioengineering</div>
-                            <div class="collaborator-institution">MIT</div>
-                        </a>
-
-                        <a href="https://example-lab.com/researcher3" class="collaborator-card">
-                            <div class="collaborator-photo">
-                                <!-- Replace with actual image: <img src="collaborators/researcher3.jpg" alt="Dr. Sarah Johnson"> -->
-                                SJ
-                            </div>
-                            <div class="collaborator-name">Dr. Sarah Johnson</div>
-                            <div class="collaborator-title">Principal Scientist</div>
-                            <div class="collaborator-institution">Genentech</div>
-                        </a>
-
-                        <a href="https://example-university.edu/researcher4" class="collaborator-card">
-                            <div class="collaborator-photo">
-                                <!-- Replace with actual image: <img src="collaborators/researcher4.jpg" alt="Prof. David Rodriguez"> -->
-                                DR
-                            </div>
-                            <div class="collaborator-name">Prof. David Rodriguez</div>
-                            <div class="collaborator-title">Department of Biotechnology</div>
-                            <div class="collaborator-institution">UC Berkeley</div>
-                        </a>
-
-                        <a href="https://example-research.org/researcher5" class="collaborator-card">
-                            <div class="collaborator-photo">
-                                <!-- Replace with actual image: <img src="collaborators/researcher5.jpg" alt="Dr. Lisa Wang"> -->
-                                LW
-                            </div>
-                            <div class="collaborator-name">Dr. Lisa Wang</div>
-                            <div class="collaborator-title">Senior Research Scientist</div>
-                            <div class="collaborator-institution">Broad Institute</div>
-                        </a>
-
-                        <a href="https://example-pharma.com/researcher6" class="collaborator-card">
-                            <div class="collaborator-photo">
-                                <!-- Replace with actual image: <img src="collaborators/researcher6.jpg" alt="Prof. Andreas Mueller"> -->
-                                AM
-                            </div>
-                            <div class="collaborator-name">Prof. Andreas Mueller</div>
-                            <div class="collaborator-title">Head of R&D</div>
-                            <div class="collaborator-institution">Novartis</div>
-                        </a>
                     </div>
                 </div>
             </div>
