@@ -9,7 +9,9 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
+    </script>
+</body>
+</html>
 
         :root {
             --sage-light: #f0f4f0;
@@ -160,9 +162,9 @@
         }
 
         .research-image {
-            width: 400px;
-            min-width: 400px;
-            height: 280px;
+            width: 320px;
+            min-width: 320px;
+            height: 320px;
             background: linear-gradient(135deg, var(--sage-light), var(--sage-medium));
             display: flex;
             align-items: center;
@@ -175,7 +177,7 @@
         .research-image img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
         }
 
         .research-content {
@@ -288,7 +290,7 @@
             .research-image {
                 width: 100%;
                 min-width: auto;
-                height: 220px;
+                height: 280px;
             }
 
             .tab-container {
@@ -656,7 +658,8 @@
                 </div>
             </div>
         </div>
-    </div
+    </div>
+</div>
 
                 <div class="research-section biopolymers-section">
                     <h2 class="section-title">Biopolymers Research</h2>
@@ -691,7 +694,7 @@
                         </div>
                     </div>
 
-                    <div class="research-subsection" id="Gamma-PGA">
+                    <div class="research-subsection" id="gamma-pga">
                         <div class="research-image">
                             <!-- Replace with actual image: <img src="research/gamma-pga.jpg" alt="Gamma-PGA Research"> -->
                         </div>
@@ -787,7 +790,7 @@
                 <div class="research-section cell-free-section">
                     <h2 class="section-title">Cell-free Metabolic Engineering</h2>
                     
-                    <div class="research-subsection">
+                    <div class="research-subsection" id="cell-free">
                         <div class="research-image">
                             <!-- Replace with actual image: <img src="research/cell-free.jpg" alt="Cell-free Systems"> -->
                         </div>
@@ -835,31 +838,29 @@
                 }
             });
         });
+        
         function toggleNav() {
-    const navCard = document.getElementById('navCard');
-    const navToggle = document.querySelector('.nav-toggle');
-    
-    navCard.classList.toggle('active');
-    navToggle.classList.toggle('active');
-}
+            const navCard = document.getElementById('navCard');
+            const navToggle = document.querySelector('.nav-toggle');
+            
+            navCard.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        }
 
-function toggleCategory(category) {
-    category.classList.toggle('expanded');
-}
+        function toggleCategory(category) {
+            category.classList.toggle('expanded');
+        }
 
-function scrollToSection(sectionId) {
-    const element = document.getElementById(sectionId);
-    if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-}
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
 
-function scrollToElement(elementId) {
-    const element = document.getElementById(elementId);
-    if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-}
-    </script>
-</body>
-</html>
+        function scrollToElement(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
