@@ -120,7 +120,7 @@
             margin: 0 auto;
         }
 
-        /* Gallery Grid - Updated for flexible sizing */
+        /* Gallery Grid - Simple grid with proper horizontal image handling */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -138,8 +138,11 @@
             box-shadow: 0 4px 15px rgba(107, 142, 90, 0.15);
             transition: all 0.4s ease;
             cursor: pointer;
-            /* Remove fixed aspect ratio */
-            min-height: 200px;
+        }
+
+        /* Make horizontal images span 2 columns when there's space */
+        .gallery-item.horizontal {
+            grid-column: span 2;
         }
 
         .gallery-item:hover {
@@ -147,49 +150,53 @@
             box-shadow: 0 8px 30px rgba(107, 142, 90, 0.25);
         }
 
-        /* Updated gallery image styling for flexible images */
+        /* Image container that preserves aspect ratio */
         .gallery-image {
             width: 100%;
-            height: 100%;
             position: relative;
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 3rem;
-            color: var(--sage-darker);
-            transition: all 0.4s ease;
-            min-height: 200px;
+            display: block;
         }
 
-        /* Actual image styling for proper horizontal image display */
+        /* Images maintain their natural aspect ratio with better object-fit */
         .gallery-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center;
+            display: block;
             transition: transform 0.4s ease;
+            min-height: 200px;
         }
 
-        /* For horizontal images, allow them to be wider */
+        /* Better aspect ratios for different image types */
         .gallery-item.horizontal {
-            grid-column: span 2;
-            aspect-ratio: 16/9; /* Good ratio for horizontal images */
+            aspect-ratio: 16/9;
         }
 
-        /* For vertical images, keep them taller */
         .gallery-item.vertical {
             aspect-ratio: 3/4;
         }
 
-        /* Default square-ish ratio for unknown images */
         .gallery-item.square {
+            aspect-ratio: 1/1;
+        }
+
+        /* Default aspect ratio for items without specific class */
+        .gallery-item:not(.horizontal):not(.vertical):not(.square) {
             aspect-ratio: 4/3;
         }
 
         /* Placeholder styling for demo images */
         .gallery-image:not(:has(img)) {
             background: linear-gradient(135deg, var(--sage-light), var(--sage-medium));
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--sage-darker);
+            min-height: 200px;
         }
 
         .gallery-overlay {
@@ -209,10 +216,6 @@
 
         .gallery-item:hover .gallery-overlay {
             background: linear-gradient(to top, rgba(74, 103, 65, 0.95), rgba(74, 103, 65, 0.3));
-        }
-
-        .gallery-item:hover .gallery-image {
-            transform: scale(1.02);
         }
 
         .gallery-item:hover .gallery-image img {
@@ -278,12 +281,7 @@
             border-color: var(--sage-dark);
         }
 
-        /* Special Gallery Items */
-        .gallery-item.featured {
-            grid-column: span 2;
-            aspect-ratio: 16/9;
-        }
-
+        /* Special styling for different categories */
         .gallery-item.group-photo .gallery-image:not(:has(img)) {
             background: linear-gradient(135deg, #a7c4a0, #9bb896);
         }
@@ -313,6 +311,18 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            /* On smaller screens, horizontal images take full width */
+            .gallery-item.horizontal {
+                grid-column: span 1;
+            }
+        }
+
         @media (max-width: 768px) {
             .tab-container {
                 flex-direction: column;
@@ -371,7 +381,6 @@
                 gap: 1.5rem;
             }
 
-            .gallery-item.featured,
             .gallery-item.horizontal {
                 grid-column: span 1;
             }
@@ -402,12 +411,7 @@
             }
         }
 
-        /* Masonry-style layout for better image fitting */
-        @supports (grid-template-rows: masonry) {
-            .gallery-grid {
-                grid-template-rows: masonry;
-            }
-        }
+
     </style>
 </head>
 <body>
@@ -434,6 +438,7 @@
                     <p>Capturing moments of discovery, collaboration, and celebration in the Koffas Research Group</p>
                 </div>
 
+
                 <!-- Filter Buttons -->
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">All Photos</button>
@@ -445,8 +450,8 @@
 
                 <!-- Gallery Grid -->
                 <div class="gallery-grid" id="galleryGrid">
-                    <!-- Featured Group Photo - Horizontal -->
-                    <div class="gallery-item featured horizontal group-photo" data-category="group-photo">
+                    <!-- Featured Group Photo -->
+                    <div class="gallery-item group-photo" data-category="group-photo">
                         <div class="gallery-image">
                             <img src="gallery/summer2024.jpg" alt="Summer2024" />
                         </div>
@@ -459,7 +464,7 @@
                     </div>
 
                     <!-- Lab Work Photos -->
-                    <div class="gallery-item horizontal group-photo" data-category="group-photo">
+                    <div class="gallery-item group-photo" data-category="group-photo">
                         <div class="gallery-image">
                            <img src="gallery/Bottles .jpg" alt="" />
                         </div>
@@ -470,7 +475,7 @@
                         </div>
                     </div>
 
-                    <div class="gallery-item horizontal group-photo" data-category="group-photo">
+                    <div class="gallery-item group-photo" data-category="group-photo">
                         <div class="gallery-image">
                            <img src="gallery/2023_summer_group_photo.jpg" alt="" />
                         </div>
@@ -482,7 +487,7 @@
                         </div>
                     </div>
 
-                    <div class="gallery-item horizontal group-photo" data-category="group-photo">
+                    <div class="gallery-item group-photo" data-category="group-photo">
                         <div class="gallery-image">
                             <img src="gallery/labphoto.jpg" alt="" />
                         </div>
@@ -492,8 +497,7 @@
                         </div>
                     </div>
 
-                    <!-- Horizontal lab work photo -->
-                    <div class="gallery-item horizontal group-photo" data-category="group-photo">
+                    <div class="gallery-item group-photo" data-category="group-photo">
                         <div class="gallery-image">
                             <img src="gallery/labphoto2.jpg" alt="" />
                         </div>
@@ -505,7 +509,7 @@
                         </div>
                     </div>
 
-                    <div class="gallery-item vertical group-photo" data-category="group-photo">
+                    <div class="gallery-item group-photo" data-category="group-photo">
                         <div class="gallery-image">
                              <img src="gallery/labphoto3.jpg" alt="" />
                         </div>
@@ -517,7 +521,7 @@
                         </div>
                     </div>
 
-                    <div class="gallery-item square lab-work" data-category="lab-work">
+                    <div class="gallery-item lab-work" data-category="lab-work">
                         <div class="gallery-image">
                              <img src="gallery/labphoto3.jpg" alt="" />
                         </div>
@@ -529,8 +533,7 @@
                         </div>
                     </div>
 
-                    <!-- Another horizontal image -->
-                    <div class="gallery-item horizontal conference" data-category="conference">
+                    <div class="gallery-item conference" data-category="conference">
                         <div class="gallery-image">
                              <img src="gallery/plates2.jpg" alt="" />
                         </div>
@@ -541,20 +544,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="gallery-item square celebration" data-category="celebration">
-                        <div class="gallery-image">
-                             <img src="gallery/labphoto3.jpg" alt="" />
-                        </div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-caption">
-                                <h3>Birthday Surprise</h3>
-                                <p>Surprising Dr. Koffas with a birthday celebration in the lab. The cake was shaped like a protein structure - only in our lab would we find that delightful!</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    
                 </div>
             </div>
         </div>
@@ -617,32 +606,6 @@
                 image.classList.remove('loading');
             }, 500 + (index * 100));
         });
-
-        // Automatically detect image aspect ratios and apply appropriate classes
-        function detectImageAspectRatio() {
-            const images = document.querySelectorAll('.gallery-image img');
-            images.forEach(img => {
-                img.onload = function() {
-                    const aspectRatio = this.naturalWidth / this.naturalHeight;
-                    const galleryItem = this.closest('.gallery-item');
-                    
-                    // Remove existing aspect ratio classes
-                    galleryItem.classList.remove('horizontal', 'vertical', 'square');
-                    
-                    // Apply new aspect ratio class
-                    if (aspectRatio > 1.5) {
-                        galleryItem.classList.add('horizontal');
-                    } else if (aspectRatio < 0.8) {
-                        galleryItem.classList.add('vertical');
-                    } else {
-                        galleryItem.classList.add('square');
-                    }
-                };
-            });
-        }
-
-        // Call the function on page load
-        detectImageAspectRatio();
     </script>
 </body>
 </html>
