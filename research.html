@@ -230,6 +230,11 @@
             border: 1px solid rgba(107, 142, 90, 0.1);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
             margin-bottom: 1.5rem;
+            display: flex;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 1.5rem;
         }
 
         .research-subsection:hover {
@@ -238,13 +243,13 @@
         }
 
         .research-image {
-            width: 100%;
-            height: 150px;
+            width: 400px;
+            min-width: 400px;
+            height: 280px;
             background: linear-gradient(135deg, var(--sage-light), var(--sage-medium));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
             color: var(--sage-darker);
             position: relative;
             overflow: hidden;
@@ -258,6 +263,7 @@
 
         .research-content {
             padding: 1.5rem;
+            flex: 1;
         }
 
         .research-subsection h3 {
@@ -271,7 +277,7 @@
             color: var(--gray-medium);
             margin-bottom: 1rem;
             line-height: 1.6;
-            font-size: 0.85rem;
+            font-size: 0.60rem;
         }
 
         .research-subsection ul {
@@ -287,10 +293,14 @@
             margin-bottom: 60px;
         }
 
-        .plastic-upcycling-section .section-title:before {
+        .plastic-upcycling-section .section-title,
+        .genome-editing-section .section-title,
+        .scale-up-section .section-title,
+        .cell-free-section .section-title {
+            color: var(--gray-dark);
+        }
             content: "";
-            margin-right: 0.5rem;
-            font-size: 1.5rem;
+            margin-right: 0;
         }
 
         /* Genome Editing specific styling */
@@ -304,8 +314,7 @@
 
         .genome-editing-section .section-title:before {
             content: "";
-            margin-right: 0.5rem;
-            font-size: 1.5rem;
+            margin-right: 0;
         }
 
         /* Scale-up specific styling */
@@ -319,8 +328,7 @@
 
         .scale-up-section .section-title:before {
             content: "";
-            margin-right: 0.5rem;
-            font-size: 1.5rem;
+            margin-right: 0;
         }
 
         /* Cell-free specific styling */
@@ -334,8 +342,7 @@
 
         .cell-free-section .section-title:before {
             content: "";
-            margin-right: 0.5rem;
-            font-size: 1.5rem;
+            margin-right: 0;
         }
         .biopolymers-section {
             background: linear-gradient(135deg, rgba(240, 244, 240, 0.3), rgba(255, 255, 255, 0.9));
@@ -347,14 +354,13 @@
 
         .biopolymers-section .section-title {
             margin-bottom: 2rem;
-            color: var(--sage-darker);
+            color: var(--gray-dark);
             position: relative;
         }
 
         .biopolymers-section .section-title:before {
-            content: "🧬";
-            margin-right: 0.5rem;
-            font-size: 1.5rem;
+            content: "";
+            margin-right: 0;
         }
 
         /* Special styling for subsections within research cards */
@@ -577,6 +583,7 @@
             <div class="content-wrapper">
                 <div class="page-header">
                     <h1>Our Research</h1>
+                    <p>Exploring the frontiers of cellular biology through innovative approaches in metabolic engineering, synthetic biology, and bioengineering applications.</p>
                 </div>
 
                 <div class="research-section biopolymers-section">
@@ -585,7 +592,6 @@
                     <div class="research-subsection">
                         <div class="research-image">
                             <!-- Replace with actual image: <img src="research/chondroitin.jpg" alt="Chondroitin Research"> -->
-                            🦴
                         </div>
                         <div class="research-content">
                             <h3>Chondroitin Sulfate</h3>
@@ -600,7 +606,6 @@
                     <div class="research-subsection">
                         <div class="research-image">
                             <!-- Replace with actual image: <img src="research/silk.jpg" alt="Silk Research"> -->
-                            🕷️
                         </div>
                         <div class="research-content">
                             <h3>Recombinant Silk Production</h3>
@@ -622,7 +627,6 @@
                     <div class="research-subsection">
                         <div class="research-image">
                             <!-- Replace with actual image: <img src="research/gamma-pga.jpg" alt="Gamma-PGA Research"> -->
-                    
                         </div>
                         <div class="research-content">
                             <h3>Gamma-PGA</h3>
@@ -654,7 +658,7 @@
                     
                     <div class="research-subsection">
                         <div class="research-image">
-                         <img src="research/Plastic_Upcycling_Labwebsite.png" alt="Plastic Upcycling">
+                            <!-- Replace with actual image: <img src="research/plastic-upcycling.jpg" alt="Plastic Upcycling"> -->
                         </div>
                         <div class="research-content">
                             <h3>Plastic Upcycling</h3>
