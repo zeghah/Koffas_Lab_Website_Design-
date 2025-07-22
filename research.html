@@ -127,7 +127,7 @@
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: 1rem;
             font-weight: 300;
             color: var(--sage-darker);
             margin-bottom: 40px;
@@ -277,7 +277,7 @@
             color: var(--gray-medium);
             margin-bottom: 1rem;
             line-height: 1.6;
-            font-size: 0.60rem;
+            font-size: 0.85rem;
         }
 
         .research-subsection ul {
@@ -404,91 +404,9 @@
             font-size: 1rem;
         }
 
-        /* Collaborators Section */
-        .collaborators-section {
-            margin-bottom: 80px;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.6s forwards;
-        }
-
-        .collaborators-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 40px;
-        }
-
-        .collaborator-card {
-            background: var(--white);
-            border: 2px solid var(--sage-light);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .collaborator-card:hover {
-            border-color: var(--sage-medium);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(107, 142, 90, 0.15);
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .collaborator-photo {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--sage-dark), var(--sage-medium));
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--white);
-            font-weight: bold;
-            overflow: hidden;
-        }
-
-        .collaborator-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .collaborator-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--sage-darker);
-            margin-bottom: 0.5rem;
-        }
-
-        .collaborator-title {
-            color: var(--sage-dark);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .collaborator-institution {
-            color: var(--gray-medium);
-            font-size: 0.85rem;
-            font-style: italic;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+      
+  
+        
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -583,7 +501,6 @@
             <div class="content-wrapper">
                 <div class="page-header">
                     <h1>Our Research</h1>
-                    <p>Exploring the frontiers of cellular biology through innovative approaches in metabolic engineering, synthetic biology, and bioengineering applications.</p>
                 </div>
 
                 <div class="research-section biopolymers-section">
