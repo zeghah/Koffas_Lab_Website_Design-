@@ -9,9 +9,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-    </script>
-</body>
-</html>
+        }
 
         :root {
             --sage-light: #f0f4f0;
@@ -345,252 +343,253 @@
                 font-size: 2.2rem;
             }
         }
+
         /* Research Navigator Styles */
-.research-navigator {
-    max-width: 800px;
-    margin: 0 auto 40px auto;
-    opacity: 0;
-    animation: fadeInUp 1s ease 0.1s forwards;
-}
+        .research-navigator {
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.1s forwards;
+        }
 
-.nav-dropdown {
-    position: relative;
-}
+        .nav-dropdown {
+            position: relative;
+        }
 
-.nav-toggle {
-    background: linear-gradient(135deg, var(--sage-dark), var(--sage-darker));
-    color: var(--white);
-    border: none;
-    padding: 15px 0;
-    border-radius: 15px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    box-shadow: 0 4px 15px rgba(107, 142, 90, 0.3);
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    width: 100%;
-}
+        .nav-toggle {
+            background: linear-gradient(135deg, var(--sage-dark), var(--sage-darker));
+            color: var(--white);
+            border: none;
+            padding: 15px 0;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(107, 142, 90, 0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: 100%;
+        }
 
-.nav-toggle:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(107, 142, 90, 0.4);
-}
+        .nav-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 142, 90, 0.4);
+        }
 
-.nav-toggle::before {
-    font-size: 18px;
-}
+        .nav-toggle::before {
+            font-size: 18px;
+        }
 
-.nav-toggle::after {
-    content: '▼';
-    font-size: 12px;
-    transition: transform 0.3s ease;
-}
+        .nav-toggle::after {
+            content: '▼';
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
 
-.nav-toggle.active::after {
-    transform: rotate(180deg);
-}
+        .nav-toggle.active::after {
+            transform: rotate(180deg);
+        }
 
-.nav-card {
-    background: var(--white);
-    width: 100%;
-    border-radius: 15px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(107, 142, 90, 0.15);
-    margin-top: 10px;
-    overflow: hidden;
-    max-height: 0;
-    opacity: 0;
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
+        .nav-card {
+            background: var(--white);
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(107, 142, 90, 0.15);
+            margin-top: 10px;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-.nav-card.active {
-    opacity: 1;
-    max-height: 600px;
-    transform: scaleY(1);
-}
+        .nav-card.active {
+            opacity: 1;
+            max-height: 600px;
+            transform: scaleY(1);
+        }
 
-.nav-card-header {
-    background: linear-gradient(135deg, var(--sage-light), rgba(156, 175, 136, 0.3));
-    padding: 20px 25px;
-    text-align: center;
-    border-bottom: 1px solid rgba(107, 142, 90, 0.2);
-}
+        .nav-card-header {
+            background: linear-gradient(135deg, var(--sage-light), rgba(156, 175, 136, 0.3));
+            padding: 20px 25px;
+            text-align: center;
+            border-bottom: 1px solid rgba(107, 142, 90, 0.2);
+        }
 
-.nav-card-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--sage-darker);
-    margin-bottom: 5px;
-}
+        .nav-card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--sage-darker);
+            margin-bottom: 5px;
+        }
 
-.nav-card-subtitle {
-    font-size: 13px;
-    color: var(--gray-medium);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+        .nav-card-subtitle {
+            font-size: 13px;
+            color: var(--gray-medium);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-.nav-card-content {
-    padding: 20px;
-    max-height: 500px;
-    overflow-y: auto;
-}
+        .nav-card-content {
+            padding: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
 
-.nav-category {
-    margin-bottom: 20px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
+        .nav-category {
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
 
-.nav-category:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(107, 142, 90, 0.15);
-}
+        .nav-category:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(107, 142, 90, 0.15);
+        }
 
-.nav-category-header {
-    padding: 15px 20px;
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--sage-darker);
-    transition: all 0.3s ease;
-    position: relative;
-    background: rgba(107, 142, 90, 0.08);
-    border: 1px solid rgba(107, 142, 90, 0.15);
-}
+        .nav-category-header {
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--sage-darker);
+            transition: all 0.3s ease;
+            position: relative;
+            background: rgba(107, 142, 90, 0.08);
+            border: 1px solid rgba(107, 142, 90, 0.15);
+        }
 
-.nav-category-header:hover {
-    background: rgba(107, 142, 90, 0.12);
-}
+        .nav-category-header:hover {
+            background: rgba(107, 142, 90, 0.12);
+        }
 
-.nav-category-header::after {
-    content: '▶';
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: transform 0.3s ease;
-    font-size: 12px;
-    color: var(--sage-medium);
-}
+        .nav-category-header::after {
+            content: '▶';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+            font-size: 12px;
+            color: var(--sage-medium);
+        }
 
-.nav-category.expanded .nav-category-header::after {
-    transform: translateY(-50%) rotate(90deg);
-}
+        .nav-category.expanded .nav-category-header::after {
+            transform: translateY(-50%) rotate(90deg);
+        }
 
-.nav-category-items {
-    background: var(--white);
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
+        .nav-category-items {
+            background: var(--white);
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
 
-.nav-category.expanded .nav-category-items {
-    max-height: 200px;
-    border-top: 1px solid rgba(107, 142, 90, 0.1);
-}
+        .nav-category.expanded .nav-category-items {
+            max-height: 200px;
+            border-top: 1px solid rgba(107, 142, 90, 0.1);
+        }
 
-.nav-item {
-    display: block;
-    padding: 12px 20px;
-    text-decoration: none;
-    color: var(--gray-medium);
-    font-size: 14px;
-    transition: all 0.2s ease;
-    border-left: 4px solid transparent;
-    position: relative;
-}
+        .nav-item {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: var(--gray-medium);
+            font-size: 14px;
+            transition: all 0.2s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
 
-.nav-item:hover {
-    background: var(--sage-light);
-    color: var(--sage-darker);
-    border-left-color: var(--sage-medium);
-    padding-left: 25px;
-}
+        .nav-item:hover {
+            background: var(--sage-light);
+            color: var(--sage-darker);
+            border-left-color: var(--sage-medium);
+            padding-left: 25px;
+        }
 
-.nav-item::before {
-    content: '•';
-    color: var(--sage-medium);
-    margin-right: 10px;
-    font-weight: bold;
-}
+        .nav-item::before {
+            content: '•';
+            color: var(--sage-medium);
+            margin-right: 10px;
+            font-weight: bold;
+        }
 
-.nav-subitem {
-    padding-left: 40px;
-    font-size: 13px;
-    color: var(--gray-medium);
-}
+        .nav-subitem {
+            padding-left: 40px;
+            font-size: 13px;
+            color: var(--gray-medium);
+        }
 
-.nav-subitem::before {
-    content: '◦';
-    color: var(--sage-dark);
-}
+        .nav-subitem::before {
+            content: '◦';
+            color: var(--sage-dark);
+        }
 
-.nav-single-item {
-    background: var(--white);
-    border-radius: 12px;
-    margin-bottom: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    border: 1px solid rgba(107, 142, 90, 0.12);
-}
+        .nav-single-item {
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(107, 142, 90, 0.12);
+        }
 
-.nav-single-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(107, 142, 90, 0.15);
-}
+        .nav-single-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(107, 142, 90, 0.15);
+        }
 
-.nav-single-link {
-    display: block;
-    padding: 15px 20px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    color: var(--sage-darker);
-    background: rgba(107, 142, 90, 0.06);
-}
+        .nav-single-link {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: var(--sage-darker);
+            background: rgba(107, 142, 90, 0.06);
+        }
 
-.nav-single-link:hover {
-    background: rgba(107, 142, 90, 0.1);
-    color: var(--sage-darker);
-}
+        .nav-single-link:hover {
+            background: rgba(107, 142, 90, 0.1);
+            color: var(--sage-darker);
+        }
 
-/* Custom scrollbar for nav card */
-.nav-card-content::-webkit-scrollbar {
-    width: 6px;
-}
+        /* Custom scrollbar for nav card */
+        .nav-card-content::-webkit-scrollbar {
+            width: 6px;
+        }
 
-.nav-card-content::-webkit-scrollbar-track {
-    background: var(--sage-light);
-    border-radius: 3px;
-}
+        .nav-card-content::-webkit-scrollbar-track {
+            background: var(--sage-light);
+            border-radius: 3px;
+        }
 
-.nav-card-content::-webkit-scrollbar-thumb {
-    background: var(--sage-medium);
-    border-radius: 3px;
-}
+        .nav-card-content::-webkit-scrollbar-thumb {
+            background: var(--sage-medium);
+            border-radius: 3px;
+        }
 
-.nav-card-content::-webkit-scrollbar-thumb:hover {
-    background: var(--sage-dark);
-}
+        .nav-card-content::-webkit-scrollbar-thumb:hover {
+            background: var(--sage-dark);
+        }
 
-/* Mobile responsiveness updates */
-@media (max-width: 768px) {
-    .nav-toggle {
-        padding: 12px 0;
-        font-size: 14px;
-    }
-}
+        /* Mobile responsiveness updates */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                padding: 12px 0;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -615,56 +614,57 @@
                 <div class="page-header">
                     <h1>Our Research</h1>
                 </div>
+
                 <!-- Research Navigator -->
-<div class="research-navigator">
-    <div class="nav-dropdown">
-        <button class="nav-toggle" onclick="toggleNav()">
-            Research Guide
-        </button>
-        <div class="nav-card" id="navCard">
-            <div class="nav-card-header">
-                <div class="nav-card-title">Research Areas</div>
-                <div class="nav-card-subtitle">Jump to any project</div>
-            </div>
-            <div class="nav-card-content">
-                <!-- Biopolymers Category -->
-                <div class="nav-category" onclick="toggleCategory(this)">
-                    <div class="nav-category-header">
-                        Biopolymers Research
+                <div class="research-navigator">
+                    <div class="nav-dropdown">
+                        <button class="nav-toggle" onclick="toggleNav()">
+                            Research Guide
+                        </button>
+                        <div class="nav-card" id="navCard">
+                            <div class="nav-card-header">
+                                <div class="nav-card-title">Research Areas</div>
+                                <div class="nav-card-subtitle">Jump to any project</div>
+                            </div>
+                            <div class="nav-card-content">
+                                <!-- Biopolymers Category -->
+                                <div class="nav-category" onclick="toggleCategory(this)">
+                                    <div class="nav-category-header">
+                                        Biopolymers Research
+                                    </div>
+                                    <div class="nav-category-items">
+                                        <a href="#chondroitin" class="nav-item nav-subitem" onclick="scrollToElement('chondroitin')">Chondroitin Sulfate</a>
+                                        <a href="#silk" class="nav-item nav-subitem" onclick="scrollToElement('silk')">Recombinant Silk Production</a>
+                                        <a href="#gamma-pga" class="nav-item nav-subitem" onclick="scrollToElement('gamma-pga')">Gamma-PGA</a>
+                                        <a href="#chromoproteins" class="nav-item nav-subitem" onclick="scrollToElement('chromoproteins')">Chromoproteins</a>
+                                    </div>
+                                </div>
+
+                                <!-- Single Item Categories -->
+                                <div class="nav-single-item">
+                                    <a href="#plastic-upcycling" class="nav-single-link" onclick="scrollToSection('plastic-upcycling-section')">Plastic Upcycling</a>
+                                </div>
+
+                                <div class="nav-single-item">
+                                    <a href="#genome-editing" class="nav-single-link" onclick="scrollToSection('genome-editing-section')">Genome Editing</a>
+                                </div>
+
+                                <div class="nav-single-item">
+                                    <a href="#scale-up" class="nav-single-link" onclick="scrollToSection('scale-up-section')">Bioengineering Scale-Up</a>
+                                </div>
+
+                                <div class="nav-single-item">
+                                    <a href="#cell-free" class="nav-single-link" onclick="scrollToSection('cell-free-section')">Cell-free Metabolic Engineering</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="nav-category-items">
-                        <a href="#chondroitin" class="nav-item nav-subitem" onclick="scrollToElement('chondroitin')">Chondroitin Sulfate</a>
-                        <a href="#silk" class="nav-item nav-subitem" onclick="scrollToElement('silk')">Recombinant Silk Production</a>
-                        <a href="#gamma-pga" class="nav-item nav-subitem" onclick="scrollToElement('gamma-pga')">Gamma-PGA</a>
-                        <a href="#chromoproteins" class="nav-item nav-subitem" onclick="scrollToElement('chromoproteins')">Chromoproteins</a>
-                    </div>
                 </div>
-
-                <!-- Single Item Categories -->
-                <div class="nav-single-item">
-                    <a href="#plastic-upcycling" class="nav-single-link" onclick="scrollToSection('plastic-upcycling-section')">Plastic Upcycling</a>
-                </div>
-
-                <div class="nav-single-item">
-                    <a href="#genome-editing" class="nav-single-link" onclick="scrollToSection('genome-editing-section')">Genome Editing</a>
-                </div>
-
-                <div class="nav-single-item">
-                    <a href="#scale-up" class="nav-single-link" onclick="scrollToSection('scale-up-section')">Bioengineering Scale-Up</a>
-                </div>
-
-                <div class="nav-single-item">
-                    <a href="#cell-free" class="nav-single-link" onclick="scrollToSection('cell-free-section')">Cell-free Metabolic Engineering</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
                 <div class="research-section biopolymers-section">
                     <h2 class="section-title">Biopolymers Research</h2>
                     
-                    <div class="research-subsection"  id="chondroitin">
+                    <div class="research-subsection" id="chondroitin">
                         <div class="research-image">
                             <!-- Replace with actual image: <img src="research/chondroitin.jpg" alt="Chondroitin Research"> -->
                         </div>
@@ -730,7 +730,7 @@
                     
                     <div class="research-subsection" id="plastic-upcycling">
                         <div class="research-image">
-                            <img src="research/plastic-upcycling.png" alt="Plastic Upcycling">
+                            <img src="research/Plastic_Upcycling_Labwebsite.png" alt="Plastic Upcycling">
                         </div>
                         <div class="research-content">
                             <h3>Plastic Upcycling</h3>
@@ -864,3 +864,6 @@
                 element.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
+    </script>
+</body>
+</html>
