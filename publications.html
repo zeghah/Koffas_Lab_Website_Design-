@@ -2439,7 +2439,7 @@
                     const formattedTitle = (pub.title || 'Untitled').replace(/<(?!\/?(em)\b)[^>]*>/g, '');
                     const author = pub.author || 'Authors not specified';
                     const journal = pub.journal || 'Journal not specified';
-                    const doi = pub.url || '#';
+                    const doi = pub.doi || '#';
                     
                     html += `
                         <div class="publication-card">
