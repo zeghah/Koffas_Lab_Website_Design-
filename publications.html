@@ -2434,11 +2434,12 @@
                             <span class="year-count">${publications.length}</span>
                         </div>
                 `;
-            
+                
                 publications.forEach(pub => {
                     const formattedTitle = (pub.title || 'Untitled').replace(/<(?!\/?(em)\b)[^>]*>/g, '');
-                    const author = pub.author || 'Authors not specified';
+                    const authors = pub.authors || 'Authors not specified';
                     const journal = pub.journal || 'Journal not specified';
+                    const url = pub.url || '#';
                     const year = pub.year || 'Year not specified';
                     const doi = pub.doi;
                 
