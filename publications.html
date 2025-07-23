@@ -114,14 +114,6 @@
             line-height: 1.2;
         }
 
-        .hero-section p {
-            font-size: 1.1rem;
-            color: var(--gray-medium);
-            max-width: 600px;
-            margin: 0 auto 20px auto;
-            line-height: 1.6;
-        }
-        
         .scholar-btn {
             padding: 10px 20px;
             border: 2px solid var(--sage-dark);
@@ -141,10 +133,10 @@
             transform: translateY(-2px);
         }
 
-        /* Minimal Filter Section */
+        /* Filter Section */
         .filter-section {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             padding: 20px 0;
             border-bottom: 2px solid var(--sage-light);
@@ -242,12 +234,6 @@
             font-weight: 600;
         }
 
-        .results-info {
-            color: var(--sage-darker);
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-
         /* Publications Grid */
         .publications-container {
             margin-top: 30px;
@@ -264,24 +250,6 @@
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 3px solid var(--sage-medium);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .year-title {
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: var(--sage-darker);
-        }
-
-        .year-count {
-            background: var(--sage-medium);
-            color: var(--white);
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 500;
         }
 
         /* Publication Cards */
@@ -368,19 +336,16 @@
         }
 
         /* Loading and Error States */
-        .loading, .error, .no-results {
+        .no-results {
             text-align: center;
             padding: 60px 20px;
             color: var(--gray-medium);
-        }
-
-        .error, .no-results {
             background: var(--sage-light);
             border-radius: 10px;
             margin: 20px 0;
         }
 
-        .error h3, .no-results h3 {
+        .no-results h3 {
             color: var(--sage-darker);
             margin-bottom: 15px;
             font-size: 1.5rem;
@@ -452,7 +417,7 @@
                     <a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en" class="scholar-btn">Google Scholar Profile</a>
                 </div>
 
-                <!-- Minimal Filter Section -->
+                <!-- Filter Section -->
                 <div class="filter-section">
                     <div class="filter-pills">
                         <div class="filter-pill dropdown active" id="year-filter-pill">
@@ -490,9 +455,9 @@
     </div>
 
     <script>
-        // Sample publications data (using the full list from your document)
+        // Publications data
         const publications = [
-
+            
         {
                 "title": "Papain expression in the Escherichia coli cytoplasm by T7-promoter engineering and co-expression with human protein disulfide isomerase (PDI) and thiol peroxidase (GPx7) genes",
                 "author": "Hoque, Md Anarul, Gross, Richard A., <span class=\"highlight-author\">Koffas, Mattheos A. G.</span>",
@@ -2300,7 +2265,6 @@
                 "number": "3",
                 "pages": "346-352"
         }
-
         ];
 
         let filteredPublications = [...publications];
@@ -2377,80 +2341,7 @@
             renderPublications();
         }
 
-        function renderPublications() {
-            const container = document.getElementById('publications-container');
-            
-            if (filteredPublications.length === 0) {
-                container.innerHTML = `
-                    <div class="no-results">
-                        <h3>No Publications Found</h3>
-                        <p>Try adjusting your filters.</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            // Group by year
-            const publicationsByYear = {};
-            filteredPublications.forEach(pub => {
-                const year = pub.year || 'Unknown';
-                if (!publicationsByYear[year]) {
-                    publicationsByYear[year] = [];
-                }
-                publicationsByYear[year].push(pub);
-            });
-            
-            // Sort years in descending order
-            const sortedYears = Object.keys(publicationsByYear).sort((a, b) => {
-                if (a === 'Unknown') return 1;
-                if (b === 'Unknown') return -1;
-                return b - a;
-            });
-            
-            let html = '';
-            sortedYears.forEach(year => {
-                const publications = publicationsByYear[year];
-                html += `
-                    <div class="year-section">
-                        <div class="year-header">
-                            <div class="year-title">${year}</div>
-                        </div>
-                `;
-                
-                publications.forEach(pub => {
-                    const formattedTitle = (pub.title || 'Untitled').replace(/<(?!\/?(em)\b)[^>]*>/g, '');
-                    const authors = pub.author || 'Authors not specified';
-                    const journal = pub.journal || 'Journal not specified';
-                    
-                    // Only create DOI link if DOI exists and is valid
-                    const hasDOI = hasValidDOI(pub);
-                    const doiUrl = hasDOI ? formatDOIUrl(pub.doi) : '#';
-                    const doiLinkHtml = hasDOI ? `<a href="${doiUrl}" class="doi-link" target="_blank">DOI</a>` : '';
-                    
-                    html += `
-                        <div class="publication-card">
-                            <div class="card-content">
-                                <h3 class="publication-title">
-                                    ${hasDOI ? `<a href="${doiUrl}" target="_blank">${formattedTitle}</a>` : formattedTitle}
-                                </h3>
-                                <p class="publication-authors">${authors}</p>
-                                <p class="publication-journal">${journal}</p>
-                            </div>
-                            <div class="card-footer">
-                                <div>
-                                    <small class="publication-year">Published in <strong>${year}</strong></small>
-                                </div>
-                                ${hasDOI ? `<div class="actions">${doiLinkHtml}</div>` : ''}
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                html += '</div>';
-            });
-            
-            container.innerHTML = html;
-        }
+        function clearFilters() {
             currentYearFilter = 'all';
             currentTopicFilter = 'all';
             
@@ -2505,9 +2396,7 @@
                 const publications = publicationsByYear[year];
                 html += `
                     <div class="year-section">
-                        <div class="year-header">
-                            <div class="year-title">${year}</div>
-                        </div>
+                        <div class="year-header">${year}</div>
                 `;
                 
                 publications.forEach(pub => {
@@ -2518,7 +2407,6 @@
                     // Only create DOI link if DOI exists and is valid
                     const hasDOI = hasValidDOI(pub);
                     const doiUrl = hasDOI ? formatDOIUrl(pub.doi) : '#';
-                    const doiLinkHtml = hasDOI ? `<a href="${doiUrl}" class="doi-link" target="_blank">DOI</a>` : '';
                     
                     html += `
                         <div class="publication-card">
@@ -2533,7 +2421,7 @@
                                 <div>
                                     <small class="publication-year">Published in <strong>${year}</strong></small>
                                 </div>
-                                ${hasDOI ? `<div class="actions">${doiLinkHtml}</div>` : ''}
+                                ${hasDOI ? `<div class="actions"><a href="${doiUrl}" class="doi-link" target="_blank">DOI</a></div>` : ''}
                             </div>
                         </div>
                     `;
