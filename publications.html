@@ -2446,7 +2446,8 @@
                         <div class="publication-card">
                             <div class="card-content">
                                 <h3 class="publication-title">
-                                    <a href="${url}">${formattedTitle}</a>
+                                    ${hasDOI ? `<a href="${doiUrl}" target="_blank">${formattedTitle}</a>` : formattedTitle}
+                                </h3>
                                 </h3>
                                 <p class="publication-authors">${authors}</p>
                                 <p class="publication-journal">${journal}</p>
