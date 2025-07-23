@@ -2435,35 +2435,35 @@
                         </div>
                 `;
     
-        publications.forEach(pub => {
-            const formattedTitle = (pub.title || 'Untitled').replace(/<(?!\/?(em)\b)[^>]*>/g, '');
-            const author = pub.author || 'Authors not specified';
-            const journal = pub.journal || 'Journal not specified';
-            const year = pub.year || 'Year not specified';
-            const doi = pub.doi;
-        
-            const url = doi ? `https://doi.org/${doi}` : '';
-        
-            html += `
-                <div class="publication-card">
-                    <div class="card-content">
-                        <h3 class="publication-title">
-                            <a href="${url || '#'}" target="_blank" rel="noopener noreferrer">${formattedTitle}</a>
-                        </h3>
-                        <p class="publication-author">${author}</p>
-                        <p class="publication-journal">${journal}</p>
-                    </div>
-                    <div class="card-footer">
-                        <div>
-                            <small class="publication-year">Published in <strong>${year}</strong></small>
+            publications.forEach(pub => {
+                const formattedTitle = (pub.title || 'Untitled').replace(/<(?!\/?(em)\b)[^>]*>/g, '');
+                const author = pub.author || 'Authors not specified';
+                const journal = pub.journal || 'Journal not specified';
+                const year = pub.year || 'Year not specified';
+                const doi = pub.doi;
+            
+                const url = doi ? `https://doi.org/${doi}` : '';
+            
+                html += `
+                    <div class="publication-card">
+                        <div class="card-content">
+                            <h3 class="publication-title">
+                                <a href="${url || '#'}" target="_blank" rel="noopener noreferrer">${formattedTitle}</a>
+                            </h3>
+                            <p class="publication-author">${author}</p>
+                            <p class="publication-journal">${journal}</p>
                         </div>
-                        <div class="actions">
-                            ${doi ? `<a href="${url}" class="doi" target="_blank" rel="noopener noreferrer">DOI</a>` : ''}
+                        <div class="card-footer">
+                            <div>
+                                <small class="publication-year">Published in <strong>${year}</strong></small>
+                            </div>
+                            <div class="actions">
+                                ${doi ? `<a href="${url}" class="doi" target="_blank" rel="noopener noreferrer">DOI</a>` : ''}
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
-    });
+                `;
+            });
          
 
         // Setup event listeners
