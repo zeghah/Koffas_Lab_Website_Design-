@@ -485,17 +485,17 @@
 
                 <!-- Publications Container -->
                 <div id="publications-container" class="publications-container">
-                    <!-- PASTE YOUR FULL PUBLICATIONS DATA HERE -->
-                    <!-- This is where your complete publications list goes -->
+                    <!-- Publications will be rendered here -->
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // PASTE YOUR FULL PUBLICATIONS ARRAY HERE
+        // Sample publications data (using a subset for demo)
         const publications = [
-           
+            {
+                
         {
                 "title": "Papain expression in the Escherichia coli cytoplasm by T7-promoter engineering and co-expression with human protein disulfide isomerase (PDI) and thiol peroxidase (GPx7) genes",
                 "author": "Hoque, Md Anarul, Gross, Richard A., <span class=\"highlight-author\">Koffas, Mattheos A. G.</span>",
@@ -2304,11 +2304,29 @@
                 "pages": "346-352"
         }
 ];
-       
+    
 
         let filteredPublications = [...publications];
         let currentYearFilter = 'all';
         let currentTopicFilter = 'all';
+
+        // Helper function to check if DOI exists and is valid
+        function hasValidDOI(pub) {
+            return pub.doi && pub.doi.trim() !== '' && pub.doi.trim() !== ' ';
+        }
+
+        // Helper function to format DOI URL
+        function formatDOIUrl(doi) {
+            if (!doi || doi.trim() === '') return '#';
+            
+            // If DOI already starts with http, return as is
+            if (doi.startsWith('http')) {
+                return doi;
+            }
+            
+            // Otherwise, prepend the DOI URL prefix
+            return `https://doi.org/${doi.trim()}`;
+        }
 
         // Filter functionality
         function filterPublications() {
@@ -2389,9 +2407,9 @@
             const infoEl = document.getElementById('results-info');
             
             if (filteredCount === totalPubs) {
-                infoEl.textContent = `Showing all ${totalPubs} publications`;
+                infoEl.textContent = `Showing all publications`;
             } else {
-                infoEl.textContent = `Showing ${filteredCount} of ${totalPubs} publications`;
+                infoEl.textContent = `Showing ${filteredCount} publications`;
             }
         }
 
@@ -2432,7 +2450,6 @@
                     <div class="year-section">
                         <div class="year-header">
                             <div class="year-title">${year}</div>
-                            <span class="year-count">${publications.length}</span>
                         </div>
                 `;
                 
@@ -2440,14 +2457,17 @@
                     const formattedTitle = (pub.title || 'Untitled').replace(/<(?!\/?(em)\b)[^>]*>/g, '');
                     const authors = pub.author || 'Authors not specified';
                     const journal = pub.journal || 'Journal not specified';
-                    const url = pub.doi || ' ';
+                    
+                    // Only create DOI link if DOI exists and is valid
+                    const hasDOI = hasValidDOI(pub);
+                    const doiUrl = hasDOI ? formatDOIUrl(pub.doi) : '#';
+                    const doiLinkHtml = hasDOI ? `<a href="${doiUrl}" class="doi-link" target="_blank">DOI</a>` : '';
                     
                     html += `
                         <div class="publication-card">
                             <div class="card-content">
                                 <h3 class="publication-title">
                                     ${hasDOI ? `<a href="${doiUrl}" target="_blank">${formattedTitle}</a>` : formattedTitle}
-                                </h3>
                                 </h3>
                                 <p class="publication-authors">${authors}</p>
                                 <p class="publication-journal">${journal}</p>
@@ -2456,9 +2476,7 @@
                                 <div>
                                     <small class="publication-year">Published in <strong>${year}</strong></small>
                                 </div>
-                                <div class="actions">
-                                    <a href="${url}" class="doi-link"> DOI</a>
-                                </div>
+                                ${hasDOI ? `<div class="actions">${doiLinkHtml}</div>` : ''}
                             </div>
                         </div>
                     `;
