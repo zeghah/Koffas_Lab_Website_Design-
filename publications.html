@@ -448,7 +448,6 @@
                 <!-- Hero Section -->
                 <div class="hero-section">
                     <h1>Publications</h1>
-                    <p>Cutting-edge research from the Koffas Laboratory advancing metabolic engineering and synthetic biology</p>
                     <a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en" class="scholar-btn">Google Scholar Profile</a>
                 </div>
 
@@ -2438,7 +2437,7 @@
                 
                 publications.forEach(pub => {
                     const formattedTitle = (pub.title || 'Untitled').replace(/<(?!\/?(em)\b)[^>]*>/g, '');
-                    const authors = pub.authors || 'Authors not specified';
+                    const author = pub.author || 'Authors not specified';
                     const journal = pub.journal || 'Journal not specified';
                     const url = pub.url || '#';
                     
@@ -2448,7 +2447,7 @@
                                 <h3 class="publication-title">
                                     <a href="${url}">${formattedTitle}</a>
                                 </h3>
-                                <p class="publication-authors">${authors}</p>
+                                <p class="publication-author">${author}</p>
                                 <p class="publication-journal">${journal}</p>
                             </div>
                             <div class="card-footer">
