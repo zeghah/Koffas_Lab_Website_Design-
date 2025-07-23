@@ -478,9 +478,6 @@
                         </div>
                         <div class="filter-pill" id="clear-filters-btn">Clear Filters</div>
                     </div>
-                    <div class="results-info" id="results-info">
-                        Loading publications...
-                    </div>
                 </div>
 
                 <!-- Publications Container -->
@@ -494,8 +491,7 @@
     <script>
         // Sample publications data (using a subset for demo)
         const publications = [
-            {
-                
+            
         {
                 "title": "Papain expression in the Escherichia coli cytoplasm by T7-promoter engineering and co-expression with human protein disulfide isomerase (PDI) and thiol peroxidase (GPx7) genes",
                 "author": "Hoque, Md Anarul, Gross, Richard A., <span class=\"highlight-author\">Koffas, Mattheos A. G.</span>",
@@ -2303,8 +2299,7 @@
                 "number": "3",
                 "pages": "346-352"
         }
-];
-    
+        ];
 
         let filteredPublications = [...publications];
         let currentYearFilter = 'all';
@@ -2377,7 +2372,6 @@
             }
             
             filteredPublications = filtered;
-            updateResultsInfo();
             renderPublications();
         }
 
@@ -2399,18 +2393,6 @@
             document.getElementById('topic-filter-pill').childNodes[0].textContent = 'All Topics ';
             
             filterPublications();
-        }
-
-        function updateResultsInfo() {
-            const totalPubs = publications.length;
-            const filteredCount = filteredPublications.length;
-            const infoEl = document.getElementById('results-info');
-            
-            if (filteredCount === totalPubs) {
-                infoEl.textContent = `Showing all publications`;
-            } else {
-                infoEl.textContent = `Showing ${filteredCount} publications`;
-            }
         }
 
         function renderPublications() {
@@ -2522,7 +2504,6 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             setupEventListeners();
-            updateResultsInfo();
             renderPublications();
         });
     </script>
