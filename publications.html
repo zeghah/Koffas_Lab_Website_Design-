@@ -2441,7 +2441,7 @@
                     const formattedTitle = (pub.title || 'Untitled').replace(/<(?!\/?(em)\b)[^>]*>/g, '');
                     const authors = pub.author || 'Authors not specified';
                     const journal = pub.journal || 'Journal not specified';
-                    const url = pub.url || '#';
+                    const url = pub.doi || ' ';
                     
                     html += `
                         <div class="publication-card">
@@ -2457,7 +2457,7 @@
                                     <small class="publication-year">Published in <strong>${year}</strong></small>
                                 </div>
                                 <div class="actions">
-                                    <a href="${url}" class="doi-link">📄 DOI</a>
+                                    <a href="${url}" class="doi-link"> DOI</a>
                                 </div>
                             </div>
                         </div>
