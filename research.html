@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publications - Koffas Lab</title>
+    <title>Research - Koffas Lab</title>
     <style>
         * {
             margin: 0;
@@ -27,7 +27,7 @@
             line-height: 1.6;
             color: var(--gray-dark);
             background-color: var(--white);
-            min-height: 100vh;
+            font-size: 14px;
         }
 
         /* Tab Navigation */
@@ -41,9 +41,6 @@
             background: var(--sage-light);
             padding: 20px 0;
             border-right: 1px solid rgba(107, 142, 90, 0.2);
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
         }
 
         .logo {
@@ -70,6 +67,7 @@
             text-decoration: none;
             color: var(--gray-dark);
             font-weight: 500;
+            font-size: 16px;
             transition: all 0.3s ease;
             border-left: 3px solid transparent;
         }
@@ -89,339 +87,530 @@
         /* Main Content Area */
         .main-content {
             flex: 1;
-            margin-left: 200px;
-            min-height: 100vh;
             background: var(--white);
         }
 
         .content-wrapper {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px;
+            padding: 60px 40px;
         }
 
-        /* Hero Section */
-        .hero-section {
+        /* Page Header */
+        .page-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
         }
 
-        .hero-section h1 {
-            font-size: 2.8rem;
+        .page-header h1 {
+            font-size: 3rem;
             font-weight: 300;
-            color: var(--sage-darker);
             margin-bottom: 1rem;
+            color: var(--sage-darker);
             line-height: 1.2;
         }
 
-        .hero-section p {
-            font-size: 1.1rem;
+        .page-header p {
+            font-size: 1rem;
             color: var(--gray-medium);
-            max-width: 600px;
-            margin: 0 auto 20px auto;
+            max-width: 700px;
+            margin: 0 auto;
             line-height: 1.6;
         }
-        
-        .scholar-btn {
-            padding: 10px 20px;
-            border: 2px solid var(--sage-dark);
-            background: transparent;
-            color: var(--sage-dark);
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            display: inline-block;
+
+        /* Section Title */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-dark);
+            margin-bottom: 40px;
+            text-align: center;
         }
 
-        .scholar-btn:hover {
-            background: var(--sage-dark);
-            color: var(--white);
-            transform: translateY(-2px);
-        }
-
-        /* Minimal Filter Section */
-        .filter-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            border-bottom: 2px solid var(--sage-light);
-            margin-bottom: 30px;
-        }
-
-        .filter-pills {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .filter-pill {
-            padding: 8px 16px;
-            border: 1px solid var(--sage-medium);
-            border-radius: 25px;
-            background: var(--white);
-            color: var(--sage-dark);
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            font-weight: 500;
-        }
-
-        .filter-pill:hover, .filter-pill.active {
-            background: var(--sage-medium);
-            color: var(--white);
-        }
-
-        .filter-pill.dropdown {
-            padding-right: 30px;
-        }
-
-        .filter-pill.dropdown::after {
-            content: '▼';
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.7rem;
-            transition: transform 0.3s ease;
-        }
-
-        .filter-pill.dropdown:hover::after {
-            transform: translateY(-50%) rotate(180deg);
-        }
-
-        /* Dropdown Menu */
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--white);
-            border: 1px solid var(--sage-medium);
-            border-radius: 10px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            z-index: 1000;
-            min-width: 200px;
+        /* Research Section Styling */
+        .research-section {
+            margin-bottom: 60px;
             opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .research-section:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .research-subsection {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
             transition: all 0.3s ease;
-            margin-top: 8px;
+            border: 1px solid rgba(107, 142, 90, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            margin-bottom: 1.5rem;
+            display: flex;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        .research-subsection:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(107, 142, 90, 0.1);
+        }
+
+        .research-image {
+            width: 400px;
+            min-width: 400px;
+            height: 280px;
+            background: linear-gradient(135deg, var(--sage-light), var(--sage-medium));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            position: relative;
             overflow: hidden;
         }
 
-        .filter-pill:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
+        .research-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .dropdown-item {
-            padding: 12px 18px;
-            color: var(--gray-dark);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid var(--sage-light);
-            font-size: 0.9rem;
+        .research-content {
+            padding: 1.5rem;
+            flex: 1;
         }
 
-        .dropdown-item:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-item:hover {
-            background: var(--sage-light);
+        .research-subsection h3 {
             color: var(--sage-darker);
-        }
-
-        .dropdown-item.selected {
-            background: var(--sage-medium);
-            color: var(--white);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
             font-weight: 600;
         }
 
-        .results-info {
-            color: var(--sage-darker);
-            font-weight: 500;
+        .research-subsection p {
+            color: var(--gray-medium);
+            margin-bottom: 1rem;
+            line-height: 1.6;
             font-size: 0.95rem;
         }
 
-        /* Publications Grid */
-        .publications-container {
-            margin-top: 30px;
+        .research-subsection ul {
+            margin-bottom: 1rem;
         }
 
-        .year-section {
-            margin-bottom: 40px;
+        .research-highlights {
+            list-style: none;
         }
 
-        .year-header {
-            font-size: 1.6rem;
+        .research-highlights li {
+            color: var(--gray-medium);
+            padding: 5px 0;
+            position: relative;
+            padding-left: 20px;
+            font-size: 0.85rem;
+        }
+
+        .research-highlights li:before {
+            content: "▸";
+            color: var(--sage-dark);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Collaborators Minimal Style */
+        .collaborators-minimal {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(107, 142, 90, 0.2);
+        }
+
+        .collaborators-minimal .collaborators-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--sage-dark);
             font-weight: 600;
-            color: var(--sage-darker);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid var(--sage-medium);
+        }
+
+        .collaborators-list {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             gap: 15px;
         }
 
-        .year-title {
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: var(--sage-darker);
-        }
-
-        .year-count {
-            background: var(--sage-medium);
-            color: var(--white);
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        /* Publication Cards */
-        .publication-card {
-            background: var(--white);
-            border: 1px solid rgba(107, 142, 90, 0.15);
-            border-radius: 8px;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-        }
-
-        .publication-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(107, 142, 90, 0.15);
-            border-color: var(--sage-medium);
-        }
-
-        .card-content {
-            padding: 20px;
-        }
-
-        .publication-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            line-height: 1.3;
-            margin-bottom: 10px;
-        }
-
-        .publication-title a {
-            color: var(--sage-darker);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .publication-title a:hover {
+        .collaborator-link {
             color: var(--sage-dark);
-        }
-
-        .publication-authors {
-            color: var(--gray-medium);
-            font-style: italic;
-            margin-bottom: 8px;
-            font-size: 1rem;
-            line-height: 1.4;
-        }
-
-        .publication-journal {
-            color: var(--sage-dark);
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 1rem;
-            line-height: 1.4;
-        }
-
-        .card-footer {
-            background: var(--sage-light);
-            padding: 12px 20px;
-            border-top: 1px solid rgba(107, 142, 90, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .publication-year {
-            font-size: 0.9rem;
-            color: var(--gray-medium);
-        }
-
-        .doi-link {
-            color: var(--sage-dark);
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .doi-link:hover {
-            color: var(--sage-darker);
             text-decoration: underline;
+            text-decoration-color: transparent;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        /* Loading and Error States */
-        .loading, .error, .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--gray-medium);
-        }
-
-        .error, .no-results {
-            background: var(--sage-light);
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .error h3, .no-results h3 {
+        .collaborator-link:hover {
             color: var(--sage-darker);
-            margin-bottom: 15px;
-            font-size: 1.5rem;
+            text-decoration-color: var(--sage-medium);
+            transform: translateY(-1px);
         }
 
-        /* Responsive Design */
+        .collaborator-link::after {
+            content: '↗';
+            font-size: 0.8rem;
+            margin-left: 3px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .collaborator-link:hover::after {
+            opacity: 1;
+        }
+
+        /* Unified styling for all major research sections */
+        .biopolymers-section,
+        .plastic-upcycling-section,
+        .genome-editing-section,
+        .scale-up-section,
+        .cell-free-section,
+        .textile-engineering-section {
+            background: linear-gradient(135deg, rgba(240, 244, 240, 0.3), rgba(255, 255, 255, 0.9));
+            border-radius: 15px;
+            padding: 2rem;
+            border: 2px solid rgba(107, 142, 90, 0.2);
+            margin-bottom: 60px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile responsiveness for horizontal layout */
         @media (max-width: 768px) {
+            .research-subsection {
+                flex-direction: column;
+                max-width: 100%;
+            }
+
+            .research-image {
+                width: 100%;
+                min-width: auto;
+                height: 280px;
+            }
+
+            .tab-container {
+                flex-direction: column;
+                height: auto;
+                overflow: visible;
+            }
+            
+            body {
+                height: auto;
+                overflow: visible;
+            }
+
             .tab-sidebar {
-                position: relative;
                 width: 100%;
                 height: auto;
                 border-right: none;
                 border-bottom: 1px solid rgba(107, 142, 90, 0.2);
             }
 
+            .tab-nav {
+                display: flex;
+                overflow-x: auto;
+                padding: 0 20px;
+            }
+
+            .tab-nav li {
+                margin-bottom: 0;
+                white-space: nowrap;
+            }
+
+            .tab-nav a {
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+
+            .tab-nav a.active {
+                border-left: none;
+                border-bottom: 3px solid var(--sage-dark);
+            }
+
             .main-content {
-                margin-left: 0;
+                height: auto;
+                overflow: visible;
             }
 
             .content-wrapper {
-                padding: 20px;
+                padding: 40px 20px;
             }
 
-            .hero-section h1 {
+            .page-header h1 {
                 font-size: 2.2rem;
             }
 
-            .filter-section {
-                flex-direction: column;
-                gap: 15px;
-                align-items: stretch;
-            }
-
-            .filter-pills {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-
-            .card-footer {
+            .collaborators-list {
                 flex-direction: column;
                 gap: 10px;
-                align-items: flex-start;
+            }
+        }
+
+        /* Research Navigator Styles */
+        .research-navigator {
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.1s forwards;
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-toggle {
+            background: linear-gradient(135deg, var(--sage-dark), var(--sage-darker));
+            color: var(--white);
+            border: none;
+            padding: 15px 0;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(107, 142, 90, 0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: 100%;
+        }
+
+        .nav-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 142, 90, 0.4);
+        }
+
+        .nav-toggle::before {
+            font-size: 18px;
+        }
+
+        .nav-toggle::after {
+            content: '▼';
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-toggle.active::after {
+            transform: rotate(180deg);
+        }
+
+        .nav-card {
+            background: var(--white);
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(107, 142, 90, 0.15);
+            margin-top: 10px;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-card.active {
+            opacity: 1;
+            max-height: 600px;
+            transform: scaleY(1);
+        }
+
+        .nav-card-header {
+            background: linear-gradient(135deg, var(--sage-light), rgba(156, 175, 136, 0.3));
+            padding: 20px 25px;
+            text-align: center;
+            border-bottom: 1px solid rgba(107, 142, 90, 0.2);
+        }
+
+        .nav-card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--sage-darker);
+            margin-bottom: 5px;
+        }
+
+        .nav-card-subtitle {
+            font-size: 13px;
+            color: var(--gray-medium);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-card-content {
+            padding: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .nav-category {
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .nav-category:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(107, 142, 90, 0.15);
+        }
+
+        .nav-category-header {
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--sage-darker);
+            transition: all 0.3s ease;
+            position: relative;
+            background: rgba(107, 142, 90, 0.08);
+            border: 1px solid rgba(107, 142, 90, 0.15);
+        }
+
+        .nav-category-header:hover {
+            background: rgba(107, 142, 90, 0.12);
+        }
+
+        .nav-category-header::after {
+            content: '▶';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+            font-size: 12px;
+            color: var(--sage-medium);
+        }
+
+        .nav-category.expanded .nav-category-header::after {
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        .nav-category-items {
+            background: var(--white);
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-category.expanded .nav-category-items {
+            max-height: 200px;
+            border-top: 1px solid rgba(107, 142, 90, 0.1);
+        }
+
+        .nav-item {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: var(--gray-medium);
+            font-size: 14px;
+            transition: all 0.2s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: var(--sage-light);
+            color: var(--sage-darker);
+            border-left-color: var(--sage-medium);
+            padding-left: 25px;
+        }
+
+        .nav-item::before {
+            content: '•';
+            color: var(--sage-medium);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .nav-subitem {
+            padding-left: 40px;
+            font-size: 13px;
+            color: var(--gray-medium);
+        }
+
+        .nav-subitem::before {
+            content: '◦';
+            color: var(--sage-dark);
+        }
+
+        .nav-single-item {
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(107, 142, 90, 0.12);
+        }
+
+        .nav-single-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(107, 142, 90, 0.15);
+        }
+
+        .nav-single-link {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: var(--sage-darker);
+            background: rgba(107, 142, 90, 0.06);
+        }
+
+        .nav-single-link:hover {
+            background: rgba(107, 142, 90, 0.1);
+            color: var(--sage-darker);
+        }
+
+        /* Custom scrollbar for nav card */
+        .nav-card-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .nav-card-content::-webkit-scrollbar-track {
+            background: var(--sage-light);
+            border-radius: 3px;
+        }
+
+        .nav-card-content::-webkit-scrollbar-thumb {
+            background: var(--sage-medium);
+            border-radius: 3px;
+        }
+
+        .nav-card-content::-webkit-scrollbar-thumb:hover {
+            background: var(--sage-dark);
+        }
+
+        /* Mobile responsiveness updates */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                padding: 12px 0;
+                font-size: 14px;
             }
         }
     </style>
@@ -433,9 +622,9 @@
             <div class="logo">Koffas Lab</div>
             <ul class="tab-nav">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="research.html">Research</a></li>
+                <li><a href="research.html" class="active">Research</a></li>
                 <li><a href="members.html">Lab Members</a></li>
-                <li><a href="publications.html" class="active">Publications</a></li>
+                <li><a href="publications.html">Publications</a></li>
                 <li><a href="news.html">News</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
@@ -445,2088 +634,353 @@
         <!-- Main Content Area -->
         <div class="main-content">
             <div class="content-wrapper">
-                <!-- Hero Section -->
-                <div class="hero-section">
-                    <h1>Publications</h1>
-                    <a href="https://scholar.google.com/citations?user=iibrJwkAAAAJ&hl=en" class="scholar-btn">Google Scholar Profile</a>
+                <div class="page-header">
+                    <h1>Our Research</h1>
                 </div>
 
-                <!-- Minimal Filter Section -->
-                <div class="filter-section">
-                    <div class="filter-pills">
-                        <div class="filter-pill dropdown active" id="year-filter-pill">
-                            All Years
-                            <div class="dropdown-menu">
-                                <div class="dropdown-item selected" data-value="all">All Years</div>
-                                <div class="dropdown-item" data-value="2020+">2020 and later</div>
-                                <div class="dropdown-item" data-value="2015-2019">2015-2019</div>
-                                <div class="dropdown-item" data-value="2010-2014">2010-2014</div>
-                                <div class="dropdown-item" data-value="before-2010">Before 2010</div>
+                <!-- Research Navigator -->
+                <div class="research-navigator">
+                    <div class="nav-dropdown">
+                        <button class="nav-toggle" onclick="toggleNav()">
+                            Research Guide
+                        </button>
+                        <div class="nav-card" id="navCard">
+                            <div class="nav-card-header">
+                            </div>
+                            <div class="nav-card-content">
+                                <!-- Biopolymers Category -->
+                                <div class="nav-category" onclick="toggleCategory(this)">
+                                    <div class="nav-category-header">
+                                        Biopolymers
+                                    </div>
+                                    <div class="nav-category-items">
+                                        <a href="#chondroitin" class="nav-item nav-subitem" onclick="scrollToElement('chondroitin')">Chondroitin Sulfate</a>
+                                        <a href="#silk" class="nav-item nav-subitem" onclick="scrollToElement('silk')">Recombinant Silk Production</a>
+                                        <a href="#gamma-pga" class="nav-item nav-subitem" onclick="scrollToElement('gamma-pga')">Gamma-PGA</a>
+                                        <a href="#chromoproteins" class="nav-item nav-subitem" onclick="scrollToElement('chromoproteins')">Chromoproteins</a>
+                                    </div>
+                                </div>
+
+                                <div class="nav-single-item">
+                                    <a href="#plastic-upcycling" class="nav-single-link" onclick="scrollToSection('plastic-upcycling-section')">Plastic Upcycling</a>
+                                </div>
+
+                                <div class="nav-single-item">
+                                    <a href="#genome-editing" class="nav-single-link" onclick="scrollToSection('genome-editing-section')">Genome Editing</a>
+                                </div>
+
+                                <div class="nav-single-item">
+                                    <a href="#scale-up" class="nav-single-link" onclick="scrollToSection('scale-up-section')">Bioengineering Scale-Up</a>
+                                </div>
+                                <div class="nav-category-items">
+                                        <a href="#fermentation" class="nav-item nav-subitem" onclick="scrollToElement('fermentation')">Fermentation</a>
+                                        <a href="#papain" class="nav-item nav-subitem" onclick="scrollToElement('papain')">Papain</a>
+                                    </div>
+
+                                <div class="nav-single-item">
+                                    <a href="#cell-free" class="nav-single-link" onclick="scrollToSection('cell-free-section')">Cell-free Metabolic Engineering</a>
+                                </div>
+
+                                <div class="nav-single-item">
+                                    <a href="#textiles" class="nav-single-link" onclick="scrollToSection('textile-engineering-section')">Textile Engineering</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="filter-pill dropdown" id="topic-filter-pill">
-                            All Topics
-                            <div class="dropdown-menu">
-                                <div class="dropdown-item selected" data-value="all">All Topics</div>
-                                <div class="dropdown-item" data-value="metabolic">Metabolic Engineering</div>
-                                <div class="dropdown-item" data-value="synthetic">Synthetic Biology</div>
-                                <div class="dropdown-item" data-value="biotechnology">Biotechnology</div>
-                                <div class="dropdown-item" data-value="biofuels">Biofuels</div>
-                                <div class="dropdown-item" data-value="fermentation">Fermentation</div>
-                                <div class="dropdown-item" data-value="protein">Protein Engineering</div>
-                            </div>
-                        </div>
-                        <div class="filter-pill" id="clear-filters-btn">Clear Filters</div>
-                    </div>
-                    <div class="results-info" id="results-info">
-                        Loading publications...
                     </div>
                 </div>
 
-                <!-- Publications Container -->
-                <div id="publications-container" class="publications-container">
-                    <!-- Publications will be rendered here -->
+                <div class="research-section biopolymers-section">
+                    <h2 class="section-title">Biopolymers</h2>
+                    
+                    <div class="research-subsection" id="chondroitin">
+                        <div class="research-image">
+                            <img src="research/chondroitin.png" alt="Chondroitin Research"> 
+                        </div>
+                        <div class="research-content">
+                            <h3>Recombinant Production of Chondroitin Sulfate</h3>
+                            <p>Chondroitin sulfate is an important biomolecule widely used in medical and therapeutic applications, particularly for joint health and tissue repair. Traditionally sourced from animal cartilage, its production faces challenges related to sustainability, safety, and consistency.</p>
+                            
+                            <ul class="research-highlights">
+                                <li>Engineer and characterize sulfotransferases to control CS sulfation patterns and enhance functional specificity</li>
+                                <li>Apply tailored CS molecules in biomedical applications, including potential therapies for neurodegenerative diseases such as Alzheimer’s</li>
+                                <li>Advance cell-based biomanufacturing platforms to produce glycoaminoglycans with improved safety and tunability</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="research-subsection" id="silk">
+                        <div class="research-image">
+                            <img src="research/silkproject.jpg" alt="Silk Research">
+                        </div>
+                        <div class="research-content">
+                            <h3>Recombinant Silk Production</h3>
+                            <p>Silk combines exceptional strength and flexibility with biocompatibility and biodegradability, making it ideal for textiles, tissue engineering, and sustainable materials. We focus on designing novel recombinant silk proteins to meet the demands of modern materials science and biotechnology.</p>
+                            
+                            <ul class="research-highlights">
+                                <li>Eliminate reliance on animal-derived materials to create sustainable and ethically produced biomolecules</li>
+                                <li>Genetically engineer microbial hosts for improved expression, yield, and assembly of these recombinant silk proteins</li>
+                            </ul>
+
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <a href="https://www.biohybridmaterialslab.com" class="collaborator-link" target="_blank">Dr. Helen R. Zha</a>
+                                    <a href="https://engineering.washu.edu/faculty/Yinjie-Tang.html" class="collaborator-link" target="_blank">Dr. Yinjie Tang</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="research-subsection" id="gamma-pga">
+                        <div class="research-image">
+                           <img src="research/gammaPGA.jpg" alt="Gamma-PGA Research"> 
+                        </div>
+                        <div class="research-content">
+                            <h3>Gamma-PGA</h3>
+                            <p>Poly(γ-glutamic acid) (γ-PGA) is a biodegradable, water-soluble biopolymer with applications across agriculture, medicine, food, and cosmetics, but current production methods lack sustainability. We engineer novel bacterial strains that convert unconventional carbon sources, including plastic-derived aromatics, into γ-PGA to create value-added pathways for waste valorization and sustainable biopolymer production.</p>
+                            
+                            <ul class="research-highlights">
+                                <li>Engineer metabolic pathways in bacteria to efficiently convert plastic-derived aromatics and other waste streams into γ-PGA</li>
+                                <li>Integrate plastic upcycling with biopolymer production to create circular economy solutions for waste management</li>
+                            </ul>
+
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <a href="https://grossrpi.wixsite.com/gross" class="collaborator-link" target="_blank">Dr. Richard Gross</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="research-subsection" id="chromoproteins">
+                        <div class="research-image">
+                             <img src="research/chromoproteins.jpg" alt="Chromoprotein Research">
+                        </div>
+                        <div class="research-content">
+                            <h3>Chromoproteins</h3>
+                             <p>Chromoproteins offer biodegradable, renewable alternatives to synthetic dyes that harm the environment through toxic runoff and excessive water use. We engineer durable chromoproteins for sustainable coloration across textile, cosmetic, food, and paper industries.</p>
+                            
+                            <ul class="research-highlights">
+                                <li>Engineer chromoproteins with enhanced colorfastness and stability for industrial applications</li>
+                                <li>Develop scalable microbial production systems for cost-effective chromoprotein manufacturing</li>
+                            </ul>
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <a href="https://www.biohybridmaterialslab.com" class="collaborator-link" target="_blank">Dr. Helen R. Zha</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="research-section plastic-upcycling-section">
+                    <h2 class="section-title">Plastic Upcycling</h2>
+                    
+                    <div class="research-subsection" id="plastic-upcycling">
+                        <div class="research-image">
+                            <img src="research/plastic-upcycling.png" alt="Plastic Upcycling">
+                        </div>
+                        <div class="research-content">
+                            
+                            <p>Plastic pollution presents a critical environmental challenge with millions of tons accumulating in ecosystems annually, while conventional recycling remains inefficient for many plastic types. We develop sustainable upcycling strategies that convert non-biodegradable plastics like polystyrene and PET into high-value bioproducts through integrated chemical and biological processes.</p>
+                            <ul class="research-highlights">
+                                <li>Combine plastic depolymerization with microbial fermentation to transform plastic-derived compounds into functional materials</li>
+                                <li>Engineer pathways that convert plastic waste into biopolymers and platform chemicals to support circular economy solutions</li>
+                            </ul>
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <a href="https://www.rorrerlab.com/home" class="collaborator-link" target="_blank">Dr. Julie Rorrer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="research-section genome-editing-section">
+                    <h2 class="section-title">Genome Editing</h2>
+                    
+                    <div class="research-subsection" id="genome-editing">
+                        <div class="research-image">
+                            <img src="research/genome-editing.png" alt="Genome Editing"> 
+                        </div>
+                        <div class="research-content">
+                            
+                            <p>Current gene editing tools face critical limitations - CRISPR struggles with non-dividing cells and large DNA insertions, while lentiviral vectors lack insertion specificity despite excellent integration efficiency. We develop a novel platform that combines viral delivery precision with programmable targeting to enable efficient, site-specific gene editing across diverse cell types.</p>
+                            
+                            <ul class="research-highlights">
+                                <li>Engineer fusion proteins combining HIV integrase with programmable targeting domains for site-specific integration</li>
+                                <li>Develop modified lentiviral architectures that ensure proper assembly and delivery of targeting components to both dividing and non-dividing cells</li>
+                            </ul>
+
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                     <a href="https://biotech.rpi.edu/core-facilities/bioresearch" class="collaborator-link" target="_blank">Antigone McKenna</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="research-section scale-up-section">
+                    <h2 class="section-title">Bioengineering Scale-Up</h2>
+                    
+                    <div class="research-subsection" id="scale-up">
+                        <div class="research-image">
+                            <img src="research/fermentation.jpg" alt="Bioengineering Scale-up">
+                        </div>
+                        <div class="research-content">
+                            <h3>Fermentation</h3>
+                            <p>Recombinant microbial fermentation is a powerful technology used to produce a wide range of products, including therapeutic proteins, industrial enzymes, and bio-based chemicals. Microorganisms such as bacteria and yeast are genetically engineered to express target genes, enabling high-yield biosynthesis in controlled bioreactor environments.</p>
+                            
+                            <ul class="research-highlights">
+                                <li>Optimize fermentation parameters such as pH, temperature, oxygen levels, and nutrient feed strategies to support cell growth and maximize product output</li>
+                                <li>Apply expertise in microbial host engineering and bioprocess development to deliver robust, cost-effective, and scalable biotechnological solutions</li>
+                            </ul>
+
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <a href="https://stephanopouloslab.mit.edu" class="collaborator-link" target="_blank">Dr. Gregory Stephanopoulos</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                <div class="research-subsection" id="Papain">
+                        <div class="research-image">
+                            <img src="research/papain.png" alt="Papain">
+                        </div>
+                        <div class="research-content">
+                            <h3>Papain</h3>
+                            <p>Papain, a cysteine-like protease, has extensive applications across industries such as food, chemical, pharmaceutical, and polymer manufacturing.</p>
+                            
+                            <ul class="research-highlights">
+                                <li>Engineer proteases for efficient and valuable peptide synthesis</li>
+                                <li>Prodive insights into recombinant papain microbial production that can lead to an industrially viable production strain.</li>
+                            </ul>
+
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <a href="https://grossrpi.wixsite.com/gross" class="collaborator-link" target="_blank">Dr. Richard Gross</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="research-section cell-free-section">
+                    <h2 class="section-title">Cell-free Metabolic Engineering</h2>
+                    
+                    <div class="research-subsection" id="cell-free">
+                        <div class="research-image">
+                            <img src="research/cell-free.png" alt="Cell-free Systems">
+                        </div>
+                        <div class="research-content">
+                            
+                            <p>Commercial chemical production increasingly relies on engineered biological systems for their stereoselectivity and sustainability advantages, but limited intracellular accumulation of target metabolites often restricts optimal titers in living cells. We develop cell-free metabolic engineering platforms that overcome these constraints to achieve significantly higher compound yields for biocatalytic synthesis.</p>
+                            
+                            <ul class="research-highlights">
+                                <li>Optimize microbial hosts to effectively channel carbon flux towards desired metabolic pathways</li>
+                                <li>Characterize and manipulate metabolic fluxes within cell-free systems to maximize product formation and yields</li>
+                            </ul>
+
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <a href="https://enzymes.che.rpi.edu" class="collaborator-link" target="_blank">Dr. Jon Dordick</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="research-section textile-engineering-section">
+                    <h2 class="section-title">Textile Engineering</h2>
+                    
+                    <div class="research-subsection" id="textiles">
+                        <div class="research-image">
+                           <img src="research/thread and hemp_5.jpg" alt="Textiles">
+                        </div>
+                        <div class="research-content">
+                        
+                            <p>Current fiber industries face a sustainability crisis due to reliance on fossil-based materials, while natural fibers struggle to compete with synthetic alternatives. We develop "bioalloying" approaches that engineer molecular-level synergies between biobased materials to create multi-component fibers with enhanced properties and consistent performance</p>
+                            
+                             <ul class="research-highlights">
+                                <li>Engineer molecular interactions between natural fiber constituents to create novel property combinations</li>
+                                <li>Develop bioalloying strategies that provide tunable fiber properties despite variability in natural feedstocks</li>
+                            </ul>
+
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <a href="https://www.biohybridmaterialslab.com" class="collaborator-link" target="_blank">Dr. Helen R. Zha</a>
+                                    <a href="https://faculty.rpi.edu/daniel-walczyk" class="collaborator-link" target="_blank">Dr. Daniel Walczyk</a>
+                                    <a href="https://faculty.rpi.edu/johnson-samuel" class="collaborator-link" target="_blank">Dr. Johnson Samuel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Sample publications data (using a subset for demo)
-        const publications = [
-            
-        {
-                "title": "Papain expression in the Escherichia coli cytoplasm by T7-promoter engineering and co-expression with human protein disulfide isomerase (PDI) and thiol peroxidase (GPx7) genes",
-                "author": "Hoque, Md Anarul, Gross, Richard A., <span class=\"highlight-author\">Koffas, Mattheos A. G.</span>",
-                "journal": "Applied and Environmental Microbiology",
-                "year": "2025",
-                "type": "article",
-                "volume": "91",
-                "number": "1",
-                "doi": "10.1128/aem.02119-24",
-                "publisher": "American Society for Microbiology"
-        },
-        {
-                "title": "A major facilitator superfamily transporter MdtH in Escherichia coli is involved in anthocyanin biosynthesis and secretion",
-                "author": "Wu, Xia, Ren, Juan, Wang, Jing, <span class=\"highlight-author\">Koffas, Mattheos A. G.</span>, Zha, Jian",
-                "journal": "Applied and Environmental Microbiology",
-                "year": "2024",
-                "type": "article",
-                "doi": "10.1128/aem.02079-23",
-                "publisher": "American Society for Microbiology"
-        },
-        {
-                "title": "Biosynthesis of animal-free recombinant chondroitin sulfate E using a functional chondroitin sulfotransferase in E. coli",
-                "author": "Tithi, Aditi Dey, Song, Yuefan, Paskaleva, Elena, <span class=\"highlight-author\">Koffas, Mattheos</span>",
-                "journal": "Applied Microbiology and Biotechnology",
-                "year": "2024",
-                "type": "article",
-                "volume": "108",
-                "number": "1",
-                "doi": "10.1007/s00253-024-13275-3",
-                "publisher": "Springer Science and Business Media LLC"
-        },
-        {
-                "title": "Expanded Gene Regulatory Network Reveals Potential Light-Responsive Transcription Factors and Target Genes in Cordyceps militaris",
-                "author": "Buradam, Paradee, Thananusak, Roypim, <span class=\"highlight-author\">Koffas, Mattheos</span>, Chumnanpuen, Pramote, Vongsangnak, Wanwipa",
-                "journal": "International Journal of Molecular Sciences",
-                "year": "2024",
-                "type": "article",
-                "volume": "25",
-                "number": "19",
-                "pages": "10516",
-                "doi": "10.3390/ijms251910516",
-                "publisher": "MDPI AG"
-        },
-        {
-                "title": "Simultaneous glucose and xylose utilization by an Escherichia coli catabolite repression mutant",
-                "author": "Kaplan, Nicholas A., Islam, Khondokar Nowshin, Kanis, Fiona C., Verderber, Jack R., Wang, Xin, Jones, J. Andrew, <span class=\"highlight-author\">Koffas, Mattheos A. G.</span>",
-                "journal": "Applied and Environmental Microbiology",
-                "year": "2024",
-                "type": "article",
-                "volume": "90",
-                "number": "2",
-                "doi": "10.1128/aem.02169-23",
-                "publisher": "American Society for Microbiology"
-        },
-        {
-                "title": "Targeted in vitro immobilization of an intact scaffoldin-borne enzymatic pathway to induce substrate channeling",
-                "author": "Wong, Matthew, Hoque, Md Anarul, Mora\u00efs, Sarah, Bayer, Edward, Belfort, Georges, <span class=\"highlight-author\">Koffas, Mattheos</span>",
-                "journal": "Conference/Workshop",
-                "year": "2024",
-                "type": "article",
-                "doi": "10.22541/au.173013513.35562680/v1",
-                "publisher": "Wiley"
-        },
-        {
-                "title": "Development of a Molasses-Based Medium for Agrobacterium tumefaciens Fermentation for Application in Plant-Based Recombinant Protein Production",
-                "author": "Watthanasakphuban, Nisit, Nguyen, Luan Van, Cheng, Yu-Shen, Show, Pau-Loke, Sriariyanun, Malinee, <span class=\"highlight-author\">Koffas, Mattheos</span>, Rattanaporn, Kittipong",
-                "journal": "Fermentation",
-                "year": "2023",
-                "type": "article",
-                "volume": "9",
-                "number": "2",
-                "pages": "149",
-                "doi": "10.3390/fermentation9020149",
-                "publisher": "MDPI AG"
-        },
-        {
-                "title": "Microbial Upcycling of Polyethylene into Recombinant Proteins",
-                "author": "Connor, Alexander, Lamb, Jessica, Delferro, Massimiliano, <span class=\"highlight-author\">Koffas, Mattheos</span>, Zha, Runye",
-                "journal": "Conference/Workshop",
-                "year": "2023",
-                "type": "article",
-                "doi": "10.21203/rs.3.rs-2922293/v1",
-                "publisher": "Springer Science and Business Media LLC"
-        },
-        {
-                "title": "Silk fibroin production in Escherichia coli is limited by a positive feedback loop between metabolic burden and toxicity stress",
-                "author": "Xiao, Zhengyang, Connor, Alexander J., Worland, Alyssa M., Tang, Yinjie J., Zha, R. Helen, <span class=\"highlight-author\">Koffas, Mattheos</span>",
-                "journal": "Metabolic Engineering",
-                "year": "2023",
-                "type": "article",
-                "volume": "77",
-                "pages": "231\u2013241",
-                "doi": "10.1016/j.ymben.2023.03.011",
-                "publisher": "Elsevier BV"
-        },
-        {
-                "title": "Bioelectrosynthesis systems",
-                "author": "Joshua Finkelstein, James Swartz, <span class=\"highlight-author\">Mattheos Koffas</span>",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2022",
-                "type": "article",
-                "volume": "74",
-                "pages": "211\u2013219",
-                "doi": "10.1016/j.copbio.2021.11.011",
-                "publisher": "Elsevier BV"
-        },
-        {
-                "title": "Chondroitin Sulfate and Its Derivatives: A Review of Microbial and Other Production Methods",
-                "author": "Awofiranye, Adeola E., Hudson, Jon, Tithi, Aditi Dey, Linhardt, Robert J., Vongsangnak, Wanwipa, <span class=\"highlight-author\">Koffas, Mattheos A. G.</span>",
-                "journal": "Fermentation",
-                "year": "2022",
-                "type": "article",
-                "volume": "8",
-                "number": "7",
-                "pages": "323",
-                "doi": "10.3390/fermentation8070323",
-                "publisher": "MDPI AG"
-        },
-        {
-                "title": "De novo Biosynthesis of Salvianolic Acid B in Saccharomyces cerevisiae Engineered with the Rosmarinic Acid Biosynthetic Pathway",
-                "author": "Yingpeng Xu, Lijun Geng, Yiwen Zhang, J. Andrew Jones, Meihong Zhang, Yuan Chen, Ronghui Tan, <span class=\"highlight-author\">Mattheos A. G. Koffas</span>, Zhengtao Wang, Shujuan Zhao",
-                "journal": "Journal of Agricultural and Food Chemistry",
-                "year": "2022",
-                "type": "article",
-                "doi": "10.1021/acs.jafc.1c06329",
-                "publisher": "American Chemical Society (ACS)"
-        },
-        {
-                "title": "Dual regulation of lipid droplet-triacylglycerol metabolism and ERG9 expression for improved ?-carotene production in Saccharomyces cerevisiae",
-                "author": "Bu, X., Lin, J.-Y., Duan, C.-Q., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Yan, G.-L.",
-                "journal": "Microbial Cell Factories",
-                "year": "2022",
-                "type": "article",
-                "volume": "21",
-                "number": "1"
-        },
-        {
-                "title": "Enhancing Genome-Scale Model by Integrative Exometabolome and Transcriptome: Unveiling Carbon Assimilation towards Sphingolipid Biosynthetic Capability of Cordyceps militaris",
-                "author": "Cheawchanlertfa, Pattsarun, Chitcharoen, Suwalak, Raethong, Nachon, Liu, Qing, Chumnanpuen, Pramote, Soommat, Panyawarin, Song, Yuanda, <span class=\"highlight-author\">Koffas, Mattheos</span>, Laoteng, Kobkul, Vongsangnak, Wanwipa",
-                "journal": "Journal of Fungi",
-                "year": "2022",
-                "type": "article",
-                "volume": "8",
-                "number": "8",
-                "pages": "887",
-                "doi": "10.3390/jof8080887",
-                "publisher": "MDPI AG"
-        },
-        {
-                "title": "Harnessing electrical-to-biochemical conversion for microbial synthesis",
-                "author": "Fang, Zhen, Tang, Yinjie J, <span class=\"highlight-author\">Koffas, Mattheos AG</span>",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2022",
-                "type": "article",
-                "volume": "75",
-                "pages": "102687",
-                "doi": "10.1016/j.copbio.2022.102687",
-                "publisher": "Elsevier BV"
-        },
-        {
-                "title": "Methods for the Development of Recombinant Microorganisms for the Production of Natural Products",
-                "author": "Perl, A., Dalton, H., Yoo, Y.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Methods in Molecular Biology",
-                "year": "2022",
-                "type": "article",
-                "volume": "2396",
-                "pages": "1-17"
-        },
-        {
-                "title": "Parallel screening and cheminformatics modeling of flavonoid activated aptasensors",
-                "author": "Xiu, Yu, Zhang, Ni, Prabhakaran, Pranesha, Jang, Sungho, Yuan, Qipeng, Breneman, Curt M., Jung, Gyoo Yeol, Vongsangnak, Wanwipa, <span class=\"highlight-author\">Koffas, Mattheos A.G.</span>",
-                "journal": "Synthetic and Systems Biotechnology",
-                "year": "2022",
-                "type": "article",
-                "volume": "7",
-                "number": "4",
-                "pages": "1148\u20131158",
-                "doi": "10.1016/j.synbio.2022.07.006",
-                "publisher": "Elsevier BV"
-        },
-        {
-                "title": "Abiotic-biotic hybrid for CO&lt;sub&gt;2&lt;/sub&gt; biomethanation: From electrochemical to photochemical process",
-                "author": "Fang, Z., Zhou, J., Zhou, X., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Science of the Total Environment",
-                "year": "2021",
-                "type": "article",
-                "volume": "791"
-        },
-        {
-                "title": "Bioproduction of biomacromolecules for antiviral applications",
-                "author": "Connor, A.J., Zha, R.H., <span class=\"highlight-author\">Koffas, M.</span>",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2021",
-                "type": "article",
-                "volume": "69",
-                "pages": "263-272"
-        },
-        {
-                "title": "Impact of ethylene glycol on DHEA dihydroxylation in Colletotrichum lini: Increasing the expression of cytochrome P450 and 6-phosphogluconate dehydrogenase and enhancing the generation of NADPH",
-                "author": "Li, H., Shi, W., Li, C., Zhang, X., Gong, J., Shi, J., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Xu, Z.",
-                "journal": "Biochemical Engineering Journal",
-                "year": "2021",
-                "type": "article",
-                "volume": "166"
-        },
-        {
-                "title": "Improved glucose and xylose co-utilization by overexpression of xylose isomerase and/or xylulokinase genes in oleaginous fungus Mucor circinelloides",
-                "author": "Zan, X., Sun, J., Chu, L., Cui, F., Huo, S., Song, Y., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Applied Microbiology and Biotechnology",
-                "year": "2021",
-                "type": "article",
-                "volume": "105",
-                "number": "13",
-                "pages": "5565-5575"
-        },
-        {
-                "title": "Metabolic engineering of E. coli for pyocyanin production",
-                "author": "da Silva, A.J., Cunha, J.D.S., Hreha, T., Micocci, K.C., Selistre-de-Araujo, H.S., Barquera, B., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Metabolic Engineering",
-                "year": "2021",
-                "type": "article",
-                "volume": "64",
-                "pages": "15-25"
-        },
-        {
-                "title": "Modular optimization in metabolic engineering",
-                "author": "Wong, M., Badri, A., Gasparis, C., Belfort, G., <span class=\"highlight-author\">Koffas, M.</span>",
-                "journal": "Critical Reviews in Biochemistry and Molecular Biology",
-                "year": "2021",
-                "type": "article",
-                "volume": "56",
-                "number": "6",
-                "pages": "587-602"
-        },
-        {
-                "title": "Multi-level rebalancing of the naringenin pathway using riboswitch-guided high-throughput screening",
-                "author": "Hwang, H.G., Noh, M.H., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Jang, S., Jung, G.Y.",
-                "journal": "Metabolic Engineering",
-                "year": "2021",
-                "type": "article",
-                "volume": "67",
-                "pages": "417-427"
-        },
-        {
-                "title": "Phytostilbenes as agrochemicals: Biosynthesis, bioactivity, metabolic engineering and biotechnology",
-                "author": "Jeandet, P., Vannozzi, A., Sobarzo-S\\&#x27;anchez, E., Uddin, M.S., Bru, R., Mart\\&#x27;inez-M\\&#x27;arquez, A., Cl\\&#x27;ement, C., Cordelier, S., Manayi, A., Nabavi, S.F., Rasekhian, M., El-Saber Batiha, G., Khan, H., Morkunas, I., Belwal, T., Jiang, J., <span class=\"highlight-author\">Koffas, M.</span>, Nabavi, S.M.",
-                "journal": "Natural Product Reports",
-                "year": "2021",
-                "type": "article",
-                "volume": "38",
-                "number": "7",
-                "pages": "1282-1329"
-        },
-        {
-                "title": "Scalable, effective, and rapid decontamination of SARS-CoV-2 contaminated N95 respirators using germicidal ultraviolet C (UVC) irradiation device",
-                "author": "Rathnasinghe, R., Karlicek, R.F., Schotsaert, M., <span class=\"highlight-author\">Koffas, M.</span>, Arduini, B.L., Jangra, S., Wang, B., Davis, J.L., Alnaggar, M., Costa, A., Vincent, R., Garc\\&#x27;ia-Sastre, A., Vashishth, D., Balchandani, P.",
-                "journal": "Scientific Reports",
-                "year": "2021",
-                "type": "article",
-                "volume": "11",
-                "number": "1"
-        },
-        {
-                "title": "The three NADH dehydrogenases of Pseudomonas aeruginosa: Their roles in energy metabolism and links to virulence",
-                "author": "Hreha, T.N., Foreman, S., Duran-Pinedo, A., Morris, A.R., Diaz-Rodriguez, P., Andrew Jones, J., Ferrara, K., Bourges, A., Rodriguez, L., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Hahn, M., Hauser, A.R., Barquera, B.",
-                "journal": "PLoS ONE",
-                "year": "2021",
-                "type": "article",
-                "volume": "16",
-                "number": "2 February"
-        },
-        {
-                "title": "Wall teichoic acids: Physiology and applications",
-                "author": "Wu, X., Han, J., Gong, G., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Zha, J.",
-                "journal": "FEMS Microbiology Reviews",
-                "year": "2021",
-                "type": "article",
-                "volume": "45",
-                "number": "4"
-        },
-        {
-                "title": "A novel prokaryotic CRISPR-Cas12a based tool for programmable transcriptional activation and repression",
-                "author": "Schilling, C., <span class=\"highlight-author\">Koffas, M.</span>, Sieber, V., Schmid, J.",
-                "journal": "bioRxiv",
-                "year": "2020",
-                "type": "article"
-        },
-        {
-                "title": "Biotechnological Production of Flavonoids: An Update on Plant Metabolic Engineering, Microbial Host Selection, and Genetically Encoded Biosensors",
-                "author": "Marsafari, M., Samizadeh, H., Rabiei, B., Mehrabi, A., <span class=\"highlight-author\">Koffas, M.</span>, Xu, P.",
-                "journal": "Biotechnology Journal",
-                "year": "2020",
-                "type": "article",
-                "volume": "15",
-                "number": "8"
-        },
-        {
-                "title": "De novo biosynthesis of complex natural product sakuranetin using modular co-culture engineering",
-                "author": "Wang, X., Li, Z., Policarpio, L., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Zhang, H.",
-                "journal": "Applied Microbiology and Biotechnology",
-                "year": "2020",
-                "type": "article",
-                "volume": "104",
-                "number": "11",
-                "pages": "4849-4861"
-        },
-        {
-                "title": "Engineering endogenous ABC transporter with improving ATP supply and membrane flexibility enhances the secretion of ?-carotene in Saccharomyces cerevisiae",
-                "author": "Bu, X., Lin, J.-Y., Cheng, J., Yang, D., Duan, C.-Q., <span class=\"highlight-author\">Koffas, M.</span>, Yan, G.-L.",
-                "journal": "Biotechnology for Biofuels",
-                "year": "2020",
-                "type": "article",
-                "volume": "13",
-                "number": "1"
-        },
-        {
-                "title": "Expression of enzymes for 3?-phosphoadenosine-5?-phosphosulfate (PAPS) biosynthesis and their preparation for PAPS synthesis and regeneration",
-                "author": "Datta, P., Fu, L., He, W., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Dordick, J.S., Linhardt, R.J.",
-                "journal": "Applied Microbiology and Biotechnology",
-                "year": "2020",
-                "type": "article",
-                "volume": "104",
-                "number": "16",
-                "pages": "7067-7078"
-        },
-        {
-                "title": "Fabrication of homotypic neural ribbons as a multiplex platform optimized for spinal cord delivery",
-                "author": "Olmsted, Z.T., Stigliano, C., Badri, A., Zhang, F., Williams, A., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Xie, Y., Linhardt, R.J., Cibelli, J., Horner, P.J., Paluh, J.L.",
-                "journal": "Scientific Reports",
-                "year": "2020",
-                "type": "article",
-                "volume": "10",
-                "number": "1"
-        },
-        {
-                "title": "Genetically-encoded biosensors for analyzing and controlling cellular process in yeast",
-                "author": "Marsafari, M., Ma, J., <span class=\"highlight-author\">Koffas, M.</span>, Xu, P.",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2020",
-                "type": "article",
-                "volume": "64",
-                "pages": "175-182"
-        },
-        {
-                "title": "Glycerol transporter 1 (Gt1) and zinc-regulated transporter 1 (Zrt1) function in different modes for zinc homeostasis in Komagataella phaffii (Pichia pastoris)",
-                "author": "Yang, Y., Pan, Y., Liu, G., Dong, G., Zhan, C., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Liu, X., Li, Y., Liu, C., Bai, Z.",
-                "journal": "Biotechnology Letters",
-                "year": "2020",
-                "type": "article",
-                "volume": "42",
-                "number": "11",
-                "pages": "2413-2423"
-        },
-        {
-                "title": "High yield production of L-serine through a novel identified exporter combined with synthetic pathway in Corynebacterium glutamicum",
-                "author": "Zhang, Xiaomei, Gao, Yujie, Chen, Ziwei, Xu, Guoqiang, Zhang, Xiaojuan, Li, Hui, Shi, Jinsong, <span class=\"highlight-author\">Koffas, Mattheos</span>, Xu, Zhenghong",
-                "journal": "Conference/Workshop",
-                "year": "2020",
-                "type": "article",
-                "doi": "10.21203/rs.3.rs-16998/v1",
-                "publisher": "Springer Science and Business Media LLC"
-        },
-        {
-                "title": "High-yield production of l-serine through a novel identified exporter combined with synthetic pathway in Corynebacterium glutamicum",
-                "author": "Xiaomei Zhang, Yujie Gao, Ziwei Chen, Guoqiang Xu, Xiaojuan Zhang, Hui Li, Jinsong Shi, <span class=\"highlight-author\">Mattheos A. G. Koffas</span>, Zhenghong Xu",
-                "journal": "Microbial Cell Factories",
-                "year": "2020",
-                "type": "article",
-                "volume": "19",
-                "number": "1",
-                "doi": "10.1186/s12934-020-01374-5",
-                "publisher": "Springer Science and Business Media LLC"
-        },
-        {
-                "title": "Improved Butanol Production Using FASII Pathway in E. coli",
-                "author": "Kamran Jawed, Ali Samy Abdelaal, <span class=\"highlight-author\">Mattheos A. G. Koffas</span>, Syed Shams Yazdani",
-                "journal": "ACS Synthetic Biology",
-                "year": "2020",
-                "type": "article",
-                "volume": "9",
-                "number": "9",
-                "pages": "2390\u20132398",
-                "doi": "10.1021/acssynbio.0c00154",
-                "publisher": "American Chemical Society (ACS)"
-        },
-        {
-                "title": "Improved soluble expression and use of recombinant human renalase",
-                "author": "Morrison, C.S., Paskaleva, E.E., Rios, M.A., Beusse, T.R., Blair, E.M., Lin, L.Q., Hu, J.R., Gorby, A.H., Dodds, D.R., Armiger, W.B., Dordick, J.S., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "PLoS ONE",
-                "year": "2020",
-                "type": "article",
-                "volume": "15",
-                "number": "11 November"
-        },
-        {
-                "title": "Increased Accumulation of Medium-Chain Fatty Acids by Dynamic Degradation of Long-Chain Fatty Acids in Mucor circinelloides",
-                "author": "Hussain, Syed Ammar, Garcia, Alexis, Khan, Md. Ahsanul Kabir, Nosheen, Shaista, Zhang, Yao, <span class=\"highlight-author\">Koffas, Mattheos A. G.</span>, Garre, Victoriano, Lee, Soo Chan, Song, Yuanda",
-                "journal": "Genes",
-                "year": "2020",
-                "type": "article",
-                "volume": "11",
-                "number": "8",
-                "pages": "890",
-                "doi": "10.3390/genes11080890",
-                "publisher": "MDPI AG"
-        },
-        {
-                "title": "Making brilliant colors by microorganisms",
-                "author": "Zha, J., Wu, X., <span class=\"highlight-author\">Koffas, M.A.</span>",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2020",
-                "type": "article",
-                "volume": "61",
-                "pages": "135-141"
-        },
-        {
-                "title": "Metabolic engineering for production of functional polysaccharides",
-                "author": "Schilling, C., Badri, A., Sieber, V., <span class=\"highlight-author\">Koffas, M.</span>, Schmid, J.",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2020",
-                "type": "article",
-                "volume": "66",
-                "pages": "44-51"
-        },
-        {
-                "title": "Microbial Coculture for Flavonoid Synthesis",
-                "author": "Xu, P., Marsafari, M., Zha, J., <span class=\"highlight-author\">Koffas, M.</span>",
-                "journal": "Trends in Biotechnology",
-                "year": "2020",
-                "type": "article",
-                "volume": "38",
-                "number": "7",
-                "pages": "686-688"
-        },
-        {
-                "title": "Microbial production of bioactive chemicals for human health",
-                "author": "Wu, X., Zha, J., <span class=\"highlight-author\">Koffas, M.A.</span>",
-                "journal": "Current Opinion in Food Science",
-                "year": "2020",
-                "type": "article",
-                "volume": "32",
-                "pages": "9-16"
-        },
-        {
-                "title": "Mitigation of host cell mutations and regime shift during microbial fermentation: a perspective from flux memory",
-                "author": "Czajka, J.J., Okumu?, B., <span class=\"highlight-author\">Koffas, M.A.</span>, Blenner, M., Tang, Y.J.",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2020",
-                "type": "article",
-                "volume": "66",
-                "pages": "227-235"
-        },
-        {
-                "title": "N-glycolyl chondroitin synthesis using metabolically engineered E. coli",
-                "author": "Awofiranye, A.E., Baytas, S.N., Xia, K., Badri, A., He, W., Varki, A., <span class=\"highlight-author\">Koffas, M.</span>, Linhardt, R.J.",
-                "journal": "AMB Express",
-                "year": "2020",
-                "type": "article",
-                "volume": "10",
-                "number": "1"
-        },
-        {
-                "title": "Novel Prokaryotic CRISPR-Cas12a-Based Tool for Programmable Transcriptional Activation and Repression",
-                "author": "Christoph Schilling, <span class=\"highlight-author\">Mattheos A. G. Koffas</span>, Volker Sieber, Jochen Schmid",
-                "journal": "ACS Synthetic Biology",
-                "year": "2020",
-                "type": "article",
-                "volume": "9",
-                "number": "12",
-                "pages": "3353\u20133363",
-                "doi": "10.1021/acssynbio.0c00424",
-                "publisher": "American Chemical Society (ACS)"
-        },
-        {
-                "title": "Rational identification and characterisation of peptide ligands for targeting polysialic acid",
-                "author": "Shastry, D.G., Irudayanathan, F.J., Williams, A., <span class=\"highlight-author\">Koffas, M.</span>, Linhardt, R.J., Nangia, S., Karande, P.",
-                "journal": "Scientific Reports",
-                "year": "2020",
-                "type": "article",
-                "volume": "10",
-                "number": "1"
-        },
-        {
-                "title": "Recent advances in modular co-culture engineering for synthesis of natural products",
-                "author": "Wang, R., Zhao, S., Wang, Z., <span class=\"highlight-author\">Koffas, M.A.</span>",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2020",
-                "type": "article",
-                "volume": "62",
-                "pages": "65-71"
-        },
-        {
-                "title": "The importance and future of biochemical engineering",
-                "author": "Timothy A. Whitehead, Scott Banta, William E. Bentley, Michael J. Betenbaugh, Christina Chan, Douglas S. Clark, Corinne A. Hoesli, Michael C. Jewett, Beth Junker, <span class=\"highlight-author\">Mattheos Koffas</span>, Rashmi Kshirsagar, Amanda Lewis, Chien-Ting Li, Costas Maranas, E. Terry Papoutsakis, Kristala L. J. Prather, Steffen Schaffer, Laura Segatori, Ian Wheeldon",
-                "journal": "Biotechnology and Bioengineering",
-                "year": "2020",
-                "type": "article",
-                "volume": "117",
-                "number": "8",
-                "pages": "2305\u20132318",
-                "doi": "10.1002/bit.27364",
-                "publisher": "Wiley"
-        },
-        {
-                "title": "Whole-cell biocatalytic, enzymatic and green chemistry methods for the production of resveratrol and its derivatives",
-                "author": "Philippe Jeandet, Eduardo Sobarzo-S\\&#x27;a",
-                "journal": "Biotechnology Advances",
-                "year": "2020",
-                "type": "article",
-                "volume": "39",
-                "pages": "107461",
-                "doi": "10.1016/j.biotechadv.2019.107461",
-                "publisher": "Elsevier BV"
-        },
-        {
-                "title": "A Novel L-Serine Exporter and Its Positive Regulator in Corynebacterium glutamicum",
-                "author": "Zhang, X., Gao, Y., Chen, Z., Xu, G., Zhang, X., Li, H., Shi, J., <span class=\"highlight-author\">Koffas, M.</span>, Xu, Z.",
-                "journal": "bioRxiv",
-                "year": "2019",
-                "type": "article"
-        },
-        {
-                "title": "Advances in the development and application of microbial consortia for metabolic engineering",
-                "author": "Jawed, K., Yazdani, S.S., <span class=\"highlight-author\">Koffas, M.A.</span>",
-                "journal": "Metabolic Engineering Communications",
-                "year": "2019",
-                "type": "article",
-                "volume": "9"
-        },
-        {
-                "title": "Antibiotic korormicin A kills bacteria by producing reactive oxygen species",
-                "author": "Maynard, A., Butler, N.L., Ito, T., Da Silva, A.J., Murai, M., Chen, T., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Miyoshi, H., Barquera, B.",
-                "journal": "Journal of Bacteriology",
-                "year": "2019",
-                "type": "article",
-                "volume": "201",
-                "number": "11"
-        },
-        {
-                "title": "Back Cover Image, Volume 116, Number 12, December 2019",
-                "author": "Xia Wu, Jian Zha, <span class=\"highlight-author\">Mattheos A. G. Koffas</span>, Jonathan S. Dordick",
-                "journal": "Biotechnology and Bioengineering",
-                "year": "2019",
-                "type": "article",
-                "volume": "116",
-                "number": "12",
-                "doi": "10.1002/bit.27215",
-                "publisher": "Wiley"
-        },
-        {
-                "title": "Cell-free production of isobutanol: A completely immobilized system",
-                "author": "Matthew Wong, Jian Zha, Mirco Sorci, Christopher Gasparis, Georges Belfort, <span class=\"highlight-author\">Mattheos Koffas</span>",
-                "journal": "Bioresource Technology",
-                "year": "2019",
-                "type": "article",
-                "volume": "294",
-                "pages": "122104",
-                "doi": "10.1016/j.biortech.2019.122104",
-                "publisher": "Elsevier BV"
-        },
-        {
-                "title": "Chemical synthesis of silk-mimetic polymers",
-                "author": "Sarkar, A., Connor, A.J., <span class=\"highlight-author\">Koffas, M.</span>, Zha, R.H.",
-                "journal": "Materials",
-                "year": "2019",
-                "type": "article",
-                "volume": "12",
-                "number": "24"
-        },
-        {
-                "title": "Cover Image, Volume 116, Number 6, June 2019",
-                "author": "Shenghu Zhou, Yunbin Lyu, Huazhong Li, <span class=\"highlight-author\">Mattheos A.G. Koffas</span>, Jingwen Zhou",
-                "journal": "Biotechnology and Bioengineering",
-                "year": "2019",
-                "type": "article",
-                "volume": "116",
-                "number": "6",
-                "doi": "10.1002/bit.26758",
-                "publisher": "Wiley"
-        },
-        {
-                "title": "Design and Characterization of Biosensors for the Screening of Modular Assembled Naringenin Biosynthetic Library in Saccharomyces cerevisiae",
-                "author": "Rufeng Wang, Brady F. Cress, Zheng Yang, John C. Hordines, Shujuan Zhao, Gyoo Yeol Jung, Zhengtao Wang, <span class=\"highlight-author\">Mattheos A. G. Koffas</span>",
-                "journal": "ACS Synthetic Biology",
-                "year": "2019",
-                "type": "article",
-                "volume": "8",
-                "number": "9",
-                "pages": "2121\u20132130",
-                "doi": "10.1021/acssynbio.9b00212",
-                "publisher": "American Chemical Society (ACS)"
-        },
-        {
-                "title": "Editorial: Engineering the Microbial Platform for the Production of Biologics and Small-Molecule Medicines",
-                "author": "Dhakal, D., Kim, E.-S., <span class=\"highlight-author\">Koffas, M.</span>",
-                "journal": "Frontiers in Microbiology",
-                "year": "2019",
-                "type": "article",
-                "volume": "10"
-        },
-        {
-                "title": "Engineering Corynebacterium glutamicum for the de novo biosynthesis of tailored poly-?-glutamic acid",
-                "author": "Xu, G., Zha, J., Cheng, H., Ibrahim, M.H.A., Yang, F., Dalton, H., Cao, R., Zhu, Y., Fang, J., Chi, K., Zheng, P., Zhang, X., Shi, J., Xu, Z., Gross, R.A., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Metabolic Engineering",
-                "year": "2019",
-                "type": "article",
-                "volume": "56",
-                "pages": "39-49"
-        },
-        {
-                "title": "Engineering microbial consortia by division of labor",
-                "author": "Roell, G.W., Zha, J., Carr, R.R., <span class=\"highlight-author\">Koffas, M.A.</span>, Fong, S.S., Tang, Y.J.",
-                "journal": "Microbial Cell Factories",
-                "year": "2019",
-                "type": "article",
-                "volume": "18",
-                "number": "1"
-        },
-        {
-                "title": "Fine\u2010tuning the (2S)\u2010naringenin synthetic pathway using an iterative high\u2010throughput balancing strategy",
-                "author": "Zhou, Shenghu, Lyu, Yunbin, Li, Huazhong, <span class=\"highlight-author\">Koffas, Mattheos A.G.</span>, Zhou, Jingwen",
-                "journal": "Biotechnology and Bioengineering",
-                "year": "2019",
-                "type": "article",
-                "volume": "116",
-                "number": "6",
-                "pages": "1392\u20131404",
-                "doi": "10.1002/bit.26941",
-                "publisher": "Wiley"
-        },
-        {
-                "title": "Focus issue editorial: Synthetic biology",
-                "author": "Hanson, A.D., Hibberd, J.M., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Kopka, J., Wurtzel, E.T.",
-                "journal": "Plant Physiology",
-                "year": "2019",
-                "type": "article",
-                "volume": "179",
-                "number": "3",
-                "pages": "772-774"
-        },
-        {
-                "title": "Heavy Heparin: A Stable Isotope-Enriched, Chemoenzymatically-Synthesized, Poly-Component Drug",
-                "author": "Cress, B.F., Bhaskar, U., Vaidyanathan, D., Williams, A., Cai, C., Liu, X., Fu, L., M-Chari, V., Zhang, F., Mousa, S.A., Dordick, J.S., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Linhardt, R.J.",
-                "journal": "Angewandte Chemie - International Edition",
-                "year": "2019",
-                "type": "article",
-                "volume": "58",
-                "number": "18",
-                "pages": "5962-5966"
-        },
-        {
-                "title": "In Vitro Naringenin Biosynthesis from p-Coumaric Acid Using Recombinant Enzymes",
-                "author": "Ying Zang, Jian Zha, Xia Wu, Zhaojuan Zheng, Jia Ouyang, <span class=\"highlight-author\">Mattheos A. G. Koffas</span>",
-                "journal": "Journal of Agricultural and Food Chemistry",
-                "year": "2019",
-                "type": "article",
-                "volume": "67",
-                "number": "49",
-                "pages": "13430\u201313436",
-                "doi": "10.1021/acs.jafc.9b00413",
-                "publisher": "American Chemical Society (ACS)"
-        },
-        {
-                "title": "Increased 3?-Phosphoadenosine-5?-phosphosulfate Levels in Engineered Escherichia coli Cell Lysate Facilitate the In Vitro Synthesis of Chondroitin Sulfate A",
-                "author": "Badri, A., Williams, A., Xia, K., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Biotechnology Journal",
-                "year": "2019",
-                "type": "article",
-                "volume": "14",
-                "number": "9"
-        },
-        {
-                "title": "Magnesium starvation improves production of malonyl-CoA-derived metabolites in Escherichia coli",
-                "author": "Tokuyama, K., Toya, Y., Matsuda, F., Cress, B.F., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Shimizu, H.",
-                "journal": "Metabolic Engineering",
-                "year": "2019",
-                "type": "article",
-                "volume": "52",
-                "pages": "215-223"
-        },
-        {
-                "title": "Metabolic engineering of Bacillus megaterium for heparosan biosynthesis using Pasteurella multocida heparosan synthase, PmHS2",
-                "author": "Williams, A., Gedeon, K.S., Vaidyanathan, D., Yu, Y., Collins, C.H., Dordick, J.S., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Microbial Cell Factories",
-                "year": "2019",
-                "type": "article",
-                "volume": "18",
-                "number": "1"
-        },
-        {
-                "title": "Metabolic engineering of cyanobacteria for photoautotrophic production of heparosan, a pharmaceutical precursor of heparin",
-                "author": "Sarnaik, A., Abernathy, M.H., Han, X., Ouyang, Y., Xia, K., Chen, Y., Cress, B., Zhang, F., Lali, A., Pandit, R., Linhardt, R.J., Tang, Y.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Algal Research",
-                "year": "2019",
-                "type": "article",
-                "volume": "37",
-                "pages": "57-63"
-        },
-        {
-                "title": "Microbial engineering biotechnologies",
-                "author": "Singh, B.N., Raghubanshi, A.S., <span class=\"highlight-author\">Koffas, M.</span>, Gupta, V.K.",
-                "journal": "Biotechnology Advances",
-                "year": "2019",
-                "type": "article",
-                "volume": "37",
-                "number": "6"
-        },
-        {
-                "title": "Optimizing Oleaginous Yeast Cell Factories for Flavonoids and Hydroxylated Flavonoids Biosynthesis",
-                "author": "Yongkun Lv, Monireh Marsafari, <span class=\"highlight-author\">Mattheos Koffas</span>, Jingwen Zhou, Peng Xu",
-                "journal": "ACS Synthetic Biology",
-                "year": "2019",
-                "type": "article",
-                "volume": "8",
-                "number": "11",
-                "pages": "2514\u20132523",
-                "doi": "10.1021/acssynbio.9b00193",
-                "publisher": "American Chemical Society (ACS)"
-        },
-        {
-                "title": "Optimizing oleaginous yeast cell factories for flavonoids and hydroxylated flavonoids biosynthesis",
-                "author": "Lv, Y., <span class=\"highlight-author\">Koffas, M.</span>, Zhou, J., Xu, P.",
-                "journal": "bioRxiv",
-                "year": "2019",
-                "type": "article"
-        },
-        {
-                "title": "Pathway enzyme engineering for flavonoid production in recombinant microbes",
-                "author": "Zha, J., Wu, X., Gong, G., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Metabolic Engineering Communications",
-                "year": "2019",
-                "type": "article",
-                "volume": "9"
-        },
-        {
-                "title": "Production of pyranoanthocyanins using Escherichia coli co-cultures",
-                "author": "Akdemir, H., Silva, A., Zha, J., Zagorevski, D.V., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Metabolic Engineering",
-                "year": "2019",
-                "type": "article",
-                "volume": "55",
-                "pages": "290-298"
-        },
-        {
-                "title": "Reducing Staphylococcus aureus resistance to lysostaphin using CRISPR\u2010dCas9",
-                "author": "Wu, Xia, Zha, Jian, <span class=\"highlight-author\">Koffas, Mattheos A. G.</span>, Dordick, Jonathan S.",
-                "journal": "Biotechnology and Bioengineering",
-                "year": "2019",
-                "type": "article",
-                "volume": "116",
-                "number": "12",
-                "pages": "3149\u20133159",
-                "doi": "10.1002/bit.27143",
-                "publisher": "Wiley"
-        },
-        {
-                "title": "Rewiring the Central Metabolic Pathway for High-Yield l-Serine Production in Corynebacterium glutamicum by Using Glucose",
-                "author": "Zhang, X., Lai, L., Xu, G., Zhang, X., Shi, J., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Xu, Z.",
-                "journal": "Biotechnology Journal",
-                "year": "2019",
-                "type": "article",
-                "volume": "14",
-                "number": "6"
-        },
-        {
-                "title": "Specificity and action pattern of heparanase Bp, a ?-glucuronidase from Burkholderia pseudomallei",
-                "author": "Yu, Y., Williams, A., Zhang, X., Fu, L., Xia, K., Xu, Y., Zhang, F., Liu, J., <span class=\"highlight-author\">Koffas, M.</span>, Linhardt, R.J.",
-                "journal": "Glycobiology",
-                "year": "2019",
-                "type": "article",
-                "volume": "29",
-                "number": "8",
-                "pages": "572-581"
-        },
-        {
-                "title": "Editorial overview: Chemical biotechnology",
-                "author": "<span class=\"highlight-author\">Koffas, M.A.</span>, Cirino, P.C.",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2018",
-                "type": "article",
-                "volume": "53",
-                "pages": "v-vii"
-        },
-        {
-                "title": "Electrochemical Bioreactor Technology for Biocatalysis and Microbial Electrosynthesis",
-                "author": "Morrison, C., Heitmann, E., Armiger, W., Dodds, D., <span class=\"highlight-author\">Koffas, M.</span>",
-                "journal": "Advances in Applied Microbiology",
-                "year": "2018",
-                "type": "article",
-                "volume": "105",
-                "pages": "51-86"
-        },
-        {
-                "title": "Engineering Bacillus megaterium Strains To Secrete Cellulases for Synergistic Cellulose Degradation in a Microbial Community",
-                "author": "Karolina Z. Kalbarczyk, Emily J. Mazeau, Kent M. Rapp, Nicholas Marchand, <span class=\"highlight-author\">Mattheos A. G. Koffas</span>, Cynthia H. Collins",
-                "journal": "ACS Synthetic Biology",
-                "year": "2018",
-                "type": "article",
-                "volume": "7",
-                "number": "10",
-                "pages": "2413\u20132422",
-                "doi": "10.1021/acssynbio.8b00186",
-                "publisher": "American Chemical Society (ACS)"
-        },
-        {
-                "title": "Engineering Escherichia coli Co-Cultures for Production of Curcuminoids From Glucose",
-                "author": "Fang, Z., Jones, J.A., Zhou, J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Biotechnology Journal",
-                "year": "2018",
-                "type": "article",
-                "volume": "13",
-                "number": "5"
-        },
-        {
-                "title": "Engineering a Glucosamine-6-phosphate Responsive glmS Ribozyme Switch Enables Dynamic Control of Metabolic Flux in Bacillus subtilis for Overproduction of N-Acetylglucosamine",
-                "author": "Tengfei Niu, Yanfeng Liu, Jianghua Li, <span class=\"highlight-author\">Mattheos Koffas</span>, Guocheng Du, Hal S. Alper, Long Liu",
-                "journal": "ACS Synthetic Biology",
-                "year": "2018",
-                "type": "article",
-                "volume": "7",
-                "number": "10",
-                "pages": "2423\u20132435",
-                "doi": "10.1021/acssynbio.8b00196",
-                "publisher": "American Chemical Society (ACS)"
-        },
-        {
-                "title": "Improved strategies for electrochemical 1,4-NAD(P)H2 regeneration: A new era of bioreactors for industrial biocatalysis",
-                "author": "Clifford S. Morrison, William B. Armiger, David R. Dodds, Jonathan S. Dordick, <span class=\"highlight-author\">Mattheos A.G. Koffas</span>",
-                "journal": "Biotechnology Advances",
-                "year": "2018",
-                "type": "article",
-                "volume": "36",
-                "number": "1",
-                "pages": "120\u2013131",
-                "doi": "10.1016/j.biotechadv.2017.10.003",
-                "publisher": "Elsevier BV"
-        },
-        {
-                "title": "Metabolic bioengineering: Glycans and glycoconjugates",
-                "author": "<span class=\"highlight-author\">Koffas, M.A.G.</span>, Linhardt, R.J.",
-                "journal": "Emerging Topics in Life Sciences",
-                "year": "2018",
-                "type": "article",
-                "volume": "2",
-                "number": "3",
-                "pages": "333-335"
-        },
-        {
-                "title": "Metabolic engineering of Corynebacterium glutamicum for anthocyanin production",
-                "author": "Zha, J., Zang, Y., Mattozzi, M., Plassmeier, J., Gupta, M., Wu, X., Clarkson, S., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Microbial Cell Factories",
-                "year": "2018",
-                "type": "article",
-                "volume": "17",
-                "number": "1"
-        },
-        {
-                "title": "Metabolic engineering of Escherichia coli for producing adipic acid through the reverse adipate-degradation pathway",
-                "author": "Zhao, M., Huang, D., Zhang, X., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Zhou, J., Deng, Y.",
-                "journal": "Metabolic Engineering",
-                "year": "2018",
-                "type": "article",
-                "volume": "47",
-                "pages": "254-262"
-        },
-        {
-                "title": "Metabolic engineering of capsular polysaccharides",
-                "author": "Williams, A., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Emerging Topics in Life Sciences",
-                "year": "2018",
-                "type": "article",
-                "volume": "2",
-                "number": "3",
-                "pages": "337-348"
-        },
-        {
-                "title": "Microbial Production of L-Serine from Renewable Feedstocks",
-                "author": "Zhang, X., Xu, G., Shi, J., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Xu, Z.",
-                "journal": "Trends in Biotechnology",
-                "year": "2018",
-                "type": "article",
-                "volume": "36",
-                "number": "7",
-                "pages": "700-712"
-        },
-        {
-                "title": "Molecular parts and genetic circuits for metabolic engineering of microorganisms",
-                "author": "Kim, S.G., Noh, M.H., Lim, H.G., Jang, S., Jang, S., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Jung, G.Y.",
-                "journal": "FEMS Microbiology Letters",
-                "year": "2018",
-                "type": "article",
-                "volume": "365",
-                "number": "17"
-        },
-        {
-                "title": "Production of Deuterated Cyanidin 3-O-Glucoside from RecombinantEscherichia coli",
-                "author": "Mamta Gupta, Jian Zha, Xing Zhang, Gyoo Yeol Jung, Robert J. Linhardt, <span class=\"highlight-author\">Mattheos A. G. Koffas</span>",
-                "journal": "ACS Omega",
-                "year": "2018",
-                "type": "article",
-                "volume": "3",
-                "number": "9",
-                "pages": "11643\u201311648",
-                "doi": "10.1021/acsomega.8b01134",
-                "publisher": "American Chemical Society (ACS)"
-        },
-        {
-                "title": "The road to animal-free glycosaminoglycan production: current efforts and bottlenecks",
-                "author": "Badri, A., Williams, A., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.</span>",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2018",
-                "type": "article",
-                "volume": "53",
-                "pages": "85-92"
-        },
-        {
-                "title": "CRISPRi-mediated metabolic engineering of E. coli for O-methylated anthocyanin production",
-                "author": "Cress, B.F., Leitz, Q.D., Kim, D.C., Amore, T.D., Suzuki, J.Y., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Microbial Cell Factories",
-                "year": "2017",
-                "type": "article",
-                "volume": "16",
-                "number": "1"
-        },
-        {
-                "title": "Cloning and Expression of Recombinant Chondroitinase ACII and Its Comparison to the Arthrobacter aurescens Enzyme",
-                "author": "Williams, A., He, W., Cress, B.F., Liu, X., Alexandria, J., Yoshizawa, H., Nishimura, K., Toida, T., <span class=\"highlight-author\">Koffas, M.</span>, Linhardt, R.J.",
-                "journal": "Biotechnology Journal",
-                "year": "2017",
-                "type": "article",
-                "volume": "12",
-                "number": "10"
-        },
-        {
-                "title": "Comparative thermal inactivation analysis of Aspergillus oryzae and Thiellavia terrestris cutinase: Role of glycosylation",
-                "author": "Shirke, A.N., Su, A., Jones, J.A., Butterfoss, G.L., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Kim, J.R., Gross, R.A.",
-                "journal": "Biotechnology and Bioengineering",
-                "year": "2017",
-                "type": "article",
-                "volume": "114",
-                "number": "1",
-                "pages": "63-73"
-        },
-        {
-                "title": "Complete Biosynthesis of anthocyanins using E. Coli polycultures",
-                "author": "Andrew Jones, J., Vernacchio, V.R., Collins, S.M., Shirke, A.N., Xiu, Y., Englaender, J.A., Cress, B.F., McCutcheon, C.C., Linhardt, R.J., Gross, R.A., <span class=\"highlight-author\">Koffasa, M.A.G.</span>",
-                "journal": "mBio",
-                "year": "2017",
-                "type": "article",
-                "volume": "8",
-                "number": "3"
-        },
-        {
-                "title": "Construction and functional characterization of truncated versions of recombinant keratanase II from Bacillus circulans",
-                "author": "Wang, H., He, W., Jiang, P., Yu, Y., Lin, L., Sun, X., <span class=\"highlight-author\">Koffas, M.</span>, Zhang, F., Linhardt, R.J.",
-                "journal": "Glycoconjugate Journal",
-                "year": "2017",
-                "type": "article",
-                "volume": "34",
-                "number": "5",
-                "pages": "643-649"
-        },
-        {
-                "title": "Deciphering flux adjustments of engineered E. coli cells during fermentation with changing growth conditions",
-                "author": "He, L., Xiu, Y., Jones, J.A., Baidoo, E.E.K., Keasling, J.D., Tang, Y.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Metabolic Engineering",
-                "year": "2017",
-                "type": "article",
-                "volume": "39",
-                "pages": "247-256"
-        },
-        {
-                "title": "Development of Artificial Riboswitches for Monitoring of Naringenin In Vivo",
-                "author": "Sungho Jang, Sungyeon Jang, Yu Xiu, Taek Jin Kang, Sang-Hyeup Lee, <span class=\"highlight-author\">Mattheos A. G. Koffas</span>, Gyoo Yeol Jung",
-                "journal": "ACS Synthetic Biology",
-                "year": "2017",
-                "type": "article",
-                "volume": "6",
-                "number": "11",
-                "pages": "2077\u20132085",
-                "doi": "10.1021/acssynbio.7b00128",
-                "publisher": "American Chemical Society (ACS)"
-        },
-        {
-                "title": "Effect of Genomic Integration Location on Heterologous Protein Expression and Metabolic Engineering in E. coli",
-                "author": "Englaender, J.A., Jones, J.A., Cress, B.F., Kuhlman, T.E., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "ACS Synthetic Biology",
-                "year": "2017",
-                "type": "article",
-                "volume": "6",
-                "number": "4",
-                "pages": "710-720"
-        },
-        {
-                "title": "Engineering the biological conversion of methanol to specialty chemicals in Escherichia coli",
-                "author": "Whitaker, W.B., Jones, J.A., Bennett, R.K., Gonzalez, J.E., Vernacchio, V.R., Collins, S.M., Palmer, M.A., Schmidt, S., Antoniewicz, M.R., <span class=\"highlight-author\">Koffas, M.A.</span>, Papoutsakis, E.T.",
-                "journal": "Metabolic Engineering",
-                "year": "2017",
-                "type": "article",
-                "volume": "39",
-                "pages": "49-59"
-        },
-        {
-                "title": "Expression and secretion of glycosylated heparin biosynthetic enzymes using Komagataella pastoris",
-                "author": "Englaender, J.A., Zhu, Y., Shirke, A.N., Lin, L., Liu, X., Zhang, F., Gross, R.A., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Linhardt, R.J.",
-                "journal": "Applied Microbiology and Biotechnology",
-                "year": "2017",
-                "type": "article",
-                "volume": "101",
-                "number": "7",
-                "pages": "2843-2851"
-        },
-        {
-                "title": "Expression of chondroitin-4-O-sulfotransferase in Escherichia coli and Pichia pastoris",
-                "author": "He, W., Zhu, Y., Shirke, A., Sun, X., Liu, J., Gross, R.A., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Linhardt, R.J., Li, M.",
-                "journal": "Applied Microbiology and Biotechnology",
-                "year": "2017",
-                "type": "article",
-                "volume": "101",
-                "number": "18",
-                "pages": "6919-6928"
-        },
-        {
-                "title": "Identification of the binding sites for ubiquinone and inhibitors in the Na&lt;sup&gt;+&lt;/sup&gt;-pumping NADH-ubiquinone oxidoreductase from Vibrio cholerae by photoaffinity labeling",
-                "author": "Ito, T., Murai, M., Ninokura, S., Kitazumi, Y., Mezic, K.G., Cress, B.F., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Morgan, J.E., Barquera, B., Miyoshi, H.",
-                "journal": "Journal of Biological Chemistry",
-                "year": "2017",
-                "type": "article",
-                "volume": "292",
-                "number": "19",
-                "pages": "7727-7742"
-        },
-        {
-                "title": "Introduction to the Special Issue: ?Arnold Demain ? Industrial microbiologist extraodinaire?",
-                "author": "<span class=\"highlight-author\">Koffas, M.</span>, Gao, Q., Zhang, L.",
-                "journal": "Synthetic and Systems Biotechnology",
-                "year": "2017",
-                "type": "article",
-                "volume": "2",
-                "number": "1",
-                "pages": "1"
-        },
-        {
-                "title": "Naringenin\u2010responsive riboswitch\u2010based fluorescent biosensor module for Escherichia coli co\u2010cultures",
-                "author": "Xiu, Yu, Jang, Sungho, Jones, J. Andrew, Zill, Nicholas A., Linhardt, Robert J., Yuan, Qipeng, Jung, Gyoo Yeol, <span class=\"highlight-author\">Koffas, Mattheos A. G.</span>",
-                "journal": "Biotechnology and Bioengineering",
-                "year": "2017",
-                "type": "article",
-                "volume": "114",
-                "number": "10",
-                "pages": "2235\u20132244",
-                "doi": "10.1002/bit.26340",
-                "publisher": "Wiley"
-        },
-        {
-                "title": "Production of anthocyanins in metabolically engineered microorganisms: Current status and perspectives",
-                "author": "Jian Zha, <span class=\"highlight-author\">Mattheos A.G. Koffas</span>",
-                "journal": "Synthetic and Systems Biotechnology",
-                "year": "2017",
-                "type": "article",
-                "volume": "2",
-                "number": "4",
-                "pages": "259\u2013266",
-                "doi": "10.1016/j.synbio.2017.10.005",
-                "publisher": "Elsevier BV"
-        },
-        {
-                "title": "Recent advances in the recombinant biosynthesis of polyphenols",
-                "author": "Chouhan, S., Sharma, K., Zha, J., Guleria, S., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Frontiers in Microbiology",
-                "year": "2017",
-                "type": "article",
-                "volume": "8",
-                "number": "NOV"
-        },
-        {
-                "title": "Draft genome sequence of Bacillus subtilis Ia1a, a new strain for Poly-?-glutamic acid and exopolysaccharide production",
-                "author": "Ibrahim, M.H.A., Cress, B.F., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Gross, R.A.",
-                "journal": "Genome Announcements",
-                "year": "2016",
-                "type": "article",
-                "volume": "4",
-                "number": "6"
-        },
-        {
-                "title": "Experimental and computational optimization of an Escherichia coli co-culture for the efficient production of flavonoids",
-                "author": "Jones, J.A., Vernacchio, V.R., Sinkoe, A.L., Collins, S.M., Ibrahim, M.H.A., Lachance, D.M., Hahn, J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Metabolic Engineering",
-                "year": "2016",
-                "type": "article",
-                "volume": "35",
-                "pages": "55-63"
-        },
-        {
-                "title": "Metabolic Burden: Cornerstones in Synthetic Biology and Metabolic Engineering Applications",
-                "author": "Wu, G., Yan, Q., Jones, J.A., Tang, Y.J., Fong, S.S., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Trends in Biotechnology",
-                "year": "2016",
-                "type": "article",
-                "volume": "34",
-                "number": "8",
-                "pages": "652-664"
-        },
-        {
-                "title": "Microbial production of natural and non-natural flavonoids: Pathway engineering, directed evolution and systems/synthetic biology",
-                "author": "Pandey, R.P., Parajuli, P., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Sohng, J.K.",
-                "journal": "Biotechnology Advances",
-                "year": "2016",
-                "type": "article",
-                "volume": "34",
-                "number": "5",
-                "pages": "634-662"
-        },
-        {
-                "title": "Microbial production of value-added nutraceuticals",
-                "author": "Wang, J., Guleria, S., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Yan, Y.",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2016",
-                "type": "article",
-                "volume": "37",
-                "pages": "97-104"
-        },
-        {
-                "title": "Optimization of naringenin and p-coumaric acid hydroxylation using the native E. coli hydroxylase complex, HpaBC",
-                "author": "Jones, J.A., Collins, S.M., Vernacchio, V.R., Lachance, D.M., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Biotechnology Progress",
-                "year": "2016",
-                "type": "article",
-                "volume": "32",
-                "number": "1",
-                "pages": "21-25"
-        },
-        {
-                "title": "Optimizing Metabolic Pathways for the Improved Production of Natural Products",
-                "author": "Jones, J.A., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Methods in Enzymology",
-                "year": "2016",
-                "type": "article",
-                "volume": "575",
-                "pages": "179-193"
-        },
-        {
-                "title": "Rapid generation of CRISPR/dCas9-regulated, orthogonally repressible hybrid T7-lac promoters for modular, tuneable control of metabolic pathway fluxes in Escherichia coli",
-                "author": "Cress, B.F., Jones, J.A., Kim, D.C., Leitz, Q.D., Englaender, J.A., Collins, S.M., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Nucleic Acids Research",
-                "year": "2016",
-                "type": "article",
-                "volume": "44",
-                "number": "9",
-                "pages": "4472-4485"
-        },
-        {
-                "title": "Synthesis and biological evaluation of 5,7-dihydroxyflavanone derivatives as antimicrobial agents",
-                "author": "Zhang, X., Khalidi, O., Kim, S.Y., Wang, R., Schultz, V., Cress, B.F., Gross, R.A., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Linhardt, R.J.",
-                "journal": "Bioorganic and Medicinal Chemistry Letters",
-                "year": "2016",
-                "type": "article",
-                "volume": "26",
-                "number": "13",
-                "pages": "3089-3092"
-        },
-        {
-                "title": "Antimicrobial mechanism of resveratrol-trans-dihydrodimer produced from peroxidase-catalyzed oxidation of resveratrol",
-                "author": "Mora-Pale, M., Bhan, N., Masuko, S., James, P., Wood, J., Mccallum, S., Linhardt, R.J., Dordick, J.S., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Biotechnology and Bioengineering",
-                "year": "2015",
-                "type": "article",
-                "volume": "112",
-                "number": "12",
-                "pages": "2417-2428"
-        },
-        {
-                "title": "CRISPathBrick: Modular Combinatorial Assembly of Type II-A CRISPR Arrays for dCas9-Mediated Multiplex Transcriptional Repression in E. coli",
-                "author": "Cress, B.F., Toparlak, O.D., Guleria, S., Lebovich, M., Stieglitz, J.T., Englaender, J.A., Jones, J.A., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "ACS Synthetic Biology",
-                "year": "2015",
-                "type": "article",
-                "volume": "4",
-                "number": "9",
-                "pages": "987-1000"
-        },
-        {
-                "title": "Development of a recombinant Escherichia coli strain for overproduction of the plant pigment anthocyanin",
-                "author": "Lim, C.G., Wong, L., Bhan, N., Dvora, H., Xu, P., Venkiteswaran, S., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Applied and Environmental Microbiology",
-                "year": "2015",
-                "type": "article",
-                "volume": "81",
-                "number": "18",
-                "pages": "6276-6284"
-        },
-        {
-                "title": "EPathOptimize: A combinatorial approach for transcriptional balancing of metabolic pathways",
-                "author": "Jones, J.A., Vernacchio, V.R., Lachance, D.M., Lebovich, M., Fu, L., Shirke, A.N., Schultz, V.L., Cress, B., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Scientific Reports",
-                "year": "2015",
-                "type": "article",
-                "volume": "5"
-        },
-        {
-                "title": "Enzymatic formation of a resorcylic acid by creating a structure-guided single-point mutation in stilbene synthase",
-                "author": "Bhan, N., Li, L., Cai, C., Xu, P., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Protein Science",
-                "year": "2015",
-                "type": "article",
-                "volume": "24",
-                "number": "2",
-                "pages": "167-173"
-        },
-        {
-                "title": "Expanding the chemical space of polyketides through structure-guided mutagenesis of Vitis vinifera stilbene synthase",
-                "author": "Bhan, N., Cress, B.F., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.</span>",
-                "journal": "Biochimie",
-                "year": "2015",
-                "type": "article",
-                "volume": "115",
-                "pages": "136-143"
-        },
-        {
-                "title": "Heparin and related polysaccharides: synthesis using recombinant enzymes and metabolic engineering",
-                "author": "Suflita, M., Fu, L., He, W., <span class=\"highlight-author\">Koffas, M.</span>, Linhardt, R.J.",
-                "journal": "Applied Microbiology and Biotechnology",
-                "year": "2015",
-                "type": "article",
-                "volume": "99",
-                "number": "18",
-                "pages": "7465-7479"
-        },
-        {
-                "title": "Improvement of catechin production in Escherichia coli through combinatorial metabolic engineering",
-                "author": "Zhao, S., Jones, J.A., Lachance, D.M., Bhan, N., Khalidi, O., Venkataraman, S., Wang, Z., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Metabolic Engineering",
-                "year": "2015",
-                "type": "article",
-                "volume": "28",
-                "pages": "43-53"
-        },
-        {
-                "title": "Metabolic pathway balancing and its role in the production of biofuels and chemicals",
-                "author": "Jones, J.A., Toparlak, T.D., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2015",
-                "type": "article",
-                "volume": "33",
-                "pages": "52-59"
-        },
-        {
-                "title": "Production of chondroitin in metabolically engineered E. coli",
-                "author": "He, W., Fu, L., Li, G., Andrew Jones, J., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.</span>",
-                "journal": "Metabolic Engineering",
-                "year": "2015",
-                "type": "article",
-                "volume": "27",
-                "pages": "92-100"
-        },
-        {
-                "title": "Sensitive cells: Enabling tools for static and dynamic control of microbial metabolic pathways",
-                "author": "Cress, B.F., Trantas, E.A., Ververidis, F., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2015",
-                "type": "article",
-                "volume": "36",
-                "pages": "205-214"
-        },
-        {
-                "title": "When plants produce not enough or at all: Metabolic engineering of flavonoids in microbial hosts",
-                "author": "Trantas, E.A., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Xu, P., Ververidis, F.",
-                "journal": "Frontiers in Plant Science",
-                "year": "2015",
-                "type": "article",
-                "volume": "6",
-                "number": "JAN",
-                "pages": "1-16"
-        },
-        {
-                "title": "A novel cleaning process for industrial production of xylose in pilot scale from corncob by using screw-steam-explosive extruder",
-                "author": "Zhang, H.-J., Fan, X.-G., Qiu, X.-L., Zhang, Q.-X., Wang, W.-Y., Li, S.-X., Deng, L.-H., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Wei, D.-S., Yuan, Q.-P.",
-                "journal": "Bioprocess and Biosystems Engineering",
-                "year": "2014",
-                "type": "article",
-                "volume": "37",
-                "number": "12",
-                "pages": "2425-2436"
-        },
-        {
-                "title": "Biochemical strategies for enhancing the in vivo production of natural products with pharmaceutical potential",
-                "author": "Mora-Pale, M., Sanchez-Rodriguez, S.P., Linhardt, R.J., Dordick, J.S., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2014",
-                "type": "article",
-                "volume": "25",
-                "pages": "86-94"
-        },
-        {
-                "title": "Design and kinetic analysis of a hybrid promoter-regulator system for malonyl-CoA sensing in Escherichia coli",
-                "author": "Xu, P., Wang, W., Li, L., Bhan, N., Zhang, F., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "ACS Chemical Biology",
-                "year": "2014",
-                "type": "article",
-                "volume": "9",
-                "number": "2",
-                "pages": "451-458"
-        },
-        {
-                "title": "Editorial overview: Food biotechnology",
-                "author": "<span class=\"highlight-author\">Koffas, M.A.G.</span>, Marienhagen, J.",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2014",
-                "type": "article",
-                "volume": "26"
-        },
-        {
-                "title": "Improving fatty acids production by engineering dynamic pathway regulation and metabolic control",
-                "author": "Xu, P., Li, L., Zhang, F., Stephanopoulos, G., <span class=\"highlight-author\">Koffas, M.</span>",
-                "journal": "Proceedings of the National Academy of Sciences of the United States of America",
-                "year": "2014",
-                "type": "article",
-                "volume": "111",
-                "number": "31",
-                "pages": "11299-11304"
-        },
-        {
-                "title": "Masquerading microbial pathogens: Capsular polysaccharides mimic host-tissue molecules",
-                "author": "Cress, B.F., Englaender, J.A., He, W., Kasper, D., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "FEMS Microbiology Reviews",
-                "year": "2014",
-                "type": "article",
-                "volume": "38",
-                "number": "4",
-                "pages": "660-697"
-        },
-        {
-                "title": "2013. Draft genome sequence of Escherichia coli strain ATCC 23502, serovar O5:K4:H4",
-                "author": "Cress, B.F., Greene, Z.R., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Genome Announcements",
-                "year": "2013",
-                "type": "article",
-                "volume": "1",
-                "number": "2"
-        },
-        {
-                "title": "Assembly of multi-gene pathways and combinatorial pathway libraries through ePathBrick vectors",
-                "author": "Xu, P., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Methods in Molecular Biology",
-                "year": "2013",
-                "type": "article",
-                "volume": "1073",
-                "pages": "107-129"
-        },
-        {
-                "title": "Draft genome sequence of Escherichia coli strain ATCC 23506 (serovar O10:K5:H4)",
-                "author": "Cress, B.F., Erkert, K.A., Barquera, B., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Genome Announcements",
-                "year": "2013",
-                "type": "article",
-                "volume": "1",
-                "number": "2"
-        },
-        {
-                "title": "Draft genome sequence of Escherichia coli strain Nissle 1917 (serovar O6:K5:H1)",
-                "author": "Cress, B.F., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Genome Announcements",
-                "year": "2013",
-                "type": "article",
-                "volume": "1",
-                "number": "2"
-        },
-        {
-                "title": "Draft genome sequence of Pseudoalteromonas luteoviolacea strain B (ATCC 29581)",
-                "author": "Cress, B.F., Erkert, K.A., Barquera, B., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Genome Announcements",
-                "year": "2013",
-                "type": "article",
-                "volume": "1",
-                "number": "2"
-        },
-        {
-                "title": "Engineering plant metabolism into microbes: From systems biology to synthetic biology",
-                "author": "Xu, P., Bhan, N., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2013",
-                "type": "article",
-                "volume": "24",
-                "number": "2",
-                "pages": "291-299"
-        },
-        {
-                "title": "Expression of low endotoxin 3-o-sulfotransferase in Bacillus subtilis and Bacillus megaterium",
-                "author": "Wang, W., Englaender, J.A., Xu, P., Mehta, K.K., Suwan, J., Dordick, J.S., Zhang, F., Yuan, Q., Linhardt, R.J., <span class=\"highlight-author\">Koffas, M.</span>",
-                "journal": "Applied Biochemistry and Biotechnology",
-                "year": "2013",
-                "type": "article",
-                "volume": "171",
-                "number": "4",
-                "pages": "954-962"
-        },
-        {
-                "title": "Metabolic Engineering And In Vitro Biosynthesis Of Phytochemicals And Non-Natural Analogues",
-                "author": "Mora-Pale, M., Sanchez-Rodriguez, S.P., Linhatrdt, R.J., Dordick, J.S., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Plant Science",
-                "year": "2013",
-                "type": "article",
-                "volume": "210",
-                "pages": "10-24"
-        },
-        {
-                "title": "Modular optimization of multi-gene pathways for fatty acids production in E. coli",
-                "author": "Xu, P., Gu, Q., Wang, W., Wong, L., Bower, A.G.W., Collins, C.H., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Nature Communications",
-                "year": "2013",
-                "type": "article",
-                "volume": "4"
-        },
-        {
-                "title": "Pathway and protein engineering approaches to produce novel and commodity small molecules",
-                "author": "Bhan, N., Xu, P., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2013",
-                "type": "article",
-                "volume": "24",
-                "number": "6",
-                "pages": "1137-1143"
-        },
-        {
-                "title": "Redirecting carbon flux into malonyl-CoA to improve resveratrol titers: Proof of concept for genetic interventions predicted by OptForce computational framework",
-                "author": "Bhan, N., Xu, P., Khalidi, O., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Chemical Engineering Science",
-                "year": "2013",
-                "type": "article",
-                "volume": "103",
-                "pages": "109-114"
-        },
-        {
-                "title": "EPathBrick: A synthetic biology platform for engineering metabolic pathways in E. coli",
-                "author": "Xu, P., Vansiri, A., Bhan, N., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "ACS Synthetic Biology",
-                "year": "2012",
-                "type": "article",
-                "volume": "1",
-                "number": "7",
-                "pages": "256-266"
-        },
-        {
-                "title": "Production of 7-O-Methyl aromadendrin, a medicinally valuable flavonoid, in Escherichia coli",
-                "author": "Malla, S., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Kazlauskas, R.J., Kim, B.-G.",
-                "journal": "Applied and Environmental Microbiology",
-                "year": "2012",
-                "type": "article",
-                "volume": "78",
-                "number": "3",
-                "pages": "684-694"
-        },
-        {
-                "title": "Development of non-natural flavanones as antimicrobial agents",
-                "author": "Fowler, Z.L., Shah, K., Panepinto, J.C., Jacobs, A., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "PLoS ONE",
-                "year": "2011",
-                "type": "article",
-                "volume": "6",
-                "number": "10"
-        },
-        {
-                "title": "Genome-scale metabolic network modeling results in minimal interventions that cooperatively force carbon flux towards malonyl-CoA",
-                "author": "Xu, P., Ranganathan, S., Fowler, Z.L., Maranas, C.D., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Metabolic Engineering",
-                "year": "2011",
-                "type": "article",
-                "volume": "13",
-                "number": "5",
-                "pages": "578-587"
-        },
-        {
-                "title": "High-yield resveratrol production in engineered Escherichia coli",
-                "author": "Lim, C.G., Fowler, Z.L., Hueller, T., Schaffer, S., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Applied and Environmental Microbiology",
-                "year": "2011",
-                "type": "article",
-                "volume": "77",
-                "number": "10",
-                "pages": "3451-3460"
-        },
-        {
-                "title": "Melanization of flavonoids by fungal and bacterial laccases",
-                "author": "Fowler, Z.L., Baron, C.M., Panepinto, J.C., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Yeast",
-                "year": "2011",
-                "type": "article",
-                "volume": "28",
-                "number": "3",
-                "pages": "181-188"
-        },
-        {
-                "title": "Optimization of a heterologous pathway for the production of flavonoids from glucose",
-                "author": "Santos, C.N.S., <span class=\"highlight-author\">Koffas, M.</span>, Stephanopoulos, G.",
-                "journal": "Metabolic Engineering",
-                "year": "2011",
-                "type": "article",
-                "volume": "13",
-                "number": "4",
-                "pages": "392-400"
-        },
-        {
-                "title": "A Versatile Microbial System for Biosynthesis of Novel Polyphenols with Altered Estrogen Receptor Binding Activity",
-                "author": "Chemler, J.A., Lim, C.G., Daiss, J.L., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Chemistry and Biology",
-                "year": "2010",
-                "type": "article",
-                "volume": "17",
-                "number": "4",
-                "pages": "392-401"
-        },
-        {
-                "title": "Bioavailability and recent advances in the bioactivity of flavonoid and stilbene compounds",
-                "author": "Lim, C.-G., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Current Organic Chemistry",
-                "year": "2010",
-                "type": "article",
-                "volume": "14",
-                "number": "16",
-                "pages": "1727-1751"
-        },
-        {
-                "title": "Improving NADPH availability for natural product biosynthesis in Escherichia coli by metabolic engineering",
-                "author": "Chemler, J.A., Fowler, Z.L., McHugh, K.P., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Metabolic Engineering",
-                "year": "2010",
-                "type": "article",
-                "volume": "12",
-                "number": "2",
-                "pages": "96-104"
-        },
-        {
-                "title": "Metabolic engineering of Escherichia coli for biofuel production",
-                "author": "Xu, P., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Biofuels",
-                "year": "2010",
-                "type": "article",
-                "volume": "1",
-                "number": "3",
-                "pages": "493-504"
-        },
-        {
-                "title": "Natural Products for Type II Diabetes Treatment",
-                "author": "Bedekar, A., Shah, K., <span class=\"highlight-author\">Koffas, M.</span>",
-                "journal": "Advances in Applied Microbiology",
-                "year": "2010",
-                "type": "article",
-                "volume": "71",
-                "pages": "21-73"
-        },
-        {
-                "title": "Biosynthesis and biotechnological production of flavanones: Current state and perspectives",
-                "author": "Fowler, Z.L., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Applied Microbiology and Biotechnology",
-                "year": "2009",
-                "type": "article",
-                "volume": "83",
-                "number": "5",
-                "pages": "799-808"
-        },
-        {
-                "title": "Expanding the repertoire of biofuel alternatives through metabolic pathway evolution",
-                "author": "<span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Proceedings of the National Academy of Sciences of the United States of America",
-                "year": "2009",
-                "type": "article",
-                "volume": "106",
-                "number": "4",
-                "pages": "965-966"
-        },
-        {
-                "title": "Increased malonyl coenzyme A biosynthesis by tuning the Escherichia coli metabolic network and its application to flavanone production",
-                "author": "Fowler, Z.L., Gikandi, W.W., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Applied and Environmental Microbiology",
-                "year": "2009",
-                "type": "article",
-                "volume": "75",
-                "number": "18",
-                "pages": "5831-5839"
-        },
-        {
-                "title": "Characterization of dihydroflavonol 4-reductases for recombinant plant pigment biosynthesis applications",
-                "author": "Leonard, E., Yan, Y., Chemler, J., Matern, U., Martens, S., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Biocatalysis and Biotransformation",
-                "year": "2008",
-                "type": "article",
-                "volume": "26",
-                "number": "3",
-                "pages": "243-251"
-        },
-        {
-                "title": "High-yield anthocyanin biosynthesis in engineered Escherichia coli",
-                "author": "Yan, Y., Li, Z., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Biotechnology and Bioengineering",
-                "year": "2008",
-                "type": "article",
-                "volume": "100",
-                "number": "1",
-                "pages": "126-140"
-        },
-        {
-                "title": "Metabolic engineering for plant natural product biosynthesis in microbes",
-                "author": "Chemler, J.A., <span class=\"highlight-author\">Koffas, M.A.</span>",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2008",
-                "type": "article",
-                "volume": "19",
-                "number": "6",
-                "pages": "597-605"
-        },
-        {
-                "title": "Recombinant microbes for flavonoid manufacture",
-                "author": "<span class=\"highlight-author\">Koffas, M.</span>",
-                "journal": "Industrial Bioprocessing",
-                "year": "2008",
-                "type": "article",
-                "volume": "30",
-                "number": "4",
-                "pages": "6"
-        },
-        {
-                "title": "Strain improvement of recombinant Escherichia coli for efficient production of plant flavonoids",
-                "author": "Leonard, E., Yan, Y., Fowler, Z.L., Li, Z., Lim, C.-G., Lim, K.-H., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Molecular Pharmaceutics",
-                "year": "2008",
-                "type": "article",
-                "volume": "5",
-                "number": "2",
-                "pages": "257-265"
-        },
-        {
-                "title": "Biosynthesis of 5-deoxyflavanones in microorganisms",
-                "author": "Yan, Y., Huang, L., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Biotechnology Journal",
-                "year": "2007",
-                "type": "article",
-                "volume": "2",
-                "number": "10",
-                "pages": "1250-1262"
-        },
-        {
-                "title": "Combinatorial mutasynthesis of flavonoid analogues from acrylic acids in microorganisms",
-                "author": "Chemler, J.A., Yan, Y., Leonard, E., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Organic Letters",
-                "year": "2007",
-                "type": "article",
-                "volume": "9",
-                "number": "10",
-                "pages": "1855-1858"
-        },
-        {
-                "title": "Engineering central metabolic pathways for high-level flavonoid production in Escherichia coli",
-                "author": "Leonard, E., Lim, K.-H., Saw, P.-N., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Applied and Environmental Microbiology",
-                "year": "2007",
-                "type": "article",
-                "volume": "73",
-                "number": "12",
-                "pages": "3877-3886"
-        },
-        {
-                "title": "Engineering of artificial plant cytochrome P450 enzymes for synthesis of isoflavones by Escherichia coli",
-                "author": "Leonard, E., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Applied and Environmental Microbiology",
-                "year": "2007",
-                "type": "article",
-                "volume": "73",
-                "number": "22",
-                "pages": "7246-7251"
-        },
-        {
-                "title": "Microbial production of flavonoids",
-                "author": "<span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Industrial Bioprocessing",
-                "year": "2007",
-                "type": "article",
-                "volume": "29",
-                "number": "10",
-                "pages": "2"
-        },
-        {
-                "title": "Standardized biosynthesis of flavan-3-ols with effects on pancreatic beta-cell insulin secretion",
-                "author": "Chemler, J.A., Lock, L.T., <span class=\"highlight-author\">Koffas, M.A.G.</span>, Tzanakakis, E.S.",
-                "journal": "Applied Microbiology and Biotechnology",
-                "year": "2007",
-                "type": "article",
-                "volume": "77",
-                "number": "4",
-                "pages": "797-807"
-        },
-        {
-                "title": "Biosynthesis of isoprenoids, polyunsaturated fatty acids and flavonoids in Saccharomyces cerevisiae",
-                "author": "Chemler, J.A., Yan, Y., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Microbial Cell Factories",
-                "year": "2006",
-                "type": "article",
-                "volume": "5"
-        },
-        {
-                "title": "Expression of a soluble flavone synthase allows the biosynthesis of phytoestrogen derivatives in Escherichia coli",
-                "author": "Leonard, E., Chemler, J., Kok, H.L., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Applied Microbiology and Biotechnology",
-                "year": "2006",
-                "type": "article",
-                "volume": "70",
-                "number": "1",
-                "pages": "85-91"
-        },
-        {
-                "title": "Functional expression of a P450 flavonoid hydroxylase for the biosynthesis of plant-specific hydroxylated flavonols in Escherichia coli",
-                "author": "Leonard, E., Yan, Y., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Metabolic Engineering",
-                "year": "2006",
-                "type": "article",
-                "volume": "8",
-                "number": "2",
-                "pages": "172-181"
-        },
-        {
-                "title": "Biosynthesis of natural flavanones in Saccharomyces cerevisiae",
-                "author": "Yan, Y., Kohli, A., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Applied and Environmental Microbiology",
-                "year": "2005",
-                "type": "article",
-                "volume": "71",
-                "number": "9",
-                "pages": "5610-5613"
-        },
-        {
-                "title": "Evolutionary metabolic engineering",
-                "author": "<span class=\"highlight-author\">Koffas, M.</span>, Cardayre, S.D.",
-                "journal": "Metabolic Engineering",
-                "year": "2005",
-                "type": "article",
-                "volume": "7",
-                "number": "1 SPEC. ISS.",
-                "pages": "1-3"
-        },
-        {
-                "title": "Investigation of two distinct flavone synthases for plant-specific flavone biosynthesis in Saccharomyces cerevisiae",
-                "author": "Leonard, E., Yan, Y., Lim, K.H., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Applied and Environmental Microbiology",
-                "year": "2005",
-                "type": "article",
-                "volume": "71",
-                "number": "12",
-                "pages": "8241-8248"
-        },
-        {
-                "title": "Metabolic engineering of anthocyanin biosynthesis in Escherichia coli",
-                "author": "Yan, Y., Chemler, J., Huang, L., Martens, S., <span class=\"highlight-author\">Koffas, M.A.G.</span>",
-                "journal": "Applied and Environmental Microbiology",
-                "year": "2005",
-                "type": "article",
-                "volume": "71",
-                "number": "7",
-                "pages": "3617-3623"
-        },
-        {
-                "title": "Strain improvement by metabolic engineering: Lysine production as a case study for systems biology",
-                "author": "<span class=\"highlight-author\">Koffas, M.</span>, Stephanopoulos, G.",
-                "journal": "Current Opinion in Biotechnology",
-                "year": "2005",
-                "type": "article",
-                "volume": "16",
-                "number": "3 SPEC. ISS.",
-                "pages": "361-366"
-        },
-        {
-                "title": "Engineering metabolism and product formation in Corynebacterium glutamicum by coordinated gene overexpression",
-                "author": "<span class=\"highlight-author\">Koffas, M.A.G.</span>, Jung, G.Y., Stephanopoulos, G.",
-                "journal": "Metabolic Engineering",
-                "year": "2003",
-                "type": "article",
-                "volume": "5",
-                "number": "1",
-                "pages": "32-41"
-        },
-        {
-                "title": "Effect of pyruvate carboxylase overexpression on the physiology of Corynebacterium glutamicum",
-                "author": "<span class=\"highlight-author\">Koffas, M.A.G.</span>, Jung, G.Y., Aon, J.C., Stephanopoulos, G.",
-                "journal": "Applied and Environmental Microbiology",
-                "year": "2002",
-                "type": "article",
-                "volume": "68",
-                "number": "11",
-                "pages": "5422-5428"
-        },
-        {
-                "title": "Metabolic engineering",
-                "author": "<span class=\"highlight-author\">Koffas, M.</span>, Roberge, C., Lee, K., Stephanopoulos, G.",
-                "journal": "Annual Review of Biomedical Engineering",
-                "year": "1999",
-                "type": "article",
-                "number": "1",
-                "pages": "535-557"
-        },
-        {
-                "title": "Sequence of the Corynebacterium glutamicum pyruvate carboxylase gene",
-                "author": "<span class=\"highlight-author\">Koffas, M.A.G.</span>, Ramamoorthi, R., Pine, W.A., Sinskey, A.J., Stephanopoulos, G.",
-                "journal": "Applied Microbiology and Biotechnology",
-                "year": "1998",
-                "type": "article",
-                "volume": "50",
-                "number": "3",
-                "pages": "346-352"
-        }
-];
-        ];
-
-        let filteredPublications = [...publications];
-        let currentYearFilter = 'all';
-        let currentTopicFilter = 'all';
-
-        // Helper function to check if DOI exists and is valid
-        function hasValidDOI(pub) {
-            return pub.doi && pub.doi.trim() !== '' && pub.doi.trim() !== ' ';
-        }
-
-        // Helper function to format DOI URL
-        function formatDOIUrl(doi) {
-            if (!doi || doi.trim() === '') return '#';
-            
-            // If DOI already starts with http, return as is
-            if (doi.startsWith('http')) {
-                return doi;
-            }
-            
-            // Otherwise, prepend the DOI URL prefix
-            return `https://doi.org/${doi.trim()}`;
-        }
-
-        // Filter functionality
-        function filterPublications() {
-            let filtered = [...publications];
-            
-            // Apply year filter
-            if (currentYearFilter !== 'all') {
-                filtered = filtered.filter(pub => {
-                    const year = pub.year || 0;
-                    switch (currentYearFilter) {
-                        case '2020+':
-                            return year >= 2020;
-                        case '2015-2019':
-                            return year >= 2015 && year <= 2019;
-                        case '2010-2014':
-                            return year >= 2010 && year <= 2014;
-                        case 'before-2010':
-                            return year < 2010 && year > 0;
-                        default:
-                            return true;
-                    }
-                });
-            }
-            
-            // Apply topic filter
-            if (currentTopicFilter !== 'all') {
-                filtered = filtered.filter(pub => {
-                    const title = (pub.title || '').toLowerCase();
-                    const journal = (pub.journal || '').toLowerCase();
-                    
-                    switch (currentTopicFilter) {
-                        case 'metabolic':
-                            return title.includes('metabolic') || title.includes('metabolism');
-                        case 'synthetic':
-                            return title.includes('synthetic') || title.includes('design');
-                        case 'biotechnology':
-                            return title.includes('biotechnology') || title.includes('biotech');
-                        case 'biofuels':
-                            return title.includes('biofuel') || title.includes('ethanol') || title.includes('biodiesel');
-                        case 'fermentation':
-                            return title.includes('fermentation') || title.includes('cultivation');
-                        case 'protein':
-                            return title.includes('protein') || title.includes('enzyme');
-                        default:
-                            return true;
-                    }
-                });
-            }
-            
-            filteredPublications = filtered;
-            updateResultsInfo();
-            renderPublications();
-        }
-
-        function clearFilters() {
-            currentYearFilter = 'all';
-            currentTopicFilter = 'all';
-            
-            // Reset dropdown selections
-            document.querySelectorAll('.dropdown-item').forEach(item => {
-                item.classList.remove('selected');
-            });
-            document.querySelector('[data-value="all"]').classList.add('selected');
-            document.querySelectorAll('[data-value="all"]').forEach(item => {
-                item.classList.add('selected');
-            });
-            
-            // Reset pill text
-            document.getElementById('year-filter-pill').childNodes[0].textContent = 'All Years ';
-            document.getElementById('topic-filter-pill').childNodes[0].textContent = 'All Topics ';
-            
-            filterPublications();
-        }
-
-        function updateResultsInfo() {
-            const totalPubs = publications.length;
-            const filteredCount = filteredPublications.length;
-            const infoEl = document.getElementById('results-info');
-            
-            if (filteredCount === totalPubs) {
-                infoEl.textContent = `Showing all ${totalPubs} publications`;
-            } else {
-                infoEl.textContent = `Showing ${filteredCount} of ${totalPubs} publications`;
-            }
-        }
-
-        function renderPublications() {
-            const container = document.getElementById('publications-container');
-            
-            if (filteredPublications.length === 0) {
-                container.innerHTML = `
-                    <div class="no-results">
-                        <h3>No Publications Found</h3>
-                        <p>Try adjusting your filters.</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            // Group by year
-            const publicationsByYear = {};
-            filteredPublications.forEach(pub => {
-                const year = pub.year || 'Unknown';
-                if (!publicationsByYear[year]) {
-                    publicationsByYear[year] = [];
-                }
-                publicationsByYear[year].push(pub);
-            });
-            
-            // Sort years in descending order
-            const sortedYears = Object.keys(publicationsByYear).sort((a, b) => {
-                if (a === 'Unknown') return 1;
-                if (b === 'Unknown') return -1;
-                return b - a;
-            });
-            
-            let html = '';
-            sortedYears.forEach(year => {
-                const publications = publicationsByYear[year];
-                html += `
-                    <div class="year-section">
-                        <div class="year-header">
-                            <div class="year-title">${year}</div>
-                            <span class="year-count">${publications.length}</span>
-                        </div>
-                `;
-                
-                publications.forEach(pub => {
-                    const formattedTitle = (pub.title || 'Untitled').replace(/<(?!\/?(em)\b)[^>]*>/g, '');
-                    const authors = pub.author || 'Authors not specified';
-                    const journal = pub.journal || 'Journal not specified';
-                    
-                    // Only create DOI link if DOI exists and is valid
-                    const hasDOI = hasValidDOI(pub);
-                    const doiUrl = hasDOI ? formatDOIUrl(pub.doi) : '#';
-                    const doiLinkHtml = hasDOI ? `<a href="${doiUrl}" class="doi-link" target="_blank">DOI</a>` : '';
-                    
-                    html += `
-                        <div class="publication-card">
-                            <div class="card-content">
-                                <h3 class="publication-title">
-                                    ${hasDOI ? `<a href="${doiUrl}" target="_blank">${formattedTitle}</a>` : formattedTitle}
-                                </h3>
-                                <p class="publication-authors">${authors}</p>
-                                <p class="publication-journal">${journal}</p>
-                            </div>
-                            <div class="card-footer">
-                                <div>
-                                    <small class="publication-year">Published in <strong>${year}</strong></small>
-                                </div>
-                                <div class="actions">
-                                    ${doiLinkHtml}
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                html += '</div>';
-            });
-            
-            container.innerHTML = html;
-        }
-
-        // Setup event listeners
-        function setupEventListeners() {
-            // Handle dropdown item selection
-            document.querySelectorAll('.dropdown-item').forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    
-                    const dropdownPill = this.closest('.filter-pill');
-                    const pillText = dropdownPill.childNodes[0];
-                    pillText.textContent = this.textContent + ' ';
-                    
-                    this.parentElement.querySelectorAll('.selected').forEach(selected => {
-                        selected.classList.remove('selected');
-                    });
-                    this.classList.add('selected');
-                    
-                    const filterValue = this.dataset.value;
-                    if (dropdownPill.id === 'year-filter-pill') {
-                        currentYearFilter = filterValue;
-                    } else if (dropdownPill.id === 'topic-filter-pill') {
-                        currentTopicFilter = filterValue;
-                    }
-                    
-                    filterPublications();
-                });
-            });
-
-            // Clear filters button
-            document.getElementById('clear-filters-btn').addEventListener('click', clearFilters);
-        }
-
-        // Initialize
+        // Auto-open external links in new tabs
         document.addEventListener('DOMContentLoaded', function() {
-            setupEventListeners();
-            updateResultsInfo();
-            renderPublications();
+            // Get all links on the page
+            const links = document.querySelectorAll('a[href]');
+            
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                
+                // Skip if already has target attribute or is internal navigation
+                if (link.hasAttribute('target') || !href) return;
+                
+                // Check if it's an external link
+                if (href.startsWith('http://') || 
+                    href.startsWith('https://') || 
+                    href.startsWith('mailto:') || 
+                    href.startsWith('tel:')) {
+                    
+                    // Don't open mailto and tel links in new tab
+                    if (!href.startsWith('mailto:') && !href.startsWith('tel:')) {
+                        link.setAttribute('target', '_blank');
+                        link.setAttribute('rel', 'noopener noreferrer');
+                    }
+                }
+            });
         });
+        
+        function toggleNav() {
+            const navCard = document.getElementById('navCard');
+            const navToggle = document.querySelector('.nav-toggle');
+            
+            navCard.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        }
+
+        function toggleCategory(category) {
+            category.classList.toggle('expanded');
+        }
+
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function scrollToElement(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
     </script>
 </body>
 </html>
