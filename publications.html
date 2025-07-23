@@ -631,7 +631,7 @@
                 
                 publications.forEach(pub => {
                     const formattedTitle = (pub.title || 'Untitled').replace(/<(?!\/?(em)\b)[^>]*>/g, '');
-                    const authors = pub.authors || 'Authors not specified';
+                    const authors = pub.author || 'Authors not specified';
                     const journal = pub.journal || 'Journal not specified';
                     const url = pub.url || '#';
                     
