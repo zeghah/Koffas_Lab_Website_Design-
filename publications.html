@@ -2435,18 +2435,15 @@
                         </div>
                 `;
                 
-    publications.forEach(pub => {
+       publications.forEach(pub => {
         const formattedTitle = (pub.title || 'Untitled').replace(/<(?!\/?(em)\b)[^>]*>/g, '');
         const author = pub.author || 'Authors not specified';
         const journal = pub.journal || 'Journal not specified';
         const year = pub.year || 'Year not specified';
-        const doi = pub.doi || '';
+        const doi = pub.doi;
+    
         const url = doi ? `https://doi.org/${doi}` : '';
-
-        const doiLink = doi
-            ? `<a href="${url}" class="doi" target="_blank" rel="noopener noreferrer">DOI</a>`
-            : '';
-
+    
         html += `
             <div class="publication-card">
                 <div class="card-content">
@@ -2461,12 +2458,13 @@
                         <small class="publication-year">Published in <strong>${year}</strong></small>
                     </div>
                     <div class="actions">
-                        ${doiLink}
+                        ${doi ? `<a href="${url}" class="doi" target="_blank" rel="noopener noreferrer">DOI</a>` : ''}
                     </div>
                 </div>
             </div>
         `;
     });
+
 
 
         // Setup event listeners
