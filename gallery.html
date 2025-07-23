@@ -124,7 +124,37 @@
             margin: 0 auto;
         }
 
-        /* Gallery Grid - Simple grid with proper horizontal image handling */
+        /* Category Filter */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid var(--sage-medium);
+            color: var(--sage-dark);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--sage-dark);
+            color: var(--white);
+            border-color: var(--sage-dark);
+        }
+
+        /* Gallery Grid - Clean and simple */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -138,8 +168,8 @@
             position: relative;
             border-radius: 12px;
             overflow: hidden;
-            background: var(--sage-light);
-            box-shadow: 0 4px 15px rgba(107, 142, 90, 0.15);
+            background: var(--white);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.4s ease;
             cursor: pointer;
         }
@@ -151,7 +181,7 @@
 
         .gallery-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(107, 142, 90, 0.25);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
 
         /* Image container that preserves aspect ratio */
@@ -202,86 +232,8 @@
             min-height: 200px;
         }
 
-        .gallery-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, rgba(74, 103, 65, 0.85), rgba(74, 103, 65, 0.1));
-            opacity: 1;
-            transition: all 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 1.5rem;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            background: linear-gradient(to top, rgba(74, 103, 65, 0.95), rgba(74, 103, 65, 0.3));
-        }
-
         .gallery-item:hover .gallery-image img {
             transform: scale(1.05);
-        }
-
-        .gallery-caption {
-            color: var(--white);
-        }
-
-        .gallery-caption h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            transform: translateY(0);
-            transition: transform 0.4s ease 0.1s;
-        }
-
-        .gallery-caption p {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            opacity: 0.9;
-            transform: translateY(0);
-            transition: transform 0.4s ease 0.2s;
-        }
-
-        .gallery-item:hover .gallery-caption h3 {
-            transform: translateY(-3px);
-        }
-
-        .gallery-item:hover .gallery-caption p {
-            transform: translateY(-3px);
-            opacity: 1;
-        }
-
-        /* Category Filter */
-        .filter-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.2s forwards;
-        }
-
-        .filter-btn {
-            padding: 10px 20px;
-            background: transparent;
-            border: 2px solid var(--sage-medium);
-            color: var(--sage-dark);
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: var(--sage-dark);
-            color: var(--white);
-            border-color: var(--sage-dark);
         }
 
         /* Special styling for different categories */
@@ -342,7 +294,7 @@
                 width: 100%;
                 height: auto;
                 border-right: none;
-                border-bottom: 1px solid rgba(107, 142, 90, 0.2);
+                border-bottom: 1px solid rgba(102, 102, 102, 0.2);
             }
 
             .tab-nav {
@@ -363,7 +315,7 @@
 
             .tab-nav a.active {
                 border-left: none;
-                border-bottom: 3px solid var(--sage-dark);
+                border-bottom: 3px solid var(--primary-dark);
             }
 
             .main-content {
@@ -400,7 +352,7 @@
 
         /* Loading animation for images */
         .gallery-image.loading {
-            background: linear-gradient(90deg, var(--sage-light) 25%, var(--sage-medium) 50%, var(--sage-light) 75%);
+            background: linear-gradient(90deg, var(--primary-light) 25%, var(--primary-medium) 50%, var(--primary-light) 75%);
             background-size: 200% 100%;
             animation: loading-shimmer 2s infinite;
         }
@@ -413,8 +365,6 @@
                 background-position: 200% 0;
             }
         }
-
-
     </style>
 </head>
 <body>
@@ -441,7 +391,6 @@
                     <p>Capturing moments of discovery, collaboration, and celebration in the Koffas Research Group</p>
                 </div>
 
-
                 <!-- Filter Buttons -->
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">All Photos</button>
@@ -458,12 +407,6 @@
                         <div class="gallery-image">
                             <img src="gallery/summer2024.jpg" alt="Summer2024" />
                         </div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-caption">
-                                <h3>Koffas Lab Annual Summer Outing</h3>
-                                <p>Our research group gathered at Saratoga Lake for some Kayaking!</p>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Lab Work Photos -->
@@ -471,22 +414,11 @@
                         <div class="gallery-image">
                            <img src="gallery/Bottles .jpg" alt="" />
                         </div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-caption">
-                                <p></p>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="gallery-item group-photo" data-category="group-photo">
                         <div class="gallery-image">
                            <img src="gallery/2023_summer_group_photo.jpg" alt="" />
-                        </div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-caption">
-                                <h3>Koffas Lab Summer Outing 2023</h3>
-                                <p>Our lab went Mini-Golfing for our Annual Summer Outing! </p>
-                            </div>
                         </div>
                     </div>
 
@@ -494,21 +426,11 @@
                         <div class="gallery-image">
                             <img src="gallery/labphoto.jpg" alt="" />
                         </div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-caption">
-                            </div>
-                        </div>
                     </div>
 
                     <div class="gallery-item group-photo" data-category="group-photo">
                         <div class="gallery-image">
                             <img src="gallery/labphoto2.jpg" alt="" />
-                        </div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
                         </div>
                     </div>
 
@@ -516,23 +438,11 @@
                         <div class="gallery-image">
                              <img src="gallery/labphoto3.jpg" alt="" />
                         </div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="gallery-item lab-work" data-category="lab-work">
                         <div class="gallery-image">
                              <img src="gallery/plates.jpg" alt="" />
-                        </div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
                         </div>
                     </div>
 
@@ -540,36 +450,17 @@
                         <div class="gallery-image">
                              <img src="gallery/plates2.jpg" alt="" />
                         </div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
-                        </div>
                     </div>
 
-
-                      <div class="gallery-item conference" data-category="lab-work">
+                    <div class="gallery-item conference" data-category="lab-work">
                         <div class="gallery-image">
                              <img src="gallery/p12.jpg" alt="" />
                         </div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
-                        </div>
                     </div>
                     
-                      <div class="gallery-item conference" data-category="lab-work">
+                    <div class="gallery-item conference" data-category="lab-work">
                         <div class="gallery-image">
                              <img src="gallery/p35.jpg" alt="" />
-                        </div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
                         </div>
                     </div>
 
@@ -577,41 +468,19 @@
                         <div class="gallery-image">
                              <img src="gallery/p35.jpg" alt="" />
                         </div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
-                        </div>
                     </div>
 
                      <div class="gallery-item conference" data-category="lab-work">
                         <div class="gallery-image">
                              <img src="gallery/p40.jpg" alt="" />
                         </div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
-                        </div>
                     </div>
-
-
 
                      <div class="gallery-item conference" data-category="lab-work">
                         <div class="gallery-image">
                              <img src="gallery/p5.jpg" alt="" />
                         </div>
-                        <div class="gallery-overlay">
-                            <div class="gallery-caption">
-                                <h3></h3>
-                                <p></p>
-                            </div>
-                        </div>
                     </div>
-                    
-                    
                 </div>
             </div>
         </div>
