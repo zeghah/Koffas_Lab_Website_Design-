@@ -2434,7 +2434,6 @@
                             <span class="year-count">${publications.length}</span>
                         </div>
                 `;
-                
        publications.forEach(pub => {
         const formattedTitle = (pub.title || 'Untitled').replace(/<(?!\/?(em)\b)[^>]*>/g, '');
         const author = pub.author || 'Authors not specified';
@@ -2464,8 +2463,7 @@
             </div>
         `;
     });
-
-
+         
 
         // Setup event listeners
         function setupEventListeners() {
