@@ -222,6 +222,54 @@
             left: 0;
         }
 
+        /* Collaborators Minimal Style */
+        .collaborators-minimal {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(107, 142, 90, 0.2);
+        }
+
+        .collaborators-minimal .collaborators-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--sage-dark);
+            font-weight: 600;
+        }
+
+        .collaborators-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .collaborator-link {
+            color: var(--sage-dark);
+            text-decoration: underline;
+            text-decoration-color: transparent;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .collaborator-link:hover {
+            color: var(--sage-darker);
+            text-decoration-color: var(--sage-medium);
+            transform: translateY(-1px);
+        }
+
+        .collaborator-link::after {
+            content: '↗';
+            font-size: 0.8rem;
+            margin-left: 3px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .collaborator-link:hover::after {
+            opacity: 1;
+        }
+
         /* Unified styling for all major research sections */
         .biopolymers-section,
         .plastic-upcycling-section,
@@ -311,6 +359,11 @@
 
             .page-header h1 {
                 font-size: 2.2rem;
+            }
+
+            .collaborators-list {
+                flex-direction: column;
+                gap: 10px;
             }
         }
 
@@ -593,8 +646,6 @@
                         </button>
                         <div class="nav-card" id="navCard">
                             <div class="nav-card-header">
-                                <div class="nav-card-title">Research Areas</div>
-                                <div class="nav-card-subtitle">Jump to any project</div>
                             </div>
                             <div class="nav-card-content">
                                 <!-- Biopolymers Category -->
@@ -647,8 +698,6 @@
                             <p>Add your detailed paragraph about chondroitin sulfate research here. This section can include information about biosynthesis optimization, medical applications, and your specific research approaches.</p>
                             
                             <p>Additional paragraphs can be added here to provide comprehensive coverage of your chondroitin sulfate work, including methodology, results, and future directions.</p>
-                            
-                        
                         </div>
                     </div>
 
@@ -664,8 +713,14 @@
                                 <li>Design and characterize novel recombinant silk proteins with enhanced mechanical or biomedical properties suited for specialized applications</li>
                                 <li>Genetically engineer microbial hosts for improved expression, yield, and assembly of these recombinant silk proteins</li>
                             </ul>
-                            
-              
+
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <a href="https://www.biohybridmaterialslab.com" class="collaborator-link" target="_blank">Dr. Helen R. Zha</a>
+                                    <a href="https://engineering.washu.edu/faculty/Yinjie-Tang.html" class="collaborator-link" target="_blank">Dr. Yinjie Tang</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -681,7 +736,13 @@
                                 <li>Engineer metabolic pathways in bacteria to efficiently convert plastic-derived aromatics and other waste streams into γ-PGA</li>
                                 <li>Integrate plastic upcycling with biopolymer production to create circular economy solutions for waste management</li>
                             </ul>
-                            
+
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <a href="https://grossrpi.wixsite.com/gross" class="collaborator-link" target="_blank">Richard Gross</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -690,14 +751,13 @@
                              <img src="research/chromoproteins.jpg" alt="Chromoprotein Research">
                         </div>
                         <div class="research-content">
-                            <h3>Chromoproteins</h3>
+                            
                              <p>Chromoproteins offer biodegradable, renewable alternatives to synthetic dyes that harm the environment through toxic runoff and excessive water use. We engineer durable chromoproteins for sustainable coloration across textile, cosmetic, food, and paper industries.</p>
                             
                             <ul class="research-highlights">
                                 <li>Engineer chromoproteins with enhanced colorfastness and stability for industrial applications</li>
                                 <li>Develop scalable microbial production systems for cost-effective chromoprotein manufacturing</li>
                             </ul>
-                            
                         </div>
                     </div>
                 </div>
@@ -710,11 +770,19 @@
                             <img src="research/plastic-upcycling.png" alt="Plastic Upcycling">
                         </div>
                         <div class="research-content">
-                            <h3>Plastic Upcycling</h3>
-                            <p>Plastic pollution is one of the most pressing environmental challenges of our time, with millions of tons of plastic waste accumulating in landfills and natural ecosystems each year. Conventional recycling methods are often inefficient, and many plastics are not recycled at all, leading to long-term ecological harm.</p>
                             
-                            <p>In our lab, we are addressing this challenge by developing sustainable plastic upcycling strategies. Our research focuses on converting non-biodegradable plastics such as polystyrene and polyethylene terephthalate (PET) into high-value bioproducts through a combination of chemical and biological processes. Using approaches that integrate depolymerization with microbial fermentation, we transform plastic-derived compounds into functional materials like biopolymers and platform chemicals. This work supports the advancement of a circular economy and provides innovative pathways for mitigating plastic waste.</p>
-                            
+                            <p>Plastic pollution presents a critical environmental challenge with millions of tons accumulating in ecosystems annually, while conventional recycling remains inefficient for many plastic types. We develop sustainable upcycling strategies that convert non-biodegradable plastics like polystyrene and PET into high-value bioproducts through integrated chemical and biological processes.</p>
+                            <ul class="research-highlights">
+                                <li>Combine plastic depolymerization with microbial fermentation to transform plastic-derived compounds into functional materials</li>
+                                <li>Engineer pathways that convert plastic waste into biopolymers and platform chemicals to support circular economy solutions</li>
+                            </ul>
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <a href="https://www.rorrerlab.com/home" class="collaborator-link" target="_blank">Julie Rorrer</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -726,14 +794,22 @@
                             <img src="research/genome-editing.png" alt="Genome Editing"> 
                         </div>
                         <div class="research-content">
-                            <h3>Genome Editing</h3>
+                            
                             <p>Current gene editing tools face critical limitations - CRISPR struggles with non-dividing cells and large DNA insertions, while lentiviral vectors lack insertion specificity despite excellent integration efficiency. We develop a novel platform that combines viral delivery precision with programmable targeting to enable efficient, site-specific gene editing across diverse cell types.</p>
                             
                             <ul class="research-highlights">
                                 <li>Engineer fusion proteins combining HIV integrase with programmable targeting domains for site-specific integration</li>
                                 <li>Develop modified lentiviral architectures that ensure proper assembly and delivery of targeting components to both dividing and non-dividing cells</li>
                             </ul>
-                            
+
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <span style="color: var(--gray-medium); font-style: italic;">Susan Sarsteen</span>
+                                    <span style="color: var(--gray-medium); font-style: italic;">Wang (RPI)</span>
+                                    <span style="color: var(--gray-medium); font-style: italic;">Paelo (Mount Sinai)</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -747,15 +823,19 @@
                         </div>
                         <div class="research-content">
                             <h3>Fermentation</h3>
-                            <p>Add your detailed paragraph about bioengineering scale-up and fermentation research here. This section can cover bioreactor optimization, process control, and industrial applications.</p>
+                            <p>Recombinant microbial fermentation is a powerful technology used to produce a wide range of products, including therapeutic proteins, industrial enzymes, and bio-based chemicals. Microorganisms such as bacteria and yeast are genetically engineered to express target genes, enabling high-yield biosynthesis in controlled bioreactor environments.</p>
                             
                             <ul class="research-highlights">
-                                <li>Bioreactor design and optimization</li>
-                                <li>Process control strategies</li>
-                                <li>Scale-up modeling and simulation</li>
-                                <li>Industrial biotechnology applications</li>
+                                <li>Optimize fermentation parameters such as pH, temperature, oxygen levels, and nutrient feed strategies to support cell growth and maximize product output</li>
+                                <li>Apply expertise in microbial host engineering and bioprocess development to deliver robust, cost-effective, and scalable biotechnological solutions</li>
                             </ul>
-                           
+
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <a href="https://stephanopouloslab.mit.edu" class="collaborator-link" target="_blank">Dr. Gregory Stephanopoulos</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -768,16 +848,20 @@
                             <!-- Replace with actual image: <img src="research/cell-free.jpg" alt="Cell-free Systems"> -->
                         </div>
                         <div class="research-content">
-                            <h3>Cell-free Metabolic Engineering</h3>
-                            <p>Add your detailed paragraph about cell-free metabolic engineering research here. This section can cover platform development, pathway optimization, and applications.</p>
+                            
+                            <p>Commercial chemical production increasingly relies on engineered biological systems for their stereoselectivity and sustainability advantages, but limited intracellular accumulation of target metabolites often restricts optimal titers in living cells. We develop cell-free metabolic engineering platforms that overcome these constraints to achieve significantly higher compound yields for biocatalytic synthesis.</p>
                             
                             <ul class="research-highlights">
-                                <li>Cell-free protein synthesis platforms</li>
-                                <li>Metabolic pathway reconstruction</li>
-                                <li>Enzyme cascade optimization</li>
-                                <li>High-throughput screening systems</li>
+                                <li>Optimize microbial hosts to effectively channel carbon flux towards desired metabolic pathways</li>
+                                <li>Characterize and manipulate metabolic fluxes within cell-free systems to maximize product formation and yields</li>
                             </ul>
-                        
+
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <a href="https://enzymes.che.rpi.edu" class="collaborator-link" target="_blank">Dr. John Dordick</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -790,14 +874,21 @@
                            <img src="research/thread and hemp_5.jpg" alt="Textiles">
                         </div>
                         <div class="research-content">
+                        
                             <p>Current fiber industries face a sustainability crisis due to reliance on fossil-based materials, while natural fibers struggle to compete with synthetic alternatives. We develop "bioalloying" approaches that engineer molecular-level synergies between biobased materials to create multi-component fibers with enhanced properties and consistent performance</p>
                             
                              <ul class="research-highlights">
                                 <li>Engineer molecular interactions between natural fiber constituents to create novel property combinations</li>
                                 <li>Develop bioalloying strategies that provide tunable fiber properties despite variability in natural feedstocks</li>
                             </ul>
-                            
-                            
+
+                            <div class="collaborators-minimal">
+                                <span class="collaborators-label">Collaborators:</span>
+                                <div class="collaborators-list">
+                                    <a href="https://faculty.rpi.edu/daniel-walczyk" class="collaborator-link" target="_blank">Dr. Daniel Walczyk</a>
+                                    <a href="https://faculty.rpi.edu/johnson-samuel" class="collaborator-link" target="_blank">Dr. Johnson Samuel</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
