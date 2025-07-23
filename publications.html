@@ -2448,9 +2448,9 @@
                         <div class="publication-card">
                             <div class="card-content">
                                 <h3 class="publication-title">
-                                    <a href="${url || '#'}" target="_blank" rel="noopener noreferrer">${formattedTitle}</a>
+                                    <a href="${url}">${formattedTitle}</a>
                                 </h3>
-                                <p class="publication-author">${author}</p>
+                                <p class="publication-authors">${authors}</p>
                                 <p class="publication-journal">${journal}</p>
                             </div>
                             <div class="card-footer">
@@ -2458,12 +2458,18 @@
                                     <small class="publication-year">Published in <strong>${year}</strong></small>
                                 </div>
                                 <div class="actions">
-                                    ${doi ? `<a href="${url}" class="doi" target="_blank" rel="noopener noreferrer">DOI</a>` : ''}
+                                    <a href="${url}" class="doi-link">📄 DOI</a>
                                 </div>
                             </div>
                         </div>
                     `;
                 });
+                
+                html += '</div>';
+            });
+            
+            container.innerHTML = html;
+        }
          
 
         // Setup event listeners
