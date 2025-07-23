@@ -2437,7 +2437,7 @@
                 
                 publications.forEach(pub => {
                     const formattedTitle = (pub.title || 'Untitled').replace(/<(?!\/?(em)\b)[^>]*>/g, '');
-                    const authors = pub.authors || 'Authors not specified';
+                    const authors = pub.author || 'Authors not specified';
                     const journal = pub.journal || 'Journal not specified';
                     const url = pub.url || '#';
                     const year = pub.year || 'Year not specified';
@@ -2451,7 +2451,7 @@
                                 <h3 class="publication-title">
                                     <a href="${url}">${formattedTitle}</a>
                                 </h3>
-                                <p class="publication-authors">${authors}</p>
+                                <p class="publication-authors">${author}</p>
                                 <p class="publication-journal">${journal}</p>
                             </div>
                             <div class="card-footer">
